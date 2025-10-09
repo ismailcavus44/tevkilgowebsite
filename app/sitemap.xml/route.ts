@@ -1,14 +1,45 @@
-import { MetadataRoute } from "next";
-
-export default function sitemap(): MetadataRoute.Sitemap {
+export function GET() {
   const base = "https://www.tevkilgo.com";
-  return [
-    { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/blog`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/kvkk`, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/gizlilik-politikasi`, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/sorumluluk-reddi`, changeFrequency: "yearly", priority: 0.5 },
-  ];
+  
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${base}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${base}/biz-kimiz</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${base}/blog</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>${base}/kvkk</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${base}/gizlilik-politikasi</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${base}/sorumluluk-reddi</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>`;
+
+  return new Response(sitemap, {
+    headers: {
+      'Content-Type': 'application/xml',
+    },
+  });
 }
 
 

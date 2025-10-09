@@ -1,13 +1,14 @@
-import { MetadataRoute } from "next";
+export function GET() {
+  const robotsTxt = `User-agent: *
+Allow: /
 
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
+Sitemap: https://www.tevkilgo.com/sitemap.xml`;
+
+  return new Response(robotsTxt, {
+    headers: {
+      'Content-Type': 'text/plain',
     },
-    sitemap: "https://www.tevkilgo.com/sitemap.xml",
-  };
+  });
 }
 
 
