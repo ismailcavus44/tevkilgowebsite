@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <>
@@ -16,15 +14,18 @@ export default function Home() {
             </p>
             <div className="flex flex-row items-center gap-2 justify-center sm:justify-start">
               <a href="#" aria-label="App Store">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/store/ios.svg" alt="App Store" className="w-[140px] sm:w-[180px] h-auto" />
               </a>
               <a href="#" aria-label="Google Play">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/store/googlePlayButton.png" alt="Google Play" className="w-[140px] sm:w-[180px] h-auto" />
               </a>
             </div>
           </div>
           <div className="hidden lg:flex lg:col-span-6 items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] aspect-square rounded-2xl ring-1 ring-secondary/10 bg-secondary/5 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/hero/hero.png" alt="TevkilGO uygulama önizleme" className="h-full w-full object-contain" />
               <div className="pointer-events-none absolute -inset-16 bg-gradient-to-tr from-primary/20 to-transparent blur-3xl -z-10" />
             </div>
@@ -119,7 +120,7 @@ export default function Home() {
           </div>
           <div className="hidden lg:block lg:col-span-6 p-4 sm:p-6">
             <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden lg:sticky lg:top-24">
-              {/* Görsel alanı: /public/howto/ikinci.png */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/howto/ikinci.png" alt="Nasıl çalışır görseli" className="h-full w-full object-cover" />
             </div>
           </div>
