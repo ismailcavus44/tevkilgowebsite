@@ -73,8 +73,8 @@ export default function Home() {
       {/* NASIL ÇALIŞIR */}
       <section id="nasil-calisir" className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-xl font-semibold pl-3 border-l-4 border-primary">Nasıl çalışır?</h2>
-        <div className="mt-6 grid lg:grid-cols-12 gap-4 rounded-2xl bg-background overflow-hidden">
-          <div className="lg:col-span-12 p-6 sm:p-8 relative">
+        <div className="mt-6 grid lg:grid-cols-2 gap-8 rounded-2xl bg-background p-6 sm:p-8">
+          <div className="relative">
             <ol className="grid gap-8">
               <li className="grid gap-2 pl-6">
                 <div className="flex items-start gap-4">
@@ -118,8 +118,8 @@ export default function Home() {
           </li>
         </ol>
           </div>
-          <div className="hidden lg:block lg:col-span-6 p-4 sm:p-6">
-            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden lg:sticky lg:top-24">
+          <div className="hidden lg:block">
+            <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden lg:sticky lg:top-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/howto/ikinci.png" alt="Nasıl çalışır görseli" className="h-full w-full object-cover" />
             </div>
