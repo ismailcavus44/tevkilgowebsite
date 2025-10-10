@@ -23,7 +23,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link
             className="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-primary text-white hover:bg-primary/90"
-            href="/#iletisim"
+            href="/iletisim"
           >
             İletişim
           </Link>
@@ -72,7 +72,7 @@ export default function Header() {
             </Link>
             <Link
               className="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium bg-primary text-white hover:bg-primary/90"
-              href="/#iletisim"
+              href="/iletisim"
               onClick={() => setMobileMenuOpen(false)}
             >
               İletişim
