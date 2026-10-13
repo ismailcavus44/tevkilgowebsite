@@ -4,7 +4,8 @@ import { RegisterForm } from "@/components/RegisterForm";
 
 export const metadata = { title: "Üye ol" };
 
-export default async function UyeOlPage({ searchParams }) {
+// searchParams istek anında okunur; Suspense dışında kalırsa ön derleme durur
+async function UyeOlIcerik({ searchParams }) {
   const sorgu = await searchParams;
   const donus = sorgu.donus === "1";
   const kod = new URLSearchParams({
@@ -28,5 +29,13 @@ export default async function UyeOlPage({ searchParams }) {
         <RegisterForm />
       </Suspense>
     </AuthScreen>
+  );
+}
+
+export default function UyeOlPage({ searchParams }) {
+  return (
+    <Suspense>
+      <UyeOlIcerik searchParams={searchParams} />
+    </Suspense>
   );
 }
