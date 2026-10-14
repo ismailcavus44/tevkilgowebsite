@@ -19,7 +19,7 @@ import { enErkenSaat, istanbulAn, istanbulParcalari, ymdIstanbul } from "@/lib/t
 const ALAN = "h-9! w-full rounded-md border border-input bg-white px-3 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50";
 const TETIK = `${ALAN} flex cursor-pointer items-center justify-between gap-2 py-0 text-left data-placeholder:text-muted-foreground`;
 
-export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId, onHazir, onYukleniyor }) {
+export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = false, formId, onHazir, onYukleniyor }) {
   const { secenekler: kategoriSecenekleri } = useKategoriler();
   const router = useRouter();
   const [sehirler, setSehirler] = useState([]);
@@ -32,7 +32,8 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
   const [hata, setHata] = useState("");
   const [mesaj, setMesaj] = useState("");
   const [yukleniyor, setYukleniyor] = useState(false);
-  const [hazir, setHazir] = useState(!duzenleId);
+  const yukleId = duzenleId || kaynakId;
+  const [hazir, setHazir] = useState(!yukleId);
   const [anMs, setAnMs] = useState(null);
   const formRef = useRef(null);
 
@@ -62,19 +63,20 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
   }, []);
 
   useEffect(() => {
-    if (!duzenleId) return undefined;
+    if (!yukleId) return undefined;
     let iptal = false;
     createClient()
       .from("gorevlerim")
       .select("*")
-      .eq("id", duzenleId)
+      .eq("id", yukleId)
       .eq("rol", "olusturan")
       .maybeSingle()
       .then(({ data, error }) => {
         if (iptal) return;
         if (error) setHata(hataMesaji(error));
         else if (data) {
-          const parca = istanbulParcalari(data.tarih_saat);
+          // Yeniden yayınlarken eski tarih geçmişte kalır; tarih/saat yeniden seçilir.
+          const parca = duzenleId ? istanbulParcalari(data.tarih_saat) : { tarih: "", saat: "" };
           setForm({
             sehir: data.sehir || "",
             adliye: data.adliye || "",
@@ -91,7 +93,7 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
     return () => {
       iptal = true;
     };
-  }, [duzenleId]);
+  }, [yukleId, duzenleId]);
 
   useEffect(() => {
     if (!form.kategori) return undefined;

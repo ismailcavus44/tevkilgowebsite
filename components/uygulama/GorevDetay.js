@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Star } from "@phosphor-icons/react";
-import { Banknote, Calendar, Users, XIcon } from "lucide-react";
+import { Banknote, Calendar, Copy, MessageCircle, Phone, RotateCcw, Users, XIcon } from "lucide-react";
 import { Button } from "@/components/Button";
 import { Button as UiButton } from "@/components/ui/button";
 import { SheetClose } from "@/components/ui/sheet";
@@ -14,13 +15,23 @@ import { Iskelet, kategoriAd, useKategoriler } from "@/components/uygulama/ortak
 import { StatusBadge, durumAnahtari } from "@/components/uygulama/StatusBadge";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
-import { tarihGun, tarihSaat } from "@/lib/tarih";
+import { saatYazi, tarihGun, tarihSaat } from "@/lib/tarih";
 
 function sureYazi(ms) {
   const toplam = Math.max(0, Math.ceil(ms / 1000));
   const dakika = Math.floor(toplam / 60);
   const saniye = toplam % 60;
   return `${String(dakika).padStart(2, "0")}:${String(saniye).padStart(2, "0")}`;
+}
+
+function gunYazi(iso) {
+  if (!iso) return "";
+  return new Date(iso).toLocaleDateString("tr-TR", { day: "numeric", month: "long", timeZone: "Europe/Istanbul" });
+}
+
+function haftaGunu(iso) {
+  if (!iso) return "";
+  return new Date(iso).toLocaleDateString("tr-TR", { weekday: "long", timeZone: "Europe/Istanbul" });
 }
 
 function whatsappNumara(phone) {
@@ -32,6 +43,7 @@ function whatsappNumara(phone) {
 
 export function GorevDetay({ id }) {
   useKategoriler();
+  const router = useRouter();
   const [gorev, setGorev] = useState(null);
   const [kaynak, setKaynak] = useState(null);
   const [basvuranlar, setBasvuranlar] = useState([]);
@@ -219,6 +231,12 @@ export function GorevDetay({ id }) {
     kaydir.current.scrollTop = 0;
   }, [duzenle]);
 
+  function yenidenYayinla() {
+    // Panel kapanınca form listenin üstünde açılır; yayınlanınca zaten listeye dönülür.
+    router.push("/app/gorevlerim");
+    window.dispatchEvent(new CustomEvent("ilan-ac", { detail: { kaynakId: id } }));
+  }
+
   function duzenlemeyiAc() {
     setFormHazir(false);
     setKaydediyor(false);
@@ -230,6 +248,7 @@ export function GorevDetay({ id }) {
   const taraf = sahip || gorev?.basvuru_durumu === "secildi";
   const tarihGecti = Boolean(simdi && gorev?.tarih_saat && new Date(gorev.tarih_saat).getTime() < simdi);
 
+  const yenidenYayinlanabilir = Boolean(sahip && (gorev?.durum === "suresi_doldu" || gorev?.durum === "iptal"));
   const rozetDurum = gorev ? (toplaniyor ? "toplaniyor" : durumAnahtari(gorev, dakika, 0)) : "acik";
   const surec = gorev ? surecAdimlari(gorev, { toplaniyor, verilenPuan }) : [];
   const aksiyonVar = Boolean(gorev && (
@@ -238,6 +257,7 @@ export function GorevDetay({ id }) {
     || (sahip && gorev.durum === "atandi")
     || (sahip && gorev.durum === "tamamlandi" && !verilenPuan)
     || (taraf && (gorev.durum === "atandi" || gorev.durum === "tamamlandi"))
+    || yenidenYayinlanabilir
   ));
 
   return (
@@ -247,11 +267,11 @@ export function GorevDetay({ id }) {
           <div className="min-w-0 flex-1">
             {duzenle ? <h2 className="text-lg font-semibold">Görevi düzenle</h2> : gorev ? (
               <div className="space-y-2">
-                <div>
-                  <h2 className="text-lg font-semibold">{kategoriAd(gorev.kategori)}</h2>
-                  <p className="text-sm text-muted-foreground">{adliyeAd || gorev.adliye}</p>
-                </div>
                 <StatusBadge durum={rozetDurum} className={PANEL_ROZET[rozetDurum]} />
+                <div>
+                  <h2 className="text-xl leading-tight font-semibold">{adliyeAd || gorev.adliye}</h2>
+                  <p className="mt-0.5 text-sm text-muted-foreground">{kategoriAd(gorev.kategori)}</p>
+                </div>
               </div>
             ) : <h2 className="text-lg font-semibold">Görev</h2>}
           </div>
@@ -276,16 +296,29 @@ export function GorevDetay({ id }) {
           <div className="divide-y divide-border">
             {hata ? <div className="px-6 py-3"><FormHatasi>{hata}</FormHatasi></div> : null}
             {sahip && gorev.durum === "atandi" && tarihGecti ? <div className="px-6 py-3"><TamamlaUyarisi /></div> : null}
-            <section className="p-6">
-              <div className="grid grid-cols-2 gap-3 rounded-lg border bg-muted/40 p-4">
-                <OzetAlan ikon={Calendar} etiket="Tarih-saat" deger={tarihSaat(gorev.tarih_saat, true)} />
-                <OzetAlan ikon={Banknote} etiket="Ücret" deger={`${Number(gorev.ucret).toLocaleString("tr-TR")} ₺`} vurgu />
-                <OzetAlan ikon={Users} etiket="Başvuru" deger={`${gorev.basvuru_sayisi || 0}/10`} />
+            <section className="px-6 py-5">
+              <div className="grid grid-cols-2 divide-x divide-border">
+                <div className="min-w-0 pr-4">
+                  <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><Calendar className="size-3.5" aria-hidden="true" />Tarih ve saat</p>
+                  <p className="mt-1 text-lg leading-tight font-semibold tabular-nums">{gunYazi(gorev.tarih_saat)}</p>
+                  <p className="text-sm text-muted-foreground tabular-nums">{haftaGunu(gorev.tarih_saat)} · {saatYazi(gorev.tarih_saat, true)}</p>
+                </div>
+                <div className="min-w-0 pl-4">
+                  <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><Banknote className="size-3.5" aria-hidden="true" />Ücret</p>
+                  <p className="mt-1 text-lg leading-tight font-semibold tabular-nums">{Number(gorev.ucret).toLocaleString("tr-TR")} ₺</p>
+                  <p className="flex items-center gap-1 text-sm text-muted-foreground"><Users className="size-3.5" aria-hidden="true" />{gorev.basvuru_sayisi || 0}/10 başvuru</p>
+                </div>
               </div>
+              <DurumNotu gorev={gorev} durum={rozetDurum} sahip={sahip} />
             </section>
-            {gorev.gorev_notu ? <section className="p-6 text-sm whitespace-pre-wrap">{gorev.gorev_notu}</section> : null}
-            <section className="p-6">
-              <p className="text-xs uppercase text-muted-foreground">Süreç</p>
+            {gorev.gorev_notu ? (
+              <section className="px-6 py-5">
+                <BolumBaslik>Yapılacak iş</BolumBaslik>
+                <p className="mt-2 text-sm leading-relaxed whitespace-pre-wrap">{gorev.gorev_notu}</p>
+              </section>
+            ) : null}
+            <section className="px-6 py-5">
+              <BolumBaslik>Süreç</BolumBaslik>
               <ol className="mt-3">
                 {surec.map((adim, index) => (
                   <li key={`${adim.ad}-${index}`} className="relative flex gap-3 pb-3 last:pb-0">
@@ -309,7 +342,7 @@ export function GorevDetay({ id }) {
             ) : null}
             {sahip && gorev.durum === "acik" && !toplaniyor ? (
               <section className="space-y-3 p-6">
-                <p className="text-xs font-medium tracking-wide text-muted-foreground">BAŞVURANLAR ({basvuranlar.length})</p>
+                <BolumBaslik>Başvuranlar ({basvuranlar.length})</BolumBaslik>
                 {basvuranlar.length === 0 ? (
                   <div className="rounded-lg border px-4 py-8 text-center text-sm text-muted-foreground">Henüz başvuru yok</div>
                 ) : basvuranlar.map((item) => (
@@ -318,16 +351,29 @@ export function GorevDetay({ id }) {
               </section>
             ) : null}
             {taraf && (gorev.durum === "atandi" || gorev.durum === "tamamlandi") && karsi ? (
-              <section className="space-y-1 p-6">
-                <p className="text-xs uppercase text-muted-foreground">Karşı taraf</p>
-                <p className="text-sm font-medium">{karsi.ad_soyad}</p>
-                <p className="text-sm text-muted-foreground">{karsi.baro}</p>
-                <p className="text-sm text-muted-foreground">TBB Sicil: {karsi.tbb_sicil || "—"}</p>
-                <p className="text-sm text-muted-foreground">Puan: {karsi.puan_ortalama != null ? karsi.puan_ortalama : "—"}</p>
-                <div className="flex gap-3 pt-1 text-sm font-medium text-primary">
-                  <a href={`tel:${karsi.telefon}`}>Ara</a>
-                  <a href={`https://wa.me/${whatsappNumara(karsi.telefon)}`}>WhatsApp</a>
-                  <button type="button" onClick={() => navigator.clipboard?.writeText(karsi.telefon || "")}>Kopyala</button>
+              <section className="px-6 py-5">
+                <BolumBaslik>{sahip ? "Seçilen meslektaş" : "İlan sahibi"}</BolumBaslik>
+                <div className="mt-3 rounded-xl border p-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">{basHarfler(karsi.ad_soyad)}</span>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold">{karsi.ad_soyad}</p>
+                      <p className="truncate text-[13px] text-muted-foreground">{[karsi.baro, karsi.tbb_sicil ? `Sicil ${karsi.tbb_sicil}` : null].filter(Boolean).join(" · ")}</p>
+                    </div>
+                    {karsi.puan_ortalama != null ? (
+                      <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold">
+                        <Star size={14} weight="fill" className="text-accent-gold" />
+                        {Number(karsi.puan_ortalama).toLocaleString("tr-TR", { maximumFractionDigits: 1 })}
+                      </span>
+                    ) : null}
+                  </div>
+                  {karsi.telefon ? (
+                    <div className="mt-4 grid grid-cols-3 gap-2">
+                      <UiButton variant="outline" className="h-9" nativeButton={false} render={<a href={`tel:${karsi.telefon}`} />}><Phone className="size-4" />Ara</UiButton>
+                      <UiButton variant="outline" className="h-9" nativeButton={false} render={<a href={`https://wa.me/${whatsappNumara(karsi.telefon)}`} target="_blank" rel="noopener noreferrer" />}><MessageCircle className="size-4" />WhatsApp</UiButton>
+                      <UiButton variant="outline" className="h-9" onClick={() => { navigator.clipboard?.writeText(karsi.telefon || ""); toast.success("Telefon kopyalandı"); }}><Copy className="size-4" />Kopyala</UiButton>
+                    </div>
+                  ) : null}
                 </div>
               </section>
             ) : null}
@@ -371,6 +417,12 @@ export function GorevDetay({ id }) {
                 toast.success("Başvurunuz iletildi");
               })}>Başvur</Button>
             )
+          ) : null}
+          {yenidenYayinlanabilir ? (
+            <Button type="button" className="flex-1 gap-2" onClick={yenidenYayinla}>
+              <RotateCcw className="size-4" aria-hidden="true" />
+              Yeniden yayınla
+            </Button>
           ) : null}
           {sahip && gorev.durum === "acik" && (gorev.basvuru_sayisi || 0) === 0 ? <Button type="button" variant="secondary" onClick={duzenlemeyiAc}>Düzenle</Button> : null}
           {sahip && gorev.durum === "acik" ? <Button type="button" variant="secondary" className="text-danger" disabled={mesgul} onClick={() => setIptalOnay(true)}>İptal et</Button> : null}
@@ -485,8 +537,8 @@ export function GorevDetay({ id }) {
 const PANEL_ROZET = {
   acik: "border-transparent bg-blue-100 text-blue-800",
   atandi: "border-transparent bg-green-100 text-green-800",
-  suresi_doldu: "border-transparent bg-muted text-muted-foreground",
-  iptal: "border-transparent bg-muted text-muted-foreground",
+  suresi_doldu: "border-transparent bg-warning-soft text-warning",
+  iptal: "border-transparent bg-danger-soft text-danger",
   tamamlandi: "border-green-600 bg-transparent text-green-700",
 };
 
@@ -514,7 +566,7 @@ function surecAdimlari(gorev, { toplaniyor, verilenPuan }) {
   ];
   if (gorev.durum === "iptal" || gorev.durum === "suresi_doldu") {
     const olan = adimlar.filter((adim) => adim.tamam).map((adim) => ({ ...adim, durum: "tamam" }));
-    olan.push({ ad: gorev.durum === "iptal" ? "İptal edildi" : "Süresi doldu", durum: "gri" });
+    olan.push({ ad: gorev.durum === "iptal" ? "İptal edildi" : "Süresi doldu", durum: "gri", tarih: gorev.durum === "suresi_doldu" && gorev.tarih_saat ? tarihSaat(gorev.tarih_saat) : "" });
     return olan;
   }
   const aktif = adimlar.findIndex((adim) => !adim.tamam);
@@ -524,15 +576,35 @@ function surecAdimlari(gorev, { toplaniyor, verilenPuan }) {
   }));
 }
 
-function OzetAlan({ ikon: Ikon, etiket, deger, vurgu = false }) {
+function BolumBaslik({ children }) {
+  return <h3 className="text-sm font-semibold">{children}</h3>;
+}
+
+function DurumNotu({ gorev, durum, sahip }) {
+  const basvuru = gorev.basvuru_sayisi || 0;
+  let metin = null;
+  let ton = "bilgi";
+  if (durum === "suresi_doldu") {
+    ton = "uyari";
+    metin = sahip
+      ? (basvuru ? "Görev tarihi geçti ve bir meslektaş seçilmedi. Aynı bilgilerle yeniden yayınlayabilirsiniz." : "Bu ilana başvuru gelmeden görev tarihi geçti. Aynı bilgilerle yeniden yayınlayabilirsiniz.")
+      : "Bu görevin tarihi geçti.";
+  } else if (durum === "iptal") {
+    ton = "uyari";
+    metin = sahip ? "Bu ilanı iptal ettiniz. İsterseniz aynı bilgilerle yeniden yayınlayabilirsiniz." : "İlan sahibi bu ilanı iptal etti.";
+  } else if (durum === "secim" && sahip) {
+    metin = `${basvuru} başvuru geldi. Aşağıdan bir meslektaş seçin.`;
+  } else if (durum === "reddedildi") {
+    ton = "uyari";
+    metin = "Bu görev için başka bir meslektaş seçildi.";
+  } else if (durum === "bekliyor") {
+    metin = "Başvurunuz iletildi. İlan sahibi seçim yaptığında bildirim alacaksınız.";
+  }
+  if (!metin) return null;
   return (
-    <div className="flex gap-2">
-      <Ikon className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-      <div className="min-w-0">
-        <p className="text-xs text-muted-foreground">{etiket}</p>
-        <p className={`text-sm ${vurgu ? "font-semibold" : "font-medium"}`}>{deger}</p>
-      </div>
-    </div>
+    <p className={`mt-4 rounded-lg px-3.5 py-2.5 text-[13px] leading-relaxed ${ton === "uyari" ? "bg-warning-soft text-warning" : "bg-primary/[0.06] text-primary"}`}>
+      {metin}
+    </p>
   );
 }
 

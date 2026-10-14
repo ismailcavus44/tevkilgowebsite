@@ -20,14 +20,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export function AppShell({ children, sidebarAcik = true }) {
   useKategoriler();
   const [composerOpen, setComposerOpen] = useState(false);
+  const [kaynakId, setKaynakId] = useState(null);
   const [bekleyen, setBekleyen] = useState(null);
   const kontrol = useRef(false);
   const closeComposer = useCallback(() => setComposerOpen(false), []);
 
   useEffect(() => {
-    const ac = async () => {
+    const ac = async (event) => {
       if (kontrol.current) return;
       kontrol.current = true;
+      setKaynakId(event?.detail?.kaynakId || null);
       try {
         const { data, error } = await createClient().rpc("puanlama_bekleyen_gorevlerim");
         if (error) {
@@ -78,10 +80,10 @@ export function AppShell({ children, sidebarAcik = true }) {
         <Dialog open={composerOpen} onOpenChange={setComposerOpen}>
           <DialogContent className="gap-4 bg-white p-6 md:max-w-lg max-md:flex! max-md:max-h-[92dvh]! max-md:flex-col max-md:gap-0 max-md:overflow-hidden! max-md:p-0 max-md:[&>[data-slot=dialog-close]]:top-4 max-md:[&>[data-slot=dialog-close]]:right-3">
             <DialogHeader className="max-md:shrink-0 max-md:border-b max-md:px-5 max-md:pt-5 max-md:pb-4">
-              <DialogTitle className="text-lg font-semibold">İlan Aç</DialogTitle>
-              <DialogDescription className="text-sm text-muted-foreground">Görev detaylarını eksiksiz doldurun</DialogDescription>
+              <DialogTitle className="text-lg font-semibold">{kaynakId ? "İlanı Yeniden Yayınla" : "İlan Aç"}</DialogTitle>
+              <DialogDescription className="text-sm text-muted-foreground">{kaynakId ? "Bilgiler önceki ilandan alındı, yeni tarih ve saati seçin" : "Görev detaylarını eksiksiz doldurun"}</DialogDescription>
             </DialogHeader>
-            {composerOpen ? <IlanFormu onBitti={closeComposer} onVazgec={closeComposer} /> : null}
+            {composerOpen ? <IlanFormu key={kaynakId || "yeni"} kaynakId={kaynakId} onBitti={closeComposer} onVazgec={closeComposer} /> : null}
           </DialogContent>
         </Dialog>
         <Dialog open={Boolean(bekleyen)} onOpenChange={(acik) => { if (!acik) setBekleyen(null); }}>
