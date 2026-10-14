@@ -67,13 +67,13 @@ export function BildirimSatiri({ satir, simdi, onClick }) {
   const Ikon = bildirimIkonu(satir.tip);
   return (
     <button type="button" onClick={onClick} className={cn("flex w-full cursor-pointer items-start gap-3 px-4 py-3 text-left hover:bg-muted/40", !satir.okundu && "bg-primary/5")}>
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+      <span className={cn("relative flex size-8 shrink-0 items-center justify-center rounded-full", satir.okundu ? "bg-muted text-muted-foreground" : "bg-primary/10 text-primary")}>
         <Ikon className="size-4" />
+        {!satir.okundu ? <span aria-label="Okunmadı" className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-primary ring-2 ring-card" /> : null}
       </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-start gap-2">
-          {!satir.okundu ? <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" /> : null}
-          <span className="min-w-0 flex-1 text-sm font-medium">{satir.baslik}</span>
+          <span className={cn("min-w-0 flex-1 text-sm", satir.okundu ? "font-medium" : "font-semibold")}>{satir.baslik}</span>
           <span className="shrink-0 text-xs text-muted-foreground">{goreliZaman(satir.created_at, simdi)}</span>
         </span>
         {satir.govde ? <span className="mt-0.5 line-clamp-2 block text-sm text-muted-foreground">{satir.govde}</span> : null}
