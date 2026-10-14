@@ -1,41 +1,27 @@
 import { Suspense } from "react";
 import { AuthScreen } from "@/components/AuthScreen";
-import { RegisterForm } from "@/components/RegisterForm";
+import { GeriLinki } from "@/components/GeriLinki";
+import { RegisterForm, RegisterFormParamli } from "@/components/RegisterForm";
+import { UyeOlGeriLinki } from "@/components/UyeOlGeriLinki";
 
-export const metadata = { title: "Üye ol" };
+export const metadata = { title: "Üye ol", robots: { index: false, follow: true } };
 
-// searchParams istek anında okunur; Suspense dışında kalırsa ön derleme durur
-async function UyeOlIcerik({ searchParams }) {
-  const sorgu = await searchParams;
-  const donus = sorgu.donus === "1";
-  const kod = new URLSearchParams({
-    email: sorgu.email || "",
-    ad: sorgu.ad || "",
-    baro: sorgu.baro || "",
-    telefon: sorgu.telefon || "",
-    sicil: sorgu.sicil || "",
-    kosul: sorgu.kosul || "",
-  });
-  if (sorgu.bilgi === "1") kod.set("bilgi", "1");
-
+// Sayfa statik üretilir. URL'ye bağlı iki parça (geri bağlantısı ve ön doldurulmuş form) kendi Suspense'inde,
+// aynı ölçüdeki boş halleriyle bekler; böylece ilk HTML dolu gelir ve yerleşim kaymaz.
+export default function UyeOlPage() {
   return (
     <AuthScreen
       title="Hesap Oluştur"
       logo={false}
-      geri={donus ? `/dogrula?${kod.toString()}` : "/"}
-      geriYazi={donus ? "Geri" : "Ana sayfa"}
+      geriLinki={
+        <Suspense fallback={<GeriLinki />}>
+          <UyeOlGeriLinki />
+        </Suspense>
+      }
     >
-      <Suspense>
-        <RegisterForm />
+      <Suspense fallback={<RegisterForm />}>
+        <RegisterFormParamli />
       </Suspense>
     </AuthScreen>
-  );
-}
-
-export default function UyeOlPage({ searchParams }) {
-  return (
-    <Suspense>
-      <UyeOlIcerik searchParams={searchParams} />
-    </Suspense>
   );
 }

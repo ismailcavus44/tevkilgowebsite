@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { GeriLinki } from "@/components/GeriLinki";
 import { PhoneFrame } from "@/components/PhoneFrame";
 import { IlanlarEkrani } from "@/components/screens/IlanlarEkrani";
+import { genelSayilar } from "@/lib/iller";
 
 const yasal = [
   { href: "/gizlilik", label: "Gizlilik" },
@@ -10,7 +11,9 @@ const yasal = [
   { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
 ];
 
-export function AuthScreen({ title, lede, logo = true, geri = "/", geriYazi = "Ana sayfa", children }) {
+// geriLinki: URL'ye bağlı geri bağlantısı gerektiğinde (Suspense içinde) verilir; yoksa geri/geriYazi kullanılır
+export async function AuthScreen({ title, lede, logo = true, geri = "/", geriYazi = "Ana sayfa", geriLinki, children }) {
+  const sayi = await genelSayilar();
   return (
     <div className="grid min-h-dvh gap-2 p-2 md:gap-4 md:p-4 lg:grid-cols-2">
       <div className="flex flex-col px-3 pb-4 pt-3 sm:px-8 lg:px-12 lg:pt-6">
@@ -19,16 +22,13 @@ export function AuthScreen({ title, lede, logo = true, geri = "/", geriYazi = "A
             <Image src="/icon.png" alt="" width={32} height={32} className="rounded-lg" />
             <span className="text-[17px] font-extrabold tracking-tight">TevkilGO</span>
           </Link>
-          <Link href={geri} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-primary hover:underline">
-            <ArrowLeft className="size-4" />
-            {geriYazi}
-          </Link>
+          {geriLinki || <GeriLinki href={geri} yazi={geriYazi} />}
         </header>
 
         <main id="icerik" className="flex flex-1 items-center justify-center py-12">
           <div className="w-full max-w-[400px]">
             {logo ? (
-              <Image src="/logo.png" alt="TevkilGO" width={160} height={160} priority className="mx-auto mb-6 h-40 w-40 object-contain" />
+              <Image src="/logo.png" alt="TevkilGO" width={160} height={160} loading="eager" fetchPriority="high" className="mx-auto mb-6 h-40 w-40 object-contain" />
             ) : null}
             <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.02em]">{title}</h1>
             {lede ? <p className="mt-2 text-[15px] leading-relaxed text-muted">{lede}</p> : null}
@@ -51,7 +51,7 @@ export function AuthScreen({ title, lede, logo = true, geri = "/", geriYazi = "A
           <p className="max-w-[17ch] text-[36px] font-extrabold leading-[1.08] tracking-[-0.025em] text-white">
             Duruşmana gidemiyorsan, adliyedeki meslektaşın gitsin.
           </p>
-          <p className="mt-5 text-[14px] text-white/60">81 baro · 597 adliye · Baro kimliğiyle doğrulanmış üyelik</p>
+          <p className="mt-5 text-[14px] text-white/60">{sayi.baro} baro · {sayi.adliye} adliye · Baro kimliğiyle doğrulanmış üyelik</p>
         </div>
         <div className="mt-auto flex justify-center pt-10">
           <PhoneFrame

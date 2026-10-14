@@ -29,7 +29,7 @@ export function HomeHeader() {
           }`}
         >
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/icon.png" alt="" width={34} height={34} priority className="size-[34px] rounded-lg" />
+            <Image src="/icon.png" alt="" width={34} height={34} className="size-[34px] rounded-lg" />
             <span className="text-lg font-extrabold tracking-tight">TevkilGO</span>
           </Link>
           <nav className="flex items-center gap-1 sm:gap-3">

@@ -1,6 +1,8 @@
 import { Baslik, Bolum, Cip, Ekran, IlanBlok, IlanSatiri, Segmentler } from "@/components/screens/ortak";
 
-export function IlanlarEkrani() {
+const VARSAYILAN = ["Ankara Batı Adliyesi", "Ankara Adliyesi", "Sincan Adliyesi"];
+
+export function IlanlarEkrani({ adliyeler = VARSAYILAN }) {
   return (
     <Ekran sekme="gorevler">
       <Baslik title="Görevler" pad={16} />
@@ -19,7 +21,7 @@ export function IlanlarEkrani() {
             ucret={3500}
             saat="11:00"
             adet={4}
-            adliye="Ankara Batı Adliyesi"
+            adliye={adliyeler[0]}
             acil
           />
           <IlanSatiri
@@ -27,7 +29,7 @@ export function IlanlarEkrani() {
             ucret={2750}
             saat="14:00"
             adet={2}
-            adliye="Ankara Adliyesi"
+            adliye={adliyeler[1]}
             son
           />
         </IlanBlok>
@@ -38,7 +40,7 @@ export function IlanlarEkrani() {
             ucret={4200}
             saat="Yarın 09:30"
             adet={6}
-            adliye="Sincan Adliyesi"
+            adliye={adliyeler[2]}
             basvuruldu
             son
           />

@@ -24,9 +24,15 @@ function kayitSorgusu(params) {
   return sorgu.toString();
 }
 
-export function VerifyCodeForm() {
+const BOS_SORGU = new URLSearchParams();
+
+// URL'deki e-postayla; Suspense fallback'i boş VerifyCodeForm olduğu için yer değiştirmez
+export function VerifyCodeFormParamli() {
+  return <VerifyCodeForm params={useSearchParams()} />;
+}
+
+export function VerifyCodeForm({ params = BOS_SORGU }) {
   const router = useRouter();
-  const params = useSearchParams();
   const email = params.get("email") || "";
   const bilgi = params.get("bilgi") === "1";
   const [kod, setKod] = useState("");

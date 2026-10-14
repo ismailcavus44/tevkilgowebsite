@@ -7,7 +7,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-surface md:static">
       <div className="mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between gap-3 px-5">
         <Link href="/" className="flex min-w-0 items-center gap-2">
-          <Image src="/icon.png" alt="" width={32} height={32} priority className="rounded-lg" />
+          <Image src="/icon.png" alt="" width={32} height={32} className="rounded-lg" />
           <span className="truncate text-lg font-extrabold tracking-tight">
             TevkilGO
           </span>

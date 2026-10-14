@@ -9,15 +9,23 @@ const manrope = Manrope({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://www.tevkilgo.org"),
+  applicationName: "TevkilGO",
   title: {
     default: "TevkilGO",
     template: "%s · TevkilGO",
   },
   description:
     "Duruşmana gidemiyorsan, adliyedeki meslektaşın gitsin. Tevkil ilanını aç, aynı adliyedeki doğrulanmış avukatlar başvursun.",
+  openGraph: {
+    type: "website",
+    siteName: "TevkilGO",
+    locale: "tr_TR",
+  },
   icons: {
-    icon: [{ url: "/icon.png", type: "image/png" }],
-    apple: [{ url: "/icon.png" }],
+    // Küçük ikon dosyaları; 1024 px'lik icon.png her ziyarette favicon olarak inmesin
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "96x96" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 };
 

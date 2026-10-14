@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Field } from "@/components/Field";
 import { FormHatasi } from "@/components/FormHatasi";
@@ -15,7 +15,6 @@ function guvenliHedef(deger) {
 
 export function LoginForm() {
   const router = useRouter();
-  const hedef = guvenliHedef(useSearchParams().get("next"));
   const [errors, setErrors] = useState({});
   const [hata, setHata] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,7 +50,8 @@ export function LoginForm() {
         setHata(hataMesaji(error));
         return;
       }
-      router.replace(hedef);
+      // ?next= burada okunur; form statik HTML'de gelsin, Suspense ile sonradan yerleşip sayfayı kaydırmasın
+      router.replace(guvenliHedef(new URLSearchParams(window.location.search).get("next")));
       router.refresh();
     } catch (error) {
       setHata(hataMesaji(error));

@@ -41,9 +41,15 @@ const BOS = {
   confirmPassword: "",
 };
 
-export function RegisterForm() {
+const BOS_SORGU = new URLSearchParams();
+
+// URL'deki ön doldurma bilgileriyle; Suspense fallback'i boş RegisterForm olduğu için yer değiştirmez
+export function RegisterFormParamli() {
+  return <RegisterForm params={useSearchParams()} />;
+}
+
+export function RegisterForm({ params = BOS_SORGU }) {
   const router = useRouter();
-  const params = useSearchParams();
   const barolar = useBarolar();
   const [formData, setFormData] = useState({
     ...BOS,

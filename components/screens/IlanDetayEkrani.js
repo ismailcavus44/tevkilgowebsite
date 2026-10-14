@@ -34,7 +34,7 @@ function Dugme({ children, ikincil = false, style }) {
   );
 }
 
-function BilgiKarti({ atandi }) {
+function BilgiKarti({ atandi, il, adliye }) {
   return (
     <div style={kart}>
       <span
@@ -52,9 +52,9 @@ function BilgiKarti({ atandi }) {
       </span>
       <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 8 }}>
         <MapPin size={20} color={c.textMuted} />
-        <span style={{ fontSize: 17, fontWeight: 600 }}>Ankara</span>
+        <span style={{ fontSize: 17, fontWeight: 600 }}>{il}</span>
       </div>
-      <div style={{ marginBottom: 8, fontSize: 15, color: c.textMuted }}>Ankara Batı Adliyesi</div>
+      <div style={{ marginBottom: 8, fontSize: 15, color: c.textMuted }}>{adliye}</div>
       <div style={meta}>Duruşma</div>
       <div style={meta}>12 Ekim 2026 11:00</div>
       <div style={{ marginTop: 8, fontSize: 17, fontWeight: 700, color: c.accent }}>3500₺</div>
@@ -130,18 +130,18 @@ function KarsiTarafKarti() {
   );
 }
 
-export function IlanDetayEkrani({ gorunum = "tam" }) {
+export function IlanDetayEkrani({ gorunum = "tam", il = "Ankara", adliye = "Ankara Batı Adliyesi" }) {
   return (
     <Ekran sekme={false}>
       <Baslik title="Görev Detayı" back />
       <div style={{ display: "flex", flexDirection: "column", gap: 12, padding: "0 16px 32px" }}>
-        {gorunum === "tam" ? <BilgiKarti /> : null}
+        {gorunum === "tam" ? <BilgiKarti il={il} adliye={adliye} /> : null}
         {gorunum !== "secildi" ? <BasvuranlarKarti /> : null}
         {gorunum === "secildi" ? (
           <>
             <KarsiTarafKarti />
             <Dugme style={{ display: "flex" }}>Tamamlandı Olarak İşaretle</Dugme>
-            <BilgiKarti atandi />
+            <BilgiKarti atandi il={il} adliye={adliye} />
           </>
         ) : null}
       </div>
