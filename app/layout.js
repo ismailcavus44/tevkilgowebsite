@@ -11,6 +11,7 @@ const manrope = Manrope({
 export const metadata = {
   metadataBase: new URL("https://www.tevkilgo.org"),
   applicationName: "TevkilGO",
+  verification: { google: "JESdkkAc5f8GduIm4x-ZNNffVKtOTsNffg8Xrj1I5h4" },
   title: {
     default: "TevkilGO",
     template: "%s · TevkilGO",
