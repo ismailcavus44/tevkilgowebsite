@@ -142,7 +142,7 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
     if (!duzenleId) {
       if (!form.ucret.trim()) yeni.ucret = "Ücret gerekli";
       else if (Number.isNaN(Number(form.ucret)) || Number(form.ucret) <= 0) yeni.ucret = "Geçerli bir ücret girin";
-      else if (minUcret != null && Number(form.ucret) < Number(minUcret)) yeni.ucret = `Asgari ücret: ${minUcret} TL`;
+      else if (minUcret != null && Number(form.ucret) < Number(minUcret)) yeni.ucret = `Asgari ücret: ${minUcret} ₺`;
     }
     setHatalar(yeni);
     return Object.keys(yeni).length === 0;
@@ -206,8 +206,8 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
   const adliyeListe = adliyeSecenek.map((s) => ({ value: s.kod, label: `${s.ad}${s.teyit_bekliyor ? " (teyit bekleniyor)" : ""}` }));
 
   return (
-    <form ref={formRef} id={formId} onSubmit={gonder} className="flex min-h-0 flex-col">
-      <div className={sheet ? "space-y-4 p-6" : "max-h-[70vh] space-y-4 overflow-y-auto"}>
+    <form ref={formRef} id={formId} onSubmit={gonder} className={sheet ? "flex min-h-0 flex-col" : "flex min-h-0 flex-col max-md:flex-1"}>
+      <div className={sheet ? "space-y-4 p-6" : "-mx-1 max-h-[70vh] space-y-4 overflow-y-auto px-1 max-md:mx-0 max-md:max-h-none max-md:flex-1 max-md:overscroll-contain max-md:px-5 max-md:py-4"}>
         <FormHatasi>{hata}</FormHatasi>
         <FormHatasi tur="bilgi">{mesaj}</FormHatasi>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -231,7 +231,7 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
           </div>
           {hatalar.ucret ? <p className="text-xs text-destructive">{hatalar.ucret}</p> : null}
           {duzenleId ? <p className="text-xs text-muted-foreground">Ücret ilan açıldıktan sonra değiştirilemez.</p> : null}
-          {!duzenleId && !hatalar.ucret && form.kategori && minUcret != null ? <p className="text-xs text-muted-foreground">Asgari ücret: {minUcret} TL</p> : null}
+          {!duzenleId && !hatalar.ucret && form.kategori && minUcret != null ? <p className="text-xs text-muted-foreground">Asgari ücret: {minUcret} ₺</p> : null}
         </div>
         {form.kategori && sablonlar.length ? (
           <SablonSec sablonlar={sablonlar} onSec={(metin) => alan("not", form.not?.trim() ? `${form.not.trim()}\n${metin}` : metin)} />
@@ -246,7 +246,7 @@ export function IlanFormu({ duzenleId, onBitti, onVazgec, sheet = false, formId,
           </div>
         </div>
       </div>
-      {sheet ? null : <div className="mt-4 flex items-center justify-end gap-2 border-t bg-white pt-4 max-md:sticky max-md:bottom-0 max-md:flex-col max-md:pb-[max(1rem,env(safe-area-inset-bottom))] max-md:[&_button]:h-11 max-md:[&_button]:w-full">
+      {sheet ? null : <div className="mt-4 flex items-center justify-end gap-2 border-t bg-white pt-4 max-md:mt-0 max-md:grid max-md:shrink-0 max-md:grid-cols-2 max-md:gap-3 max-md:px-5 max-md:pt-3 max-md:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-md:[&_button]:h-11 max-md:[&_button]:w-full max-md:[&_button[type=submit]]:col-start-2">
         {onVazgec ? <Button type="button" variant="outline" className="h-9" onClick={onVazgec}>Vazgeç</Button> : null}
         <Button type="submit" className="h-9" disabled={yukleniyor}>
           {yukleniyor ? "Kaydediliyor…" : duzenleId ? "Güncelle" : "İlanı yayınla"}

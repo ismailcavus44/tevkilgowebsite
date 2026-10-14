@@ -75,14 +75,14 @@ export function NavUser() {
           <DropdownMenuTrigger
             ref={tetik}
             openOnHover={false}
-            render={<SidebarMenuButton size="lg" className="group-data-[collapsible=icon]:justify-center" />}
+            render={<SidebarMenuButton size="lg" className="h-14 gap-3 rounded-xl border border-sidebar-border bg-canvas px-2.5 transition-colors hover:border-navy/20 hover:bg-muted data-popup-open:border-navy/20 data-popup-open:bg-muted group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:bg-transparent" />}
           >
-            <Avatar className="size-8 shrink-0 rounded-lg">
+            <Avatar className="size-9 shrink-0 rounded-full ring-2 ring-white">
               {kisi?.fotograf_url ? <AvatarImage src={kisi.fotograf_url} alt="" /> : null}
-              <AvatarFallback className="rounded-lg bg-primary text-primary-foreground">{harf}</AvatarFallback>
+              <AvatarFallback className="rounded-full bg-primary font-semibold text-primary-foreground">{harf}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
-              <span className="truncate font-medium">{ad}</span>
+              <span className="truncate font-semibold">{ad}</span>
               <span className="truncate text-xs text-muted-foreground">{baro || "Profil"}</span>
             </div>
             <DotsThreeVertical className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />

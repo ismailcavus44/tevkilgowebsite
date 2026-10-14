@@ -7,11 +7,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function ListeSayfa({ children, kaydir }) {
   return (
-    <div className="h-full min-h-0 overflow-y-auto" {...(kaydir ? { "data-kaydir": "" } : {})}>
-      <div className="-mx-4 md:-mx-8">
-        <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-6 md:px-6 md:py-8">
-          {children}
-        </div>
+    <div className="-mx-4 h-full min-h-0 overflow-y-auto md:-mx-8" {...(kaydir ? { "data-kaydir": "" } : {})}>
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pt-6 pb-28 md:px-8 md:py-8">
+        {children}
       </div>
     </div>
   );
@@ -62,7 +60,7 @@ export function ListeAraclari({ adliye, onAdliye, adliyeler, kategori, onKategor
   );
 }
 
-function AracSelect({ value, genislik, placeholder, secenekler, onValueChange }) {
+export function AracSelect({ value, genislik, placeholder, secenekler, onValueChange }) {
   const etiket = (deger) => secenekler.find((satir) => satir.value === deger)?.label;
   return (
     <Select value={value} onValueChange={onValueChange}>

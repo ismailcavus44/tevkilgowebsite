@@ -1,10 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Clock, Gavel, MapPin, MoonStars, Phone, UsersThree, WhatsappLogo } from "@phosphor-icons/react";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { useOzellikler } from "@/components/uygulama/Ozellikler";
 import { createClient } from "@/lib/supabase/client";
+import { AracSelect, BosListe, ListCard, ListeSayfa, PageHeader, Toolbar } from "@/components/list-layout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 function whatsappNumara(phone) {
   let digits = String(phone || "").replace(/\D/g, "");
@@ -18,6 +22,17 @@ function kalanDakika(bitis) {
   const ms = new Date(bitis).getTime() - (performance.timeOrigin + performance.now());
   if (!Number.isFinite(ms)) return 0;
   return Math.max(0, Math.ceil(ms / 60000));
+}
+
+function kalanMetin(dk) {
+  if (dk < 60) return `${dk} dk kaldı`;
+  const saat = Math.floor(dk / 60);
+  const kalan = dk % 60;
+  return kalan ? `${saat} sa ${kalan} dk kaldı` : `${saat} sa kaldı`;
+}
+
+function basHarfler(ad) {
+  return String(ad || "?").trim().split(/\s+/).slice(0, 2).map((p) => p[0]?.toLocaleUpperCase("tr")).join("");
 }
 
 export function AvukatAra() {
@@ -38,6 +53,8 @@ export function AvukatAra() {
   }, [hazir, modlarAktif, router]);
 
   const yukle = useCallback(async (seciliIl, seciliAdliye) => {
+    setListe(null);
+    setHata("");
     const { data, error } = await createClient().rpc("aktif_modlar", {
       p_il: seciliIl || null,
       p_adliye: seciliAdliye || null,
@@ -66,7 +83,7 @@ export function AvukatAra() {
       }
       setIl(secili);
       await yukle(secili || null, null);
-    })().catch((error) => { if (!iptal) setHata(hataMesaji(error)); });
+    })().catch((error) => { if (!iptal) { setHata(hataMesaji(error)); setListe([]); } });
     return () => { iptal = true; };
   }, [yukle]);
 
@@ -75,58 +92,125 @@ export function AvukatAra() {
     return () => clearInterval(zaman);
   }, []);
 
-  const gorunen = (liste || []).filter((kisi) => {
-    if (kalanDakika(kisi.bitis) <= 0) return false;
-    if (segment === "adliye") return kisi.tip === "adliye";
-    if (segment === "gece") return kisi.tip === "gece";
-    return true;
-  });
+  const ilSec = (deger) => {
+    setIl(deger);
+    setAdliye("");
+    yukle(deger || null, null).catch((error) => { setHata(hataMesaji(error)); setListe([]); });
+  };
+
+  const adliyeSec = (deger) => {
+    setAdliye(deger);
+    yukle(il || null, deger || null).catch((error) => { setHata(hataMesaji(error)); setListe([]); });
+  };
+
+  const aktifler = (liste || []).filter((kisi) => kalanDakika(kisi.bitis) > 0);
+  const gorunen = aktifler.filter((kisi) => segment === "tumu" || kisi.tip === segment);
   const adliyeAd = (kod) => adliyeler.find((s) => s.kod === kod)?.ad || kod;
+  const ilAd = iller.find((s) => s.slug === il)?.name;
+
+  const ilSecenekleri = useMemo(() => iller.map((s) => ({ value: s.slug, label: s.name })), [iller]);
+  const adliyeSecenekleri = useMemo(
+    () => adliyeler.filter((s) => !il || s.il_kod === il).map((s) => ({ value: s.kod, label: s.ad })),
+    [adliyeler, il],
+  );
+
+  const sekmeler = [
+    { value: "tumu", label: "Tümü", adet: aktifler.length },
+    { value: "adliye", label: "Adliyede", adet: aktifler.filter((k) => k.tip === "adliye").length },
+    { value: "gece", label: "Gece nöbeti", adet: aktifler.filter((k) => k.tip === "gece").length },
+  ];
 
   if (hazir && !modlarAktif) return null;
 
   return (
-    <div className="h-full overflow-y-auto bg-canvas">
-      <div className="mx-auto max-w-lg space-y-4 py-6 md:px-5 md:py-8">
-        <h1 className="text-[22px] font-semibold">Müsait</h1>
-        {hata ? <p className="text-[14px] text-danger">{hata}</p> : null}
-        <label className="block text-[14px] font-medium">İl
-          <select className="control mt-1.5" value={il} onChange={(e) => { setIl(e.target.value); setAdliye(""); yukle(e.target.value || null, null).catch((error) => setHata(hataMesaji(error))); }}>
-            <option value="">İl seçin</option>
-            {iller.map((s) => <option key={s.slug} value={s.slug}>{s.name}</option>)}
-          </select>
-        </label>
-        <label className="block text-[14px] font-medium">Adliye
-          <select className="control mt-1.5" value={adliye} onChange={(e) => { setAdliye(e.target.value); yukle(il || null, e.target.value || null).catch((error) => setHata(hataMesaji(error))); }}>
-            <option value="">Tüm adliyeler</option>
-            {adliyeler.filter((s) => !il || s.il_kod === il).map((s) => <option key={s.kod} value={s.kod}>{s.ad}</option>)}
-          </select>
-        </label>
-        <div className="grid grid-cols-3 gap-2">
-          {[["tumu", "Tümü"], ["adliye", "Adliyede"], ["gece", "Gece"]].map(([value, label]) => (
-            <button key={value} type="button" onClick={() => setSegment(value)} className={`min-h-11 rounded-control border px-2 py-2 text-base ${segment === value ? "border-navy bg-navy text-white" : "border-line"}`}>{label}</button>
-          ))}
-        </div>
-        {!liste ? <div className="h-24 animate-pulse rounded-card bg-line/70" aria-busy="true" /> : null}
-        {liste && !gorunen.length ? <p className="text-[14px] text-muted">Şu an bu bölgede modu açık meslektaş yok.</p> : null}
-        <ul className="space-y-3">
-          {gorunen.map((kisi) => (
-            <li key={kisi.oturum_id} className="rounded-card border border-line bg-surface p-4">
-              <p className="font-semibold break-words">{kisi.ad_soyad}{kisi.kullanici_id === ben ? " · Siz" : ""}</p>
-              {kisi.baro ? <p className="text-[14px] text-muted">{kisi.baro}</p> : null}
-              {kisi.tbb_sicil ? <p className="text-[14px] text-muted">TBB Sicil: {kisi.tbb_sicil}</p> : null}
-              <p className="mt-2 text-[14px]">{kisi.tip === "gece" ? "Gece Nöbeti" : "Adliyede"} · {adliyeAd(kisi.adliye)}</p>
-              <p className="text-[14px] text-muted">{kalanDakika(kisi.bitis)} dk kaldı</p>
-              {kisi.kullanici_id === ben ? null : (
-                <div className="mt-3 flex gap-3 text-[14px] font-medium text-navy">
-                  <a href={`tel:${kisi.telefon}`}>Ara</a>
-                  <a href={`https://wa.me/${whatsappNumara(kisi.telefon)}`}>WhatsApp</a>
-                </div>
-              )}
-            </li>
-          ))}
+    <ListeSayfa>
+      <PageHeader
+        baslik="Müsait Meslektaşlar"
+        aciklama={ilAd ? `${ilAd} genelinde şu an modu açık avukatlar` : "Şu an modu açık avukatlar"}
+      />
+      <Toolbar sekmeler={sekmeler} sekme={segment} onSekme={setSegment}>
+        <AracSelect genislik="w-full md:w-44" value={il || "tumu"} placeholder="Tüm iller" secenekler={ilSecenekleri} onValueChange={(deger) => ilSec(!deger || deger === "tumu" ? "" : deger)} />
+        <AracSelect genislik="w-full md:w-56" value={adliye || "tumu"} placeholder="Tüm adliyeler" secenekler={adliyeSecenekleri} onValueChange={(deger) => adliyeSec(!deger || deger === "tumu" ? "" : deger)} />
+      </Toolbar>
+
+      {hata ? <p role="alert" className="mb-4 rounded-lg border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">{hata}</p> : null}
+
+      {!liste ? (
+        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" aria-busy="true">
+          {[0, 1, 2].map((n) => <li key={n} className="h-44 animate-pulse rounded-xl border bg-background" />)}
         </ul>
+      ) : null}
+
+      {liste && !gorunen.length && !hata ? (
+        <ListCard>
+          <BosListe
+            ikon={UsersThree}
+            baslik="Şu an müsait meslektaş yok"
+            aciklama={adliye || il ? "Farklı bir il ya da adliye seçmeyi deneyin." : "Modu açık avukat olduğunda burada listelenir."}
+          />
+        </ListCard>
+      ) : null}
+
+      {liste && gorunen.length ? (
+        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {gorunen.map((kisi) => <MeslektasKarti key={kisi.oturum_id} kisi={kisi} ben={kisi.kullanici_id === ben} adliyeAd={adliyeAd(kisi.adliye)} />)}
+        </ul>
+      ) : null}
+    </ListeSayfa>
+  );
+}
+
+function MeslektasKarti({ kisi, ben, adliyeAd }) {
+  const gece = kisi.tip === "gece";
+  const dk = kalanDakika(kisi.bitis);
+  const TipIkon = gece ? MoonStars : Gavel;
+  return (
+    <li className="flex flex-col rounded-xl border bg-background p-4 transition-shadow hover:shadow-[0_8px_24px_-12px_rgb(18_38_63/0.18)]">
+      <div className="flex items-start gap-3">
+        <Avatar className="size-11 shrink-0">
+          {kisi.fotograf_url ? <AvatarImage src={kisi.fotograf_url} alt="" /> : null}
+          <AvatarFallback className="bg-navy/10 text-sm font-semibold text-navy">{basHarfler(kisi.ad_soyad)}</AvatarFallback>
+        </Avatar>
+        <div className="min-w-0 flex-1">
+          <p className="flex items-center gap-2 font-semibold leading-snug">
+            <span className="truncate">{kisi.ad_soyad}</span>
+            {ben ? <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">Siz</span> : null}
+          </p>
+          <p className="truncate text-sm text-muted-foreground">
+            {[kisi.baro, kisi.tbb_sicil ? `Sicil ${kisi.tbb_sicil}` : null].filter(Boolean).join(" · ") || "Avukat"}
+          </p>
+        </div>
       </div>
-    </div>
+
+      <div className="mt-4 flex flex-col gap-1.5 text-sm">
+        <span className="flex items-center gap-2 text-foreground">
+          <MapPin size={16} className="shrink-0 text-muted-foreground" aria-hidden="true" />
+          <span className="truncate">{adliyeAd}</span>
+        </span>
+        <span className="flex flex-wrap items-center gap-2">
+          <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${gece ? "bg-navy text-white" : "bg-success-soft text-success"}`}>
+            <TipIkon size={13} weight="fill" aria-hidden="true" />
+            {gece ? "Gece nöbeti" : "Adliyede"}
+          </span>
+          <span className={`inline-flex items-center gap-1 text-xs ${dk <= 15 ? "font-medium text-warning" : "text-muted-foreground"}`}>
+            <Clock size={13} aria-hidden="true" />
+            {kalanMetin(dk)}
+          </span>
+        </span>
+      </div>
+
+      {ben || !kisi.telefon ? null : (
+        <div className="mt-4 grid grid-cols-2 gap-2 border-t pt-4">
+          <Button variant="outline" className="h-10" nativeButton={false} render={<a href={`tel:${kisi.telefon}`} />}>
+            <Phone size={16} />
+            Ara
+          </Button>
+          <Button className="h-10 bg-[#1f8f4e] text-white hover:bg-[#1a7a43]" nativeButton={false} render={<a href={`https://wa.me/${whatsappNumara(kisi.telefon)}`} target="_blank" rel="noopener noreferrer" />}>
+            <WhatsappLogo size={16} weight="fill" />
+            WhatsApp
+          </Button>
+        </div>
+      )}
+    </li>
   );
 }

@@ -192,9 +192,12 @@ h3 {
   scroll-margin-top: 4.5rem;
 }
 
-:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
+/* Katman içinde: kendi odak stili olan bileşenler (outline-hidden, ring) bunu ezer. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
 }
 
 ::selection {

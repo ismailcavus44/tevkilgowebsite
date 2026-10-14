@@ -28,16 +28,20 @@ export function DataTable({ columns, data, yukleniyor, onRow, secili }) {
           const hucreler = satir.getVisibleCells();
           const tarih = hucreler.find((hucre) => kolonMu(hucre, ["created_at", "tarih", "son_mesaj_at"], ["tarih"]));
           const durum = hucreler.find((hucre) => kolonMu(hucre, ["durum"], ["durum"]));
-          const alt = hucreler.filter((hucre) => hucre !== tarih && hucre !== durum);
+          const [baslik, ...alt] = hucreler.filter((hucre) => hucre !== tarih && hucre !== durum);
+          const detay = tarih ? [tarih, ...alt] : alt;
           return (
             <button key={satir.id} type="button" className="flex min-h-11 w-full flex-col gap-1 border-b border-border px-4 py-3 text-left last:border-b-0 hover:bg-muted/40" onClick={() => onRow?.(satir.original)}>
               <span className="flex items-center justify-between gap-2">
-                <span className="min-w-0 truncate text-sm">{tarih ? flexRender(tarih.column.columnDef.cell, tarih.getContext()) : null}</span>
+                <span className="min-w-0 truncate text-sm font-medium text-foreground">{baslik ? flexRender(baslik.column.columnDef.cell, baslik.getContext()) : null}</span>
                 <span className="shrink-0">{durum ? flexRender(durum.column.columnDef.cell, durum.getContext()) : null}</span>
               </span>
-              <span className="flex flex-wrap gap-x-2 text-sm text-muted-foreground">
-                {alt.map((hucre) => (
-                  <span key={hucre.id} className="max-w-full min-w-0 truncate">{flexRender(hucre.column.columnDef.cell, hucre.getContext())}</span>
+              <span className="flex flex-wrap items-center gap-x-1.5 text-[13px] text-muted-foreground">
+                {detay.map((hucre, i) => (
+                  <span key={hucre.id} className="flex max-w-full min-w-0 items-center gap-x-1.5">
+                    {i > 0 ? <span aria-hidden="true">·</span> : null}
+                    <span className="min-w-0 truncate">{flexRender(hucre.column.columnDef.cell, hucre.getContext())}</span>
+                  </span>
                 ))}
               </span>
             </button>

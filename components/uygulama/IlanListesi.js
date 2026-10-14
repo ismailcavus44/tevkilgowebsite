@@ -35,7 +35,7 @@ export function IlanSatiri({ ilan, adliyeAdi, simdi = 0, onClick }) {
       <span className={acil ? "w-28 shrink-0 font-semibold text-accent-gold" : bugunMu ? "w-28 shrink-0 font-semibold text-foreground" : "w-28 shrink-0 text-foreground"}>{bugunMu ? `Bugün ${parca.saat}` : tarihSaat(ilan.tarih_saat)}</span>
       <span className="min-w-0 flex-1 truncate text-foreground">{adliyeAdi(ilan.adliye)}</span>
       <span className="hidden shrink-0 text-foreground sm:block">{kategoriAd(ilan.kategori)}</span>
-      <span className="w-24 shrink-0 text-right text-foreground">{Number(ilan.ucret).toLocaleString("tr-TR")} TL</span>
+      <span className="w-24 shrink-0 text-right text-foreground">{Number(ilan.ucret).toLocaleString("tr-TR")} ₺</span>
     </button>
   );
 }
@@ -181,7 +181,7 @@ export function IlanListesi() {
     {
       header: "Ücret",
       meta: { className: "text-right tabular-nums" },
-      cell: ({ row }) => <span className="block text-right tabular-nums">{Number(row.original.ucret).toLocaleString("tr-TR")} TL</span>,
+      cell: ({ row }) => <span className="block text-right tabular-nums">{Number(row.original.ucret).toLocaleString("tr-TR")} ₺</span>,
     },
     {
       header: "Başvuru",

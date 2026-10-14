@@ -1,22 +1,13 @@
 "use client";
 
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  ChatCircleText,
-  House,
-  ListChecks,
-  Megaphone,
-  MoonStars,
-  PaperPlaneTilt,
-  User,
-} from "@phosphor-icons/react/ssr";
+import { Plus } from "@phosphor-icons/react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { IlanFormu } from "@/components/uygulama/IlanFormu";
 import { BildirimSaglayici } from "@/components/uygulama/Bildirimler";
-import { OzellikSaglayici, useOzellikler } from "@/components/uygulama/Ozellikler";
+import { OzellikSaglayici } from "@/components/uygulama/Ozellikler";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -25,16 +16,6 @@ import { tarihSaat } from "@/lib/tarih";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
-const NAV = [
-  { href: "/app", label: "Ana sayfa", icon: House },
-  { href: "/app/ilanlar", label: "İlanlar", icon: Megaphone },
-  { href: "/app/gorevlerim", label: "Görevlerim", icon: ListChecks },
-  { href: "/app/basvurularim", label: "Başvurularım", icon: PaperPlaneTilt },
-  { href: "/app/modlar", label: "Modlar", icon: MoonStars },
-  { href: "/app/destek", label: "Destek", icon: ChatCircleText },
-  { href: "/app/profil", label: "Profil", icon: User },
-];
 
 export function AppShell({ children, sidebarAcik = true }) {
   useKategoriler();
@@ -78,20 +59,26 @@ export function AppShell({ children, sidebarAcik = true }) {
           <AppSidebar className="min-h-screen" />
           <SidebarInset className="h-full min-h-0 overflow-hidden bg-[#F7F8FA]">
             <SiteHeader />
-            <div id="icerik" className="min-h-0 flex-1 overflow-hidden">
-              <div className="flex h-full min-h-0 w-full max-w-[1200px] flex-col px-4 md:px-8">
+            <div id="icerik" className="min-h-0 flex-1 overflow-hidden pb-[env(safe-area-inset-bottom)] md:pb-0">
+              <div className="mx-auto flex h-full min-h-0 w-full max-w-[1200px] flex-col px-4 md:px-8">
                 {children}
               </div>
             </div>
-            <Suspense fallback={<TabBar kolon={7}><TabLinks pathname="" ogeler={NAV} /></TabBar>}>
-              <TabBarLive />
-            </Suspense>
           </SidebarInset>
         </SidebarProvider>
+        <button
+          type="button"
+          aria-label="İlan aç"
+          onClick={() => window.dispatchEvent(new Event("ilan-ac"))}
+          className="fixed right-5 z-40 inline-flex size-14 items-center justify-center rounded-full bg-navy text-white shadow-[0_10px_28px_-6px_rgb(30_58_95/0.55)] transition-transform active:scale-95 md:hidden"
+          style={{ bottom: "max(1.25rem, calc(env(safe-area-inset-bottom) + 0.75rem))" }}
+        >
+          <Plus size={26} weight="bold" />
+        </button>
         <Dialog open={composerOpen} onOpenChange={setComposerOpen}>
-          <DialogContent className="gap-4 bg-white p-6 md:max-w-lg">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-semibold">İlan aç</DialogTitle>
+          <DialogContent className="gap-4 bg-white p-6 md:max-w-lg max-md:flex! max-md:max-h-[92dvh]! max-md:flex-col max-md:gap-0 max-md:overflow-hidden! max-md:p-0 max-md:[&>[data-slot=dialog-close]]:top-4 max-md:[&>[data-slot=dialog-close]]:right-3">
+            <DialogHeader className="max-md:shrink-0 max-md:border-b max-md:px-5 max-md:pt-5 max-md:pb-4">
+              <DialogTitle className="text-lg font-semibold">İlan Aç</DialogTitle>
               <DialogDescription className="text-sm text-muted-foreground">Görev detaylarını eksiksiz doldurun</DialogDescription>
             </DialogHeader>
             {composerOpen ? <IlanFormu onBitti={closeComposer} onVazgec={closeComposer} /> : null}
@@ -148,44 +135,4 @@ function DegerlendirmeKapisi({ gorev, onKapat }) {
       ) : null}
     </DialogContent>
   );
-}
-
-function TabBarLive() {
-  const pathname = usePathname();
-  const { modlarAktif } = useOzellikler();
-  const ogeler = modlarAktif ? NAV : NAV.filter((item) => item.href !== "/app/modlar");
-  return <TabBar kolon={ogeler.length}><TabLinks pathname={pathname} ogeler={ogeler} /></TabBar>;
-}
-
-function TabBar({ children, kolon }) {
-  return (
-    <nav aria-label="Uygulama" className="shrink-0 border-t border-border bg-card md:hidden" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <ul className={kolon === 7 ? "grid grid-cols-7" : "grid grid-cols-6"}>{children}</ul>
-    </nav>
-  );
-}
-
-function TabLinks({ pathname, ogeler }) {
-  return ogeler.map((item) => {
-    const active = isActive(pathname, item.href);
-    const Icon = item.icon;
-    return (
-      <li key={item.href}>
-        <Link href={item.href} aria-current={active ? "page" : undefined} className={`flex min-h-14 min-w-0 flex-col items-center justify-center gap-0.5 overflow-hidden border-t-2 px-0.5 py-1 text-[10px] leading-tight ${active ? "border-accent-gold text-foreground" : "border-transparent text-muted-foreground"}`}>
-          <Icon size={20} aria-hidden="true" />
-          <span className="w-full truncate text-center">{softLabel(item.label)}</span>
-        </Link>
-      </li>
-    );
-  });
-}
-
-function isActive(pathname, href) {
-  if (href === "/app") return pathname === "/app";
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function softLabel(label) {
-  const breaks = { Görevlerim: "Görev\u00ADlerim", Başvurularım: "Başvuru\u00ADlarım" };
-  return breaks[label] || label;
 }

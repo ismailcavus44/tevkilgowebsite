@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { Briefcase, CaretRight, ChatCircleText, ListBullets, MagnifyingGlass, Plus, Question, UserCheck } from "@phosphor-icons/react";
+import { ArrowRight, Briefcase, CalendarBlank, CalendarCheck, CaretRight, ChatCircleText, Hourglass, ListBullets, MagnifyingGlass, Megaphone, PaperPlaneTilt, Plus, Question, Star, UserCheck, UsersThree } from "@phosphor-icons/react";
 import { toast } from "sonner";
-import { SectionCards } from "@/components/section-cards";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Modlar } from "@/components/uygulama/Modlar";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { basvurulmamisIlanSayisi } from "@/lib/acik-ilanlar";
@@ -135,45 +134,56 @@ export function Pano() {
   }
 
   const adParca = (ad || "").trim().split(" ")[0];
+  const tarih = simdi ? new Date(simdi).toLocaleDateString("tr-TR", { day: "numeric", month: "long", weekday: "long", timeZone: "Europe/Istanbul" }) : "";
 
   return (
     <>
-    <div className="h-full overflow-y-auto bg-canvas md:hidden">
-      <div className="space-y-4 py-6">
+    <div className="-mx-4 h-full overflow-y-auto bg-canvas md:hidden">
+      <div className="space-y-6 px-4 pt-5 pb-28">
         <PuanSeridi liste={bekleyenPuan} />
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-[22px] font-semibold">{adParca ? `Merhaba, ${adParca}` : "Merhaba"}</p>
-          <div className="flex items-center gap-2">
-            <Link href="/app/destek" aria-label="Destek" className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-surface">
-              <ChatCircleText size={22} aria-hidden="true" />
-            </Link>
-            <Link href="/app/profil" aria-label="Profil" className="inline-flex size-10 items-center justify-center overflow-hidden rounded-full border border-line bg-surface">
-              {fotograf ? (
-                <img src={fotograf} alt="" className="size-10 object-cover" />
-              ) : (
-                <span className="text-[14px] font-semibold">{(ad || "?").slice(0, 1)}</span>
-              )}
-            </Link>
+        <header className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            {tarih ? <p className="text-[13px] font-medium text-muted-foreground">{tarih}</p> : null}
+            <h1 className="truncate text-[26px] leading-tight font-bold tracking-tight">{adParca ? `Merhaba, ${adParca}` : "Merhaba"}</h1>
           </div>
-        </div>
-        {hata ? <p role="alert" className="text-[14px] text-danger">{hata}</p> : null}
-        {modlarAktif ? <div id="modlar" className="scroll-mt-16"><Modlar gomulu /></div> : null}
-        <Link href="/app/ilanlar" className="flex items-center gap-3 rounded-card border border-line bg-surface px-4 py-3">
-          <span className="text-[28px] font-semibold text-navy">{yukleniyor ? "–" : acikSayi}</span>
-          <span>
-            <span className="block text-[15px] font-semibold">Bölgende açık ilan</span>
-            <span className="block text-[13px] text-muted">
-              {yukleniyor ? "–" : bugunSayi === 0 ? "Bugün için ilan yok" : `${bugunSayi} tanesi bugün`}
+          <Link href="/app/profil" aria-label="Profil" className="inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-navy text-white ring-2 ring-white shadow-sm">
+            {fotograf ? (
+              <img src={fotograf} alt="" className="size-12 object-cover" />
+            ) : (
+              <span className="text-base font-semibold">{(ad || "?").slice(0, 1)}</span>
+            )}
+          </Link>
+        </header>
+        {hata ? <p role="alert" className="rounded-xl border border-danger/20 bg-danger-soft px-4 py-3 text-[14px] text-danger">{hata}</p> : null}
+
+        <Link href="/app/ilanlar" className="relative block overflow-hidden rounded-2xl bg-navy p-5 text-white shadow-[0_12px_30px_-12px_rgb(30_58_95/0.6)] active:scale-[0.99]">
+          <span aria-hidden="true" className="pointer-events-none absolute -top-10 -right-10 size-40 rounded-full bg-white/[0.06]" />
+          <span aria-hidden="true" className="pointer-events-none absolute -right-4 -bottom-16 size-32 rounded-full bg-accent-gold/20" />
+          <span className="relative flex items-end justify-between gap-4">
+            <span>
+              <span className="block text-[13px] font-medium text-on-ink">Bölgende açık ilan</span>
+              <span className="mt-1 block text-[44px] leading-none font-bold tabular-nums">{yukleniyor ? "–" : acikSayi}</span>
+              <span className="mt-2 block text-[13px] text-on-ink">
+                {yukleniyor ? "\u00a0" : bugunSayi === 0 ? "Bugün için ilan yok" : `${bugunSayi} tanesi bugün`}
+              </span>
+            </span>
+            <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-white/15">
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </span>
           </span>
         </Link>
+
+        <div className="grid grid-cols-2 gap-3">
+          <Sayac href="/app/gorevlerim" ikon={Briefcase} etiket="Oluşturduğum" deger={yukleniyor ? "–" : gorevSayisi} />
+          <Sayac href="/app/basvurularim" ikon={UserCheck} etiket="Üstlendiğim" deger={yukleniyor ? "–" : ustlenilen} />
+        </div>
+
+        {modlarAktif ? <div id="modlar" className="scroll-mt-16"><Modlar kartlar /></div> : null}
+
         {yaklasan.length > 0 ? (
           <section>
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-[13px] font-semibold text-muted">Yaklaşan İlanlar</h2>
-              <Link href="/app/ilanlar" className="text-[13px] font-semibold text-navy">Tümünü gör</Link>
-            </div>
-            <ul className="overflow-hidden rounded-card border border-line bg-surface">
+            <BolumBasligi baslik="Yaklaşan İlanlar" href="/app/ilanlar" />
+            <ul className="overflow-hidden rounded-2xl border border-line bg-surface">
               {yaklasan.map((ilan) => (
                 <li key={ilan.id} className="border-b border-line last:border-b-0">
                   <IlanSatiri ilan={ilan} simdi={simdi} adliye={adliyeSayisi > 1 ? (adliyeAdlari[ilan.adliye] || ilan.adliye) : ""} mesgul={basvurulan === ilan.id} onBasvur={() => basvur(ilan)} />
@@ -182,23 +192,16 @@ export function Pano() {
             </ul>
           </section>
         ) : null}
-        <button type="button" onClick={() => window.dispatchEvent(new Event("ilan-ac"))} className="flex w-full items-center gap-3 rounded-card bg-navy/10 p-4 text-left">
-          <span className="min-w-0 flex-1">
-            <span className="block font-semibold text-navy">Yeni görev oluştur</span>
-            <span className="mt-1 block text-[13px] leading-relaxed">Adliye, tarih ve ücreti belirleyip meslektaşlarınıza iletin.</span>
-          </span>
-          <span className="inline-flex size-10 items-center justify-center rounded-control bg-surface text-navy">
-            <Plus size={22} weight="bold" aria-hidden="true" />
-          </span>
-        </button>
-        <Sayac href="/app/gorevlerim" ikon={Briefcase} etiket="Oluşturduğum görevler" deger={yukleniyor ? "–" : gorevSayisi} />
-        <Sayac href="/app/basvurularim" ikon={UserCheck} etiket="Üstlendiğim görevler" deger={yukleniyor ? "–" : ustlenilen} />
-        <h2 className="text-[13px] font-semibold text-muted">Hızlı erişim</h2>
-        <nav className="overflow-hidden rounded-card border border-line bg-surface">
-          {modlarAktif ? <Erisim href="/app/avukat-ara" ikon={MagnifyingGlass} baslik="Müsait meslektaşlar" alt="İlinizde modu açık avukatlar" /> : null}
-          <Erisim href="/app/ilanlar" ikon={ListBullets} baslik="İlanlar" alt="Bölgenizdeki açık ilanlar" />
-          <Erisim href="/app/sss" ikon={Question} baslik="Nasıl kullanılır?" alt="Sık sorulan sorular" son />
-        </nav>
+
+        <section>
+          <BolumBasligi baslik="Hızlı Erişim" />
+          <nav className="overflow-hidden rounded-2xl border border-line bg-surface">
+            {modlarAktif ? <Erisim href="/app/avukat-ara" ikon={MagnifyingGlass} baslik="Müsait Meslektaşlar" alt="İlinizde modu açık avukatlar" /> : null}
+            <Erisim href="/app/ilanlar" ikon={ListBullets} baslik="İlanlar" alt="Bölgenizdeki açık ilanlar" />
+            <Erisim href="/app/destek" ikon={ChatCircleText} baslik="Destek" alt="Soru, şikayet ve önerileriniz" />
+            <Erisim href="/app/sss" ikon={Question} baslik="Nasıl kullanılır?" alt="Sık sorulan sorular" son />
+          </nav>
+        </section>
       </div>
     </div>
     <MasaPano
@@ -213,12 +216,14 @@ export function Pano() {
       adliyeAdlari={adliyeAdlari}
       bekleyenPuan={bekleyenPuan}
       musait={musait}
+      acikSayi={acikSayi}
+      bugunSayi={bugunSayi}
     />
     </>
   );
 }
 
-function MasaPano({ ad, simdi, yukleniyor, hata, kayitlar, yeniBes, toplamaDk, profil, adliyeAdlari, bekleyenPuan, musait }) {
+function MasaPano({ ad, simdi, yukleniyor, hata, kayitlar, yeniBes, toplamaDk, profil, adliyeAdlari, bekleyenPuan, musait, acikSayi, bugunSayi }) {
   const { modlarAktif } = useOzellikler();
   const soyad = (ad || "").trim().split(/\s+/).filter(Boolean).slice(-1)[0];
   const saat = simdi ? Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", hour: "2-digit", hourCycle: "h23" }).format(new Date(simdi))) : 9;
@@ -241,100 +246,161 @@ function MasaPano({ ad, simdi, yukleniyor, hata, kayitlar, yeniBes, toplamaDk, p
   const secim = kayitlar.filter((gorev) => durumAnahtari(gorev, toplamaDk, simdi) === "secim");
   const bekleyen = kayitlar.filter((gorev) => gorev.rol === "basvuran" && gorev.basvuru_durumu === "bekliyor").length;
   const ort = profil?.puan_ortalama;
+  const puan = ort != null && Number(ort) > 0 ? Number(ort).toLocaleString("tr-TR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : "—";
+  const deger = (n) => (yukleniyor ? "–" : n);
+  const ilanAc = () => window.dispatchEvent(new Event("ilan-ac"));
 
   return (
-    <div className="hidden h-full overflow-y-auto bg-background md:block">
-      <div className="-mx-8">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-8">
-          <PuanSeridi liste={bekleyenPuan} />
-          <div>
-            <h1 className="text-2xl font-semibold">{soyad ? `${selam}, Av. ${soyad}` : selam}</h1>
-            {tarih ? <p className="text-sm text-muted-foreground">{tarih}</p> : null}
+    <div className="-mx-8 hidden h-full overflow-y-auto bg-background md:block">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-8 py-8">
+        <PuanSeridi liste={bekleyenPuan} />
+        <header className="flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0">
+            {tarih ? <p className="text-[13px] font-medium text-muted-foreground">{tarih}</p> : null}
+            <h1 className="text-[28px] leading-tight font-bold tracking-tight">{soyad ? `${selam}, Av. ${soyad}` : selam}</h1>
           </div>
-          {hata ? <p role="alert" className="text-sm text-destructive">{hata}</p> : null}
-          <SectionCards yukleniyor={yukleniyor} bugun={bugunGorev} secim={secim.length} bekleyen={bekleyen} puan={ort} />
-          {secim.length ? (
-            <div className="flex items-center justify-between gap-4 rounded-lg border border-border border-l-2 border-l-accent-gold bg-card px-4 py-3 shadow-none">
-              <p className="text-sm">{secim.length} ilanınızda başvurular toplandı, seçim yapabilirsiniz</p>
-              <Link href={`/app/gorevlerim/${secim[0].id}`} className="inline-flex h-8 shrink-0 items-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground">Seçim yap</Link>
-            </div>
-          ) : null}
-          <div className={modlarAktif ? "grid items-start gap-4 lg:grid-cols-3" : "grid items-start gap-4"}>
-            <div className={modlarAktif ? "flex flex-col gap-4 lg:col-span-2" : "flex flex-col gap-4"}>
-              <ListeKarti baslik="Ajandam">
-                {yukleniyor ? <p className="px-4 py-2.5 text-sm text-muted-foreground">Yükleniyor…</p> : null}
-                {!yukleniyor && !gruplar.length ? (
-                  <p className="px-4 py-2.5 text-sm text-muted-foreground">
-                    Yaklaşan göreviniz yok.{" "}
-                    <Link href="/app/ilanlar" className="text-foreground underline underline-offset-2">İlanlara göz at</Link>
-                  </p>
-                ) : null}
-                {gruplar.map((grup) => (
-                  <div key={grup.gun}>
-                    <p className="px-4 pt-3 pb-1 text-xs uppercase text-muted-foreground">{grup.baslik}</p>
-                    <ul className="divide-y divide-border">
-                      {grup.data.map((gorev) => (
-                        <li key={`${gorev.rol}-${gorev.id}`}>
-                          <Link href={gorev.rol === "basvuran" ? `/app/basvurularim/${gorev.id}` : `/app/gorevlerim/${gorev.id}`} className="flex cursor-pointer items-center gap-3 px-4 py-2.5 hover:bg-muted/50">
-                            <span className="w-12 shrink-0 text-sm tabular-nums">{saatYazi(gorev.tarih_saat, true)}</span>
-                            <span className="min-w-0 truncate text-sm font-medium">{adliyeAdlari[gorev.adliye] || gorev.adliye}</span>
-                            <span className="hidden min-w-0 truncate text-sm text-muted-foreground sm:inline">{kategoriAd(gorev.kategori)}</span>
-                            <span className="ml-auto shrink-0"><StatusBadge durum={durumAnahtari(gorev, toplamaDk, simdi)} /></span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </ListeKarti>
-              <ListeKarti baslik="Bölgendeki yeni ilanlar" href="/app/ilanlar">
-                {yukleniyor ? <p className="px-4 py-2.5 text-sm text-muted-foreground">Yükleniyor…</p> : null}
-                {!yukleniyor && !yeniBes.length ? <p className="px-4 py-2.5 text-sm text-muted-foreground">Bölgenizde açık ilan yok.</p> : null}
-                <ul className="divide-y divide-border">
-                  {yeniBes.map((ilan) => (
-                    <li key={ilan.id}>
-                      <Link href={`/app/ilanlar/${ilan.id}`} className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted/50">
-                        <span className="w-24 shrink-0 text-sm tabular-nums">{saatYazi(ilan.tarih_saat)}</span>
-                        <span className="min-w-0 truncate text-sm font-medium">{adliyeAdlari[ilan.adliye] || ilan.adliye}</span>
-                        <span className="hidden min-w-0 truncate text-sm text-muted-foreground sm:inline">{kategoriAd(ilan.kategori)}</span>
-                        <span className="ml-auto shrink-0 text-sm text-muted-foreground">{ilanSag(ilan, simdi)}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </ListeKarti>
-            </div>
-            {modlarAktif ? <div id="modlar" className="flex scroll-mt-20 flex-col gap-4">
-              <Modlar kartlar />
-              <ListeKarti baslik="Müsait meslektaşlar" href="/app/avukat-ara">
-                {yukleniyor ? <p className="px-4 py-2.5 text-sm text-muted-foreground">Yükleniyor…</p> : null}
-                {!yukleniyor && !musait.length ? <p className="px-4 py-2.5 text-sm text-muted-foreground">Şu an müsait meslektaş yok.</p> : null}
-                <ul className="divide-y divide-border">
-                  {musait.map((kisi) => (
-                    <li key={kisi.oturum_id || `${kisi.kullanici_id}-${kisi.adliye}`} className="flex items-center gap-3 px-4 py-2.5">
+          <Button type="button" className="h-10 gap-2 rounded-xl bg-navy px-4 font-semibold text-white shadow-[0_6px_16px_-6px_rgb(30_58_95/0.6)] hover:bg-ink" onClick={ilanAc}>
+            <Plus size={16} weight="bold" />
+            İlan Aç
+          </Button>
+        </header>
+        {hata ? <p role="alert" className="rounded-xl border border-danger/20 bg-danger-soft px-4 py-3 text-sm text-danger">{hata}</p> : null}
+
+        {secim.length ? (
+          <div className="flex items-center justify-between gap-4 rounded-xl border border-accent-gold/40 bg-[#fbf6e7] px-5 py-3.5">
+            <p className="flex items-center gap-2.5 text-sm font-medium">
+              <Hourglass size={18} weight="fill" className="text-accent-gold" aria-hidden="true" />
+              {secim.length} ilanınızda başvurular toplandı, seçim yapabilirsiniz
+            </p>
+            <Link href={`/app/gorevlerim/${secim[0].id}`} className="inline-flex h-9 shrink-0 items-center rounded-lg bg-navy px-4 text-sm font-semibold text-white hover:bg-ink">Seçim yap</Link>
+          </div>
+        ) : null}
+
+        <div className="grid grid-cols-3 gap-4 lg:grid-cols-5">
+          <Sayac vurgu href="/app/ilanlar" ikon={Megaphone} etiket={yukleniyor || bugunSayi === 0 ? "Bölgende açık ilan" : `Açık ilan · ${bugunSayi} bugün`} deger={deger(acikSayi)} />
+          <Sayac href="/app/gorevlerim?gun=bugun" ikon={CalendarCheck} etiket="Bugünkü görevler" deger={deger(bugunGorev)} />
+          <Sayac href="/app/gorevlerim?sekme=secim" ikon={Hourglass} etiket="Seçim bekleyen" deger={deger(secim.length)} />
+          <Sayac href="/app/basvurularim?sekme=bekliyor" ikon={PaperPlaneTilt} etiket="Bekleyen başvuru" deger={deger(bekleyen)} />
+          <Sayac href="/app/profil" ikon={Star} etiket="Puanınız" deger={yukleniyor ? "–" : puan} />
+        </div>
+
+        <div className={modlarAktif ? "grid items-start gap-4 lg:grid-cols-3" : "grid items-start gap-4"}>
+          <div className={modlarAktif ? "flex flex-col gap-4 lg:col-span-2" : "flex flex-col gap-4"}>
+            <ListeKarti baslik="Bölgendeki Yeni İlanlar" href="/app/ilanlar">
+              {yukleniyor ? <SatirIskelet /> : null}
+              {!yukleniyor && !yeniBes.length ? (
+                <BosKart ikon={Megaphone} baslik="Bölgenizde açık ilan yok" aciklama="Yeni ilan açıldığında burada listelenir.">
+                  <Button className="h-9 gap-1.5 bg-navy text-white hover:bg-ink" onClick={ilanAc}>
+                    <Plus size={14} weight="bold" />
+                    İlan Aç
+                  </Button>
+                </BosKart>
+              ) : null}
+              <ul className="divide-y divide-border">
+                {yeniBes.map((ilan) => (
+                  <li key={ilan.id}>
+                    <Link href={`/app/ilanlar/${ilan.id}`} className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted/50">
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-sm font-medium">{kisi.ad_soyad}</span>
-                        <span className="block truncate text-xs text-muted-foreground">{adliyeAdlari[kisi.adliye] || kisi.adliye}</span>
+                        <span className="block truncate text-sm font-medium">{adliyeAdlari[ilan.adliye] || ilan.adliye}</span>
+                        <span className="block truncate text-[13px] text-muted-foreground">{kategoriAd(ilan.kategori)} · {saatYazi(ilan.tarih_saat)}</span>
                       </span>
-                      <Badge variant="secondary">{kisi.tip === "gece" ? "Gece" : "Adliye"}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </ListeKarti>
-            </div> : null}
+                      <span className="shrink-0 text-right">
+                        <span className="block text-sm font-semibold tabular-nums">{new Intl.NumberFormat("tr-TR").format(Number(ilan.ucret) || 0)} ₺</span>
+                        <span className="block text-[12px] text-muted-foreground">{ilanSag(ilan, simdi)}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </ListeKarti>
+            <ListeKarti baslik="Ajandam" alt="Önümüzdeki 7 gün">
+              {yukleniyor ? <SatirIskelet /> : null}
+              {!yukleniyor && !gruplar.length ? (
+                <BosKart ikon={CalendarBlank} baslik="Yaklaşan göreviniz yok" aciklama="Üstlendiğiniz ve oluşturduğunuz görevler burada görünür.">
+                  <Button nativeButton={false} variant="outline" className="h-9 bg-white" render={<Link href="/app/ilanlar" />}>İlanlara göz at</Button>
+                </BosKart>
+              ) : null}
+              {gruplar.map((grup) => (
+                <div key={grup.gun}>
+                  <p className="bg-muted/40 px-5 py-1.5 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">{grup.baslik}</p>
+                  <ul className="divide-y divide-border">
+                    {grup.data.map((gorev) => (
+                      <li key={`${gorev.rol}-${gorev.id}`}>
+                        <Link href={gorev.rol === "basvuran" ? `/app/basvurularim/${gorev.id}` : `/app/gorevlerim/${gorev.id}`} className="flex items-center gap-4 px-5 py-3 transition-colors hover:bg-muted/50">
+                          <span className="w-14 shrink-0 rounded-md bg-navy/[0.07] py-1 text-center text-sm font-semibold text-navy tabular-nums">{saatYazi(gorev.tarih_saat, true)}</span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-sm font-medium">{adliyeAdlari[gorev.adliye] || gorev.adliye}</span>
+                            <span className="block truncate text-[13px] text-muted-foreground">{kategoriAd(gorev.kategori)}</span>
+                          </span>
+                          <StatusBadge durum={durumAnahtari(gorev, toplamaDk, simdi)} />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </ListeKarti>
           </div>
+          {modlarAktif ? <div id="modlar" className="flex scroll-mt-20 flex-col gap-4">
+            <Modlar kartlar />
+            <ListeKarti baslik="Müsait Meslektaşlar" href="/app/avukat-ara">
+              {yukleniyor ? <SatirIskelet /> : null}
+              {!yukleniyor && !musait.length ? (
+                <BosKart ikon={UsersThree} baslik="Şu an müsait meslektaş yok" aciklama="Modu açık avukatlar burada görünür." />
+              ) : null}
+              <ul className="divide-y divide-border">
+                {musait.map((kisi) => (
+                  <li key={kisi.oturum_id || `${kisi.kullanici_id}-${kisi.adliye}`} className="flex items-center gap-3 px-5 py-3">
+                    <span className="inline-flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-navy/10 text-[13px] font-semibold text-navy">
+                      {kisi.fotograf_url ? <img src={kisi.fotograf_url} alt="" className="size-9 object-cover" /> : (kisi.ad_soyad || "?").slice(0, 1)}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-medium">{kisi.ad_soyad}</span>
+                      <span className="block truncate text-xs text-muted-foreground">{adliyeAdlari[kisi.adliye] || kisi.adliye}</span>
+                    </span>
+                    <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${kisi.tip === "gece" ? "bg-navy text-white" : "bg-success-soft text-success"}`}>{kisi.tip === "gece" ? "Gece" : "Adliye"}</span>
+                  </li>
+                ))}
+              </ul>
+            </ListeKarti>
+          </div> : null}
         </div>
       </div>
     </div>
   );
 }
 
-function ListeKarti({ baslik, href, children }) {
+function SatirIskelet() {
   return (
-    <section className="overflow-hidden rounded-lg border border-border bg-card shadow-none">
-      <div className="flex items-center justify-between gap-3 border-b border-border p-4">
-        <h2 className="text-sm font-medium">{baslik}</h2>
-        {href ? <Link href={href} className="text-sm text-muted-foreground">Tümünü gör</Link> : null}
+    <div className="space-y-3 p-5" aria-busy="true">
+      <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+      <div className="h-4 w-1/2 animate-pulse rounded bg-muted" />
+    </div>
+  );
+}
+
+function BosKart({ ikon: Ikon, baslik, aciklama, children }) {
+  return (
+    <div className="flex flex-col items-center px-6 py-10 text-center">
+      <span className="inline-flex size-11 items-center justify-center rounded-full bg-navy/[0.07] text-navy">
+        <Ikon size={20} aria-hidden="true" />
+      </span>
+      <p className="mt-3 text-sm font-semibold">{baslik}</p>
+      {aciklama ? <p className="mt-1 max-w-xs text-[13px] text-muted-foreground">{aciklama}</p> : null}
+      {children ? <div className="mt-4">{children}</div> : null}
+    </div>
+  );
+}
+
+function ListeKarti({ baslik, alt, href, children }) {
+  return (
+    <section className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-4">
+        <div>
+          <h2 className="text-[15px] font-semibold">{baslik}</h2>
+          {alt ? <p className="text-xs text-muted-foreground">{alt}</p> : null}
+        </div>
+        {href ? <Link href={href} className="inline-flex items-center gap-1 text-[13px] font-semibold text-navy hover:underline">Tümünü gör<CaretRight size={12} weight="bold" /></Link> : null}
       </div>
       {children}
     </section>
@@ -357,8 +423,8 @@ function PuanSeridi({ liste }) {
   if (!liste?.length) return null;
   const id = liste[0].id || liste[0].task_id;
   return (
-    <div className="flex items-center justify-between gap-4 rounded-lg border border-border border-l-2 border-l-accent-gold bg-card px-4 py-3 shadow-none">
-      <p className="text-sm">{liste.length} görev değerlendirmenizi bekliyor</p>
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-accent-gold/40 bg-[#fbf6e7] px-4 py-3">
+      <p className="text-sm font-medium">{liste.length} görev değerlendirmenizi bekliyor</p>
       {id ? <Link href={`/app/gorevlerim/${id}`} className="inline-flex h-8 shrink-0 items-center rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground">Değerlendir</Link> : null}
     </div>
   );
@@ -399,28 +465,45 @@ function IlanSatiri({ ilan, simdi, adliye, mesgul, onBasvur }) {
   );
 }
 
-function Sayac({ href, ikon: Ikon, etiket, deger }) {
+function Sayac({ href, ikon: Ikon, etiket, deger, vurgu }) {
   return (
-    <Link href={href} className="flex items-center gap-3 rounded-card border border-line bg-surface p-4">
-      <Ikon size={22} aria-hidden="true" className="text-navy" />
-      <span className="min-w-0 flex-1">
-        <span className="block text-[13px] text-muted">{etiket}</span>
-        <span className="block text-[22px] font-semibold">{deger}</span>
+    <Link href={href} className={vurgu
+      ? "flex flex-col gap-3 rounded-2xl bg-navy p-4 text-white shadow-[0_10px_28px_-12px_rgb(30_58_95/0.6)] transition-colors hover:bg-ink"
+      : "flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-navy/20 hover:bg-muted/40 active:bg-muted"}>
+      <span className="flex items-center justify-between">
+        <span className={`inline-flex size-9 items-center justify-center rounded-full ${vurgu ? "bg-white/15 text-white" : "bg-navy/[0.07] text-navy"}`}>
+          <Ikon size={18} aria-hidden="true" />
+        </span>
+        <CaretRight size={16} aria-hidden="true" className={vurgu ? "text-on-ink" : "text-muted-foreground"} />
       </span>
-      <CaretRight size={18} aria-hidden="true" className="text-muted" />
+      <span>
+        <span className="block text-[26px] leading-none font-bold tabular-nums">{deger}</span>
+        <span className={`mt-1 block truncate text-[13px] ${vurgu ? "text-on-ink" : "text-muted-foreground"}`}>{etiket}</span>
+      </span>
     </Link>
+  );
+}
+
+function BolumBasligi({ baslik, href }) {
+  return (
+    <div className="mb-2.5 flex items-center justify-between px-1">
+      <h2 className="text-[17px] font-semibold">{baslik}</h2>
+      {href ? <Link href={href} className="text-[13px] font-semibold text-navy">Tümünü gör</Link> : null}
+    </div>
   );
 }
 
 function Erisim({ href, ikon: Ikon, baslik, alt, son }) {
   return (
-    <Link href={href} className={`flex items-center gap-3 px-4 py-3 ${son ? "" : "border-b border-line"}`}>
-      <Ikon size={22} aria-hidden="true" className="text-navy" />
+    <Link href={href} className={`flex items-center gap-3 px-4 py-3.5 active:bg-muted ${son ? "" : "border-b border-line"}`}>
+      <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-navy/[0.07] text-navy">
+        <Ikon size={18} aria-hidden="true" />
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block text-[15px] font-semibold">{baslik}</span>
-        <span className="block text-[13px] text-muted">{alt}</span>
+        <span className="block truncate text-[13px] text-muted-foreground">{alt}</span>
       </span>
-      <CaretRight size={18} aria-hidden="true" className="text-muted" />
+      <CaretRight size={16} aria-hidden="true" className="text-muted-foreground" />
     </Link>
   );
 }

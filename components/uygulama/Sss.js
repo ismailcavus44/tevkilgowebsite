@@ -44,7 +44,7 @@ export function SssEkrani() {
 
   return (
     <div className="h-full overflow-y-auto bg-canvas">
-      <PageHeader baslik="Sık sorulan sorular" />
+      <PageHeader baslik="Sık Sorulan Sorular" />
       <div className={`${kartSinifi} mb-8 space-y-4 p-4`}>
         <input
           value={arama}

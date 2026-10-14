@@ -107,7 +107,7 @@ function KayitIc({ rol, baslik, taban }) {
       { header: "Tarih ve saat", cell: ({ row }) => <span className="tabular-nums">{kisaTarihSaat(row.original.tarih_saat)}</span> },
       { header: "Adliye", cell: ({ row }) => adlar[row.original.adliye] || row.original.adliye },
       { header: "İş türü", cell: ({ row }) => kategoriAd(row.original.kategori) },
-      { header: "Ücret", meta: { className: "text-right tabular-nums" }, cell: ({ row }) => <span className="block text-right tabular-nums">{Number(row.original.ucret).toLocaleString("tr-TR")} TL</span> },
+      { header: "Ücret", meta: { className: "text-right tabular-nums" }, cell: ({ row }) => <span className="block text-right tabular-nums">{Number(row.original.ucret).toLocaleString("tr-TR")} ₺</span> },
     ];
     const orta = rol === "olusturan"
       ? [{ header: "Başvuru", meta: { className: "text-right tabular-nums" }, cell: ({ row }) => <span className="block text-right tabular-nums">{row.original.basvuru_sayisi || 0}/10</span> }]

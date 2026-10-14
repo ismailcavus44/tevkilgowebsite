@@ -262,9 +262,9 @@ export function Modlar({ gomulu = false, kartlar = false }) {
   if (kartlar) {
     return (
       <div className="space-y-3">
-        <section className="overflow-hidden rounded-lg border border-border bg-card shadow-none">
-          <div className="border-b border-border p-4">
-            <h2 className="text-sm font-medium">Modlarım</h2>
+        <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-none">
+          <div className="border-b border-border px-4 py-4 md:px-5">
+            <h2 className="text-[15px] font-semibold">Modlarım</h2>
           </div>
           {yukleniyor ? (
             <div className="divide-y divide-border">
@@ -299,6 +299,7 @@ export function Modlar({ gomulu = false, kartlar = false }) {
               />
             </div>
           )}
+          {!yukleniyor && bakiyeSatiri(durum) ? <p className="border-t border-border bg-muted/40 px-4 py-2.5 text-xs text-muted-foreground">{bakiyeSatiri(durum)}</p> : null}
         </section>
         {bekleyen && adliyeler.length > 1 && !onay ? (
           <section className="space-y-2 rounded-xl bg-card p-4 ring-1 ring-foreground/10">

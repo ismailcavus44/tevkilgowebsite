@@ -379,7 +379,7 @@ function gunAyrac(iso, bugun) {
 }
 
 function TurRozeti({ konu }) {
-  return <Badge variant="secondary">{ETIKET[konu] || konu}</Badge>;
+  return <Badge variant="outline">{ETIKET[konu] || konu}</Badge>;
 }
 
 function DurumRozeti({ durum }) {
