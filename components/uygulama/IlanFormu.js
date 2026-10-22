@@ -12,6 +12,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 import { enErkenSaat, istanbulAn, istanbulParcalari, ymdIstanbul } from "@/lib/tarih";
@@ -165,6 +166,7 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
     setHata("");
     setMesaj("");
     if (!dogrula()) return;
+    if (!duzenleId && !(await dogrulamaKapisi(router))) return;
     setYukleniyor(true);
     onYukleniyor?.(true);
     try {
@@ -195,7 +197,11 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
         onBitti?.();
       }
     } catch (error) {
-      setHata(hataMesaji(error));
+      console.error(error);
+      // 42501: tasks_insert_own kuralı reddetti; hesap onaylı değil veya askıda.
+      setHata(error?.code === "42501"
+        ? "Görev açmak için hesabınızın onaylanmış olması gerekir."
+        : hataMesaji(error));
     } finally {
       setYukleniyor(false);
       onYukleniyor?.(false);
