@@ -195,7 +195,7 @@ export function GorevDetay({ id }) {
   }, [toplaniyor, gorev?.created_at, dakika, id]);
 
   async function basvur() {
-    if (!(await dogrulamaKapisi(router))) return;
+    if (!(await dogrulamaKapisi())) return;
     calistir(async () => {
       const { error } = await createClient().rpc("gorev_basvur", { p_task_id: id });
       if (error) throw error;

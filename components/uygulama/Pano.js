@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Briefcase, CalendarBlank, CalendarCheck, CaretRight, ChatCircleText, Hourglass, ListBullets, MagnifyingGlass, Megaphone, PaperPlaneTilt, Plus, Question, Star, UserCheck, UsersThree } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,6 @@ import { useOzellikler } from "@/components/uygulama/Ozellikler";
 
 export function Pano() {
   useKategoriler();
-  const router = useRouter();
   const { modlarAktif } = useOzellikler();
   const [ad, setAd] = useState("");
   const [fotograf, setFotograf] = useState(null);
@@ -120,7 +118,7 @@ export function Pano() {
   }, [yukle]);
 
   async function basvur(gorev) {
-    if (!(await dogrulamaKapisi(router))) return;
+    if (!(await dogrulamaKapisi())) return;
     setBasvurulan(gorev.id);
     setHata("");
     try {

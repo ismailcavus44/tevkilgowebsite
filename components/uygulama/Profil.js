@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, CaretDown, Check, SignOut, Star, Trash, X } from "@phosphor-icons/react";
+import { Camera, CaretDown, CaretRight, Check, IdentificationCard, SignOut, Star, Trash, X } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { cn } from "cn";
 import { Button as OnayButonu } from "@/components/Button";
@@ -247,6 +247,28 @@ export function Profil() {
               </div>
             </div>
           </section>
+
+          {veri?.dogrulama_durumu && veri.dogrulama_durumu !== "onaylandi" ? (
+            <Link
+              href={`/app/kimlik?donus=${encodeURIComponent("/app/profil")}`}
+              className="flex items-center gap-4 rounded-xl border border-navy/15 bg-navy/5 p-5 transition-colors hover:bg-navy/10"
+            >
+              <IdentificationCard size={26} className="shrink-0 text-navy" aria-hidden="true" />
+              <span className="min-w-0 flex-1">
+                <span className="block font-semibold">
+                  {veri.dogrulama_durumu === "yuklendi" ? "Kimliğiniz inceleniyor" : "Profili doğrula"}
+                </span>
+                <span className="block text-sm text-muted-foreground">
+                  {veri.dogrulama_durumu === "yuklendi"
+                    ? "Onaylandığında görev açıp başvurabilirsiniz."
+                    : veri.dogrulama_durumu === "reddedildi"
+                      ? "Önceki kimlik kartınız onaylanmadı. Yeniden yükleyin."
+                      : "Görev açmak ve başvurmak için avukatlık kimlik kartınızı yükleyin."}
+                </span>
+              </span>
+              <CaretRight size={18} className="shrink-0 text-muted-foreground" aria-hidden="true" />
+            </Link>
+          ) : null}
 
           <Bolum id="bolge" baslik="Görev Tercihleri" aciklama="İlgilendiğiniz iş türleri ve çalıştığınız bölge">
             <div className="space-y-5 p-5">

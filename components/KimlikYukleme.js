@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { CaretRight, Check, IdentificationCard, X } from "@phosphor-icons/react";
 import { Button } from "@/components/Button";
 import { FormHatasi } from "@/components/FormHatasi";
+import { oturumKullanicisi } from "@/lib/oturum-kullanici";
 import { createClient } from "@/lib/supabase/client";
 
 const AYRINTI = [
@@ -75,10 +76,8 @@ export function KimlikYukleme({ durum, redNedeni, donus = "/app" }) {
     setUploading(true);
     try {
       const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) throw new Error("Oturum gerekli");
+      const user = await oturumKullanicisi(supabase);
+      if (!user) throw new Error("Oturumunuz yenilenemedi. Sayfayı yenileyip tekrar deneyin.");
       let bytes;
       try {
         bytes = await jpegeCevir(dosya);
@@ -90,7 +89,12 @@ export function KimlikYukleme({ durum, redNedeni, donus = "/app" }) {
         .from("kimlikler")
         .upload(path, bytes, { contentType: "image/jpeg" });
       if (uploadError) throw uploadError;
-      const { error: rpcError } = await supabase.rpc("kimlik_yuklendi");
+      let { error: rpcError } = await supabase.rpc("kimlik_yuklendi");
+      // Görsel yüklendi ama istek oturumsuz gittiyse oturumu yenileyip bir kez daha dene
+      if (rpcError?.message === "Oturum gerekli") {
+        await supabase.auth.refreshSession();
+        ({ error: rpcError } = await supabase.rpc("kimlik_yuklendi"));
+      }
       if (rpcError) throw rpcError;
       router.replace(`/app/bekliyor?donus=${encodeURIComponent(donus)}`);
       router.refresh();

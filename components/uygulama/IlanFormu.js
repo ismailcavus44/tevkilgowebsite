@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CalendarIcon, ChevronDownIcon } from "lucide-react";
+import { tr } from "react-day-picker/locale";
 import { cn } from "cn";
 import { FormHatasi } from "@/components/FormHatasi";
 import { kategoriAd, kategoriBilgisi, useKategoriler } from "@/components/uygulama/ortak";
@@ -14,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { oturumKullanicisi } from "@/lib/oturum-kullanici";
 import { createClient } from "@/lib/supabase/client";
 import { enErkenSaat, istanbulAn, istanbulParcalari, ymdIstanbul } from "@/lib/tarih";
 
@@ -166,13 +168,13 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
     setHata("");
     setMesaj("");
     if (!dogrula()) return;
-    if (!duzenleId && !(await dogrulamaKapisi(router))) return;
+    if (!duzenleId && !(await dogrulamaKapisi())) return;
     setYukleniyor(true);
     onYukleniyor?.(true);
     try {
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Oturum açmanız gerekli");
+      const user = await oturumKullanicisi(supabase);
+      if (!user) throw new Error("Oturumunuz yenilenemedi. Sayfayı yenileyip tekrar deneyin.");
       const kayit = {
         sehir: form.sehir,
         adliye: form.adliye,
@@ -380,6 +382,7 @@ function TarihSec({ deger, hata, bugun, onSec }) {
               requestAnimationFrame(() => tetik.current?.focus());
             }}
             disabled={(gun) => Boolean(bugun) && gunYmd(gun) < bugun}
+            locale={tr}
           />
         </PopoverContent>
       </Popover>

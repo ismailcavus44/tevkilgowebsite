@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { IlanFormu } from "@/components/uygulama/IlanFormu";
 import { BildirimSaglayici } from "@/components/uygulama/Bildirimler";
+import { DogrulamaDiyalogu } from "@/components/uygulama/DogrulamaDiyalogu";
 import { OzellikSaglayici } from "@/components/uygulama/Ozellikler";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { Button } from "@/components/ui/button";
@@ -89,6 +90,7 @@ export function AppShell({ children, sidebarAcik = true }) {
         <Dialog open={Boolean(bekleyen)} onOpenChange={(acik) => { if (!acik) setBekleyen(null); }}>
           {bekleyen ? <DegerlendirmeKapisi gorev={bekleyen} onKapat={() => setBekleyen(null)} /> : null}
         </Dialog>
+        <DogrulamaDiyalogu />
         <Toaster />
       </TooltipProvider>
     </BildirimSaglayici>
