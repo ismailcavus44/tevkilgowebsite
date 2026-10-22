@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Briefcase, CalendarBlank, CalendarCheck, CaretRight, ChatCircleText, Hourglass, ListBullets, MagnifyingGlass, Megaphone, PaperPlaneTilt, Plus, Question, Star, UserCheck, UsersThree } from "@phosphor-icons/react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Modlar } from "@/components/uygulama/Modlar";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { basvurulmamisIlanSayisi } from "@/lib/acik-ilanlar";
+import { dogrulamaUyari, dogrulananHesapMi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 import { bugunAraligi, gunBasligi, gunEkle, saatYazi, ymdIstanbul } from "@/lib/tarih";
@@ -16,6 +18,7 @@ import { useOzellikler } from "@/components/uygulama/Ozellikler";
 
 export function Pano() {
   useKategoriler();
+  const router = useRouter();
   const { modlarAktif } = useOzellikler();
   const [ad, setAd] = useState("");
   const [fotograf, setFotograf] = useState(null);
@@ -117,6 +120,8 @@ export function Pano() {
   }, [yukle]);
 
   async function basvur(gorev) {
+    if (!(await dogrulananHesapMi())) return dogrulamaUyari(router);
+
     setBasvurulan(gorev.id);
     setHata("");
     try {

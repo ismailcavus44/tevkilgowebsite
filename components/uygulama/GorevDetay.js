@@ -13,6 +13,7 @@ import { FormHatasi } from "@/components/FormHatasi";
 import { IlanFormu } from "@/components/uygulama/IlanFormu";
 import { Iskelet, kategoriAd, useKategoriler } from "@/components/uygulama/ortak";
 import { StatusBadge, durumAnahtari } from "@/components/uygulama/StatusBadge";
+import { dogrulamaUyari, dogrulananHesapMi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 import { saatYazi, tarihGun, tarihSaat } from "@/lib/tarih";
@@ -192,6 +193,15 @@ export function GorevDetay({ id }) {
       clearInterval(zaman);
     };
   }, [toplaniyor, gorev?.created_at, dakika, id]);
+
+  async function basvur() {
+    if (!(await dogrulananHesapMi())) return dogrulamaUyari(router);
+    calistir(async () => {
+      const { error } = await createClient().rpc("gorev_basvur", { p_task_id: id });
+      if (error) throw error;
+      toast.success("Başvurunuz iletildi");
+    });
+  }
 
   async function calistir(action) {
     setMesgul(true);
@@ -411,11 +421,7 @@ export function GorevDetay({ id }) {
             basvurdu ? (
               <Button type="button" variant="secondary" disabled={mesgul} onClick={() => setGeriOnay(true)}>Başvuruyu geri çek</Button>
             ) : (
-              <Button type="button" disabled={mesgul} onClick={() => calistir(async () => {
-                const { error } = await createClient().rpc("gorev_basvur", { p_task_id: id });
-                if (error) throw error;
-                toast.success("Başvurunuz iletildi");
-              })}>Başvur</Button>
+              <Button type="button" disabled={mesgul} onClick={() => basvur()}>Başvur</Button>
             )
           ) : null}
           {yenidenYayinlanabilir ? (

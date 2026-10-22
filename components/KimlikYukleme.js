@@ -13,7 +13,6 @@ import { createClient } from "@/lib/supabase/client";
 const AYRINTI = [
   ["Kartınız kimlere açık", "Sadece doğrulamayı yapan yetkili. Herkese kapalı bir depolama alanında tutulur, süreli bağlantıyla görüntülenir."],
   ["Ne kadar saklanır", "Kartınız, doğrulama onaylandığında veya reddedildiğinde kalıcı olarak silinir. Yalnızca doğrulamanın tarihi ve sonucu saklanır."],
-  ["Kartı nasıl kapatırım", "Fotoğrafı çekmeden önce ilgili alanları bir kâğıtla örtebilir veya fotoğrafı yüklemeden önce düzenleyebilirsiniz."],
 ];
 
 const KABUL = "image/jpeg,image/png,image/heic,image/heif,.jpg,.jpeg,.png,.heic,.heif";
@@ -45,13 +44,12 @@ export function KimlikYukleme({ durum, redNedeni }) {
   const router = useRouter();
   const dialogRef = useRef(null);
   const [kartBanaAit, setKartBanaAit] = useState(false);
-  const [alanlariKapattim, setAlanlariKapattim] = useState(false);
   const [dosya, setDosya] = useState(null);
   const [onizleme, setOnizleme] = useState("");
   const [onizlemeHatasi, setOnizlemeHatasi] = useState(false);
   const [hata, setHata] = useState("");
   const [uploading, setUploading] = useState(false);
-  const beyanTamam = kartBanaAit && alanlariKapattim;
+  const beyanTamam = kartBanaAit;
 
   useEffect(() => () => onizleme && URL.revokeObjectURL(onizleme), [onizleme]);
 
@@ -124,10 +122,7 @@ export function KimlikYukleme({ durum, redNedeni }) {
         </div>
       </div>
 
-      <div className="space-y-1.5 text-[14px] leading-relaxed">
-        <p>Görünmesi gerekenler: ad soyad, fotoğraf, baro, sicil numarası</p>
-        <p>Kapatmanız gerekenler: T.C. kimlik numarası, kan grubu</p>
-      </div>
+      <p className="text-[14px] leading-relaxed">Görünmesi gerekenler: ad soyad, fotoğraf, baro, sicil numarası</p>
 
       <button
         type="button"
@@ -140,7 +135,6 @@ export function KimlikYukleme({ durum, redNedeni }) {
 
       <div className="space-y-3">
         <BeyanKutusu isaretli={kartBanaAit} onChange={setKartBanaAit} metin="Yüklediğim kimlik kartı bana aittir ve bilgileri günceldir." />
-        <BeyanKutusu isaretli={alanlariKapattim} onChange={setAlanlariKapattim} metin="T.C. kimlik numarası ve kan grubu alanlarını kapattım." />
       </div>
 
       <div>
