@@ -1,18 +1,24 @@
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import { KimlikYukleme } from "@/components/KimlikYukleme";
-import { durumKapisi } from "@/lib/oturum";
+import { guvenliDonus } from "@/lib/donus";
+import { oturumDurumu } from "@/lib/oturum";
 
 export const metadata = { title: "Doğrulama" };
 
-async function KimlikKapisi() {
-  const { profil } = await durumKapisi("/app/kimlik");
-  return <KimlikYukleme durum={profil?.dogrulama_durumu} redNedeni={profil?.red_nedeni} />;
+async function KimlikKapisi({ searchParams }) {
+  const donus = guvenliDonus((await searchParams).donus);
+  const { rota, profil } = await oturumDurumu();
+  if (rota === "/app") redirect(donus);
+  if (rota === "/app/bekliyor") redirect(`/app/bekliyor?donus=${encodeURIComponent(donus)}`);
+  if (rota !== "/app/kimlik") redirect(rota);
+  return <KimlikYukleme durum={profil?.dogrulama_durumu} redNedeni={profil?.red_nedeni} donus={donus} />;
 }
 
-export default function KimlikPage() {
+export default function KimlikPage({ searchParams }) {
   return (
     <Suspense>
-      <KimlikKapisi />
+      <KimlikKapisi searchParams={searchParams} />
     </Suspense>
   );
 }

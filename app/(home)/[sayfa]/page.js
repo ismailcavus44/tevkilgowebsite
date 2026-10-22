@@ -4,13 +4,11 @@ import { Bolum, BolumBasligi, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHero, WebUyeOl } from "@/components/HomeHero";
 import { IlKarti, TumIllerLinki } from "@/components/IlKarti";
-import { PlayBadge } from "@/components/PlayBadge";
 import { ilIcerik, ilYolu, yakinIller } from "@/lib/il-icerik";
 import { ilVerisi } from "@/lib/iller";
 import { ek } from "@/lib/turkce";
 
 const SITE = "https://www.tevkilgo.org";
-const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ismailcavus.TevkilGO";
 const EK = "-tevkil";
 
 const ikonlar = {
@@ -83,7 +81,6 @@ function sema({ kod, icerik, adliyeler }) {
         url: SITE,
         logo: `${SITE}/icon.png`,
         email: "destek@tevkilgo.org",
-        sameAs: [PLAY_URL],
       },
       {
         "@type": "WebSite",
@@ -280,7 +277,6 @@ export default async function IlTevkilSayfasi({ params }) {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <PlayBadge height={56} />
             <WebUyeOl />
           </div>
         </section>

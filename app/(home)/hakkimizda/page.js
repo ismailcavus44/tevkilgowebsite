@@ -2,7 +2,6 @@ import { Buildings, Coins, IdentificationCard, LockKey, Star, UsersThree, X, Che
 import { Bolum, BolumBasligi, IkonHalka, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { WebUyeOl } from "@/components/HomeHero";
-import { PlayBadge } from "@/components/PlayBadge";
 import { SayfaHero } from "@/components/SayfaHero";
 import { genelSayilar } from "@/lib/iller";
 
@@ -148,7 +147,6 @@ export default async function HakkimizdaPage() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <PlayBadge height={56} />
             <WebUyeOl />
           </div>
         </section>

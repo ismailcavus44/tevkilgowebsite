@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { HomeHeader } from "@/components/HomeHeader";
 import { PhoneFrame } from "@/components/PhoneFrame";
-import { PlayBadge } from "@/components/PlayBadge";
 import { IlanDetayEkrani } from "@/components/screens/IlanDetayEkrani";
 import { IlanlarEkrani } from "@/components/screens/IlanlarEkrani";
 
@@ -32,7 +31,6 @@ export function HomeHero({ ust, baslik, metin, alt, ekran = {} }) {
             </h1>
             <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/[0.72] lg:text-[20px]">{metin}</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
-              <PlayBadge height={56} />
               <WebUyeOl />
             </div>
             <p className="mt-14 text-[14px] text-white/60">{alt}</p>

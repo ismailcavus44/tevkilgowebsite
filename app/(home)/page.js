@@ -20,12 +20,10 @@ import { Bolum, BolumBasligi, IkonHalka, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHero, WebUyeOl } from "@/components/HomeHero";
 import { IlKarti, TumIllerLinki } from "@/components/IlKarti";
-import { PlayBadge } from "@/components/PlayBadge";
 import { ilIcerik, ilYolu } from "@/lib/il-icerik";
 import { genelSayilar } from "@/lib/iller";
 
 const SITE = "https://www.tevkilgo.org";
-const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ismailcavus.TevkilGO";
 const BASLIK = "Tevkil Uygulaması · Avukatlar Arası Tevkil | TevkilGO";
 const aciklama = (sayi) =>
   `Duruşmana gidemiyorsan tevkil ilanı aç; ${sayi.adliye} adliyede baro kimliğiyle doğrulanmış avukatlar başvursun. Avukatlar arası ücretsiz tevkil uygulaması.`;
@@ -214,7 +212,6 @@ const semaHazirla = (sayi, sorular) => ({
       url: SITE,
       logo: `${SITE}/icon.png`,
       email: "destek@tevkilgo.org",
-      sameAs: [PLAY_URL],
     },
     {
       "@type": "WebSite",
@@ -240,9 +237,8 @@ const semaHazirla = (sayi, sorular) => ({
       name: "TevkilGO",
       description: "Avukatlar arası tevkil uygulaması. Tevkil ilanı açılır, aynı adliyedeki doğrulanmış avukatlar başvurur.",
       applicationCategory: "BusinessApplication",
-      operatingSystem: "Android, Web",
+      operatingSystem: "Web",
       url: SITE,
-      installUrl: PLAY_URL,
       inLanguage: "tr-TR",
       audience: { "@type": "ProfessionalAudience", audienceType: "Avukatlar" },
       offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
@@ -442,12 +438,10 @@ export default async function HomePage() {
               Tevkil ilanını şimdi aç
             </h2>
             <p className="mt-3 max-w-[30rem] text-[16px] leading-relaxed text-white/70">
-              Bir sonraki duruşma çakışmasında tevkil uygulamasını indir, ilanını aç; adliyedeki doğrulanmış meslektaşın
-              gitsin. Üyelik ücretsiz.
+              Bir sonraki duruşma çakışmasında ücretsiz üye ol, ilanını aç; adliyedeki doğrulanmış meslektaşın gitsin.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <PlayBadge height={56} />
             <WebUyeOl />
           </div>
         </section>

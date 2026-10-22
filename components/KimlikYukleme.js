@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CaretRight, Check, IdentificationCard, X } from "@phosphor-icons/react";
 import { Button } from "@/components/Button";
-import { CikisButonu } from "@/components/CikisButonu";
 import { FormHatasi } from "@/components/FormHatasi";
 import { createClient } from "@/lib/supabase/client";
 
@@ -40,7 +39,7 @@ async function jpegeCevir(dosya) {
   }
 }
 
-export function KimlikYukleme({ durum, redNedeni }) {
+export function KimlikYukleme({ durum, redNedeni, donus = "/app" }) {
   const router = useRouter();
   const dialogRef = useRef(null);
   const [kartBanaAit, setKartBanaAit] = useState(false);
@@ -93,7 +92,7 @@ export function KimlikYukleme({ durum, redNedeni }) {
       if (uploadError) throw uploadError;
       const { error: rpcError } = await supabase.rpc("kimlik_yuklendi");
       if (rpcError) throw rpcError;
-      router.replace("/app/bekliyor");
+      router.replace(`/app/bekliyor?donus=${encodeURIComponent(donus)}`);
       router.refresh();
     } catch (error) {
       setHata(error.message || "Kimlik yüklenemedi");
@@ -178,7 +177,9 @@ export function KimlikYukleme({ durum, redNedeni }) {
       <Button type="button" className="w-full" onClick={yukle} disabled={!beyanTamam || !dosya || uploading}>
         {uploading ? "Yükleniyor…" : "Kimlik Kartını Yükle"}
       </Button>
-      <CikisButonu className="inline-flex min-h-11 w-full items-center justify-center rounded-control border border-line bg-surface px-4 text-[15px] font-semibold hover:bg-canvas" />
+      <Link href={donus} className="inline-flex min-h-11 w-full items-center justify-center rounded-control border border-line bg-surface px-4 text-[15px] font-semibold hover:bg-canvas">
+        Uygulamaya dön
+      </Link>
       <Link href="/app/sss" className="block text-center text-[15px] font-medium text-navy hover:underline">
         Sık Sorulan Sorular
       </Link>

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Modlar } from "@/components/uygulama/Modlar";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { basvurulmamisIlanSayisi } from "@/lib/acik-ilanlar";
-import { dogrulamaUyari, dogrulananHesapMi } from "@/lib/dogrulama-kontrol";
+import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 import { bugunAraligi, gunBasligi, gunEkle, saatYazi, ymdIstanbul } from "@/lib/tarih";
@@ -120,8 +120,7 @@ export function Pano() {
   }, [yukle]);
 
   async function basvur(gorev) {
-    if (!(await dogrulananHesapMi())) return dogrulamaUyari(router);
-
+    if (!(await dogrulamaKapisi(router))) return;
     setBasvurulan(gorev.id);
     setHata("");
     try {

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PlayBadge } from "@/components/PlayBadge";
 
 const kurumsal = [
   { href: "/illere-gore-tevkil", label: "İllere Göre Tevkil" },
@@ -55,7 +54,12 @@ export function SiteFooter() {
           </div>
           <div className="flex flex-col items-start gap-3">
             <p className="text-base font-bold">Uygulama</p>
-            <PlayBadge height={40} />
+            <Link href="/uye-ol" className="text-[15px] leading-snug text-muted hover:text-ink">
+              Ücretsiz üye ol
+            </Link>
+            <Link href="/giris" className="text-[15px] leading-snug text-muted hover:text-ink">
+              Giriş yap
+            </Link>
           </div>
         </div>
         <p className="mt-12 border-t border-line pt-6 text-[15px] text-muted">

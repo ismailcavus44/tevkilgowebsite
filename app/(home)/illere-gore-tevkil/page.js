@@ -3,7 +3,6 @@ import { Plus } from "@phosphor-icons/react/ssr";
 import { Bolum, BolumBasligi, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHero, WebUyeOl } from "@/components/HomeHero";
-import { PlayBadge } from "@/components/PlayBadge";
 import { ilIcerik, ilYolu, yayindakiIller } from "@/lib/il-icerik";
 import { ilAdliyeSayilari } from "@/lib/iller";
 
@@ -154,7 +153,6 @@ export default async function IllereGoreTevkil() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <PlayBadge height={56} />
             <WebUyeOl />
           </div>
         </section>

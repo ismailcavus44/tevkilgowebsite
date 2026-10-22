@@ -13,7 +13,7 @@ import { FormHatasi } from "@/components/FormHatasi";
 import { IlanFormu } from "@/components/uygulama/IlanFormu";
 import { Iskelet, kategoriAd, useKategoriler } from "@/components/uygulama/ortak";
 import { StatusBadge, durumAnahtari } from "@/components/uygulama/StatusBadge";
-import { dogrulamaUyari, dogrulananHesapMi } from "@/lib/dogrulama-kontrol";
+import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 import { saatYazi, tarihGun, tarihSaat } from "@/lib/tarih";
@@ -195,7 +195,7 @@ export function GorevDetay({ id }) {
   }, [toplaniyor, gorev?.created_at, dakika, id]);
 
   async function basvur() {
-    if (!(await dogrulananHesapMi())) return dogrulamaUyari(router);
+    if (!(await dogrulamaKapisi(router))) return;
     calistir(async () => {
       const { error } = await createClient().rpc("gorev_basvur", { p_task_id: id });
       if (error) throw error;
