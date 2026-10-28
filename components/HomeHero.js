@@ -29,7 +29,7 @@ export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
                 <h1 className="text-[42px] font-extrabold leading-[1.04] tracking-[-0.025em] text-white lg:text-[72px]">
                   {anahtar}
                 </h1>
-                <p className="mt-6 max-w-[24ch] text-[24px] font-bold leading-[1.2] tracking-[-0.015em] text-white lg:text-[32px]">
+                <p className="mt-5 max-w-[30ch] text-[19px] font-semibold leading-snug text-white lg:text-[22px]">
                   {baslik}
                 </p>
               </>

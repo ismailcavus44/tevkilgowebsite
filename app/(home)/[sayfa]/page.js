@@ -294,7 +294,9 @@ function CagriBandi({ baslik, metin }) {
   );
 }
 
-// İl sayfası iki düzende üretilir. İçeriği zenginleştirilmiş il (ozet alanı olan) cevap, tanım, ücret,
+// İl sayfası iki düzende üretilir. Zengin düzende başlık dağılımı Konseptofis ana sayfasını izler: H1 tam hedef
+// kelime, il adı yalnızca tam ifade gereken H2'lerde (nedir, ücret, adliyeler, SSS), diğer H2'ler "Tevkil" ile başlar.
+// İçeriği zenginleştirilmiş il (ozet alanı olan) cevap, tanım, ücret,
 // yetki belgesi ve adliye rehberi bölümleriyle; diğerleri kısa düzenle. İller sırayla yeni düzene geçer.
 function IlTevkilSayfasi({ bulunan }) {
   const { kod, icerik, veri } = bulunan;
@@ -311,7 +313,7 @@ function IlTevkilSayfasi({ bulunan }) {
 
   const durumlar = (
     <Bolum>
-      <BolumBasligi title={zengin ? `${ek(ad, "de")} tevkil gerektiren işler` : `${ek(ad, "de")} tevkil`}>
+      <BolumBasligi title={zengin ? "Tevkil gerektiren işler" : `${ek(ad, "de")} tevkil`}>
         <BagliMetin>{icerik.giris}</BagliMetin>
       </BolumBasligi>
       <Kartlar ogeler={icerik.durumlar} />
@@ -320,7 +322,7 @@ function IlTevkilSayfasi({ bulunan }) {
 
   const adimlar = (
     <Bolum>
-      <BolumBasligi title={zengin ? `${ek(ad, "de")} üç adımda tevkil` : "Üç adımda tevkil"}>
+      <BolumBasligi title={zengin ? "Tevkil ilanı nasıl açılır?" : "Üç adımda tevkil"}>
         {icerik.adimMetni}
       </BolumBasligi>
       <ol className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
@@ -343,7 +345,7 @@ function IlTevkilSayfasi({ bulunan }) {
 
   const adliyeBolumu = (
     <Bolum id="adliyeler">
-      <BolumBasligi title={`${ek(ad, "deki")} adliyeler`}>
+      <BolumBasligi title={zengin ? `${ek(ad, "de")} tevkil verilen adliyeler` : `${ek(ad, "deki")} adliyeler`}>
         <BagliMetin>{icerik.adliyeMetni}</BagliMetin>
       </BolumBasligi>
       {icerik.rehber && <Kartlar ogeler={icerik.rehber} sutun="md:grid-cols-2" />}
@@ -365,7 +367,7 @@ function IlTevkilSayfasi({ bulunan }) {
 
   const sss = (
     <Bolum id="sss">
-      <BolumBasligi title={`${ad} tevkil hakkında sorular`}>
+      <BolumBasligi title={zengin ? `${ad} tevkil hakkında sık sorulan sorular` : `${ad} tevkil hakkında sorular`}>
         {icerik.sssMetni} Cevabını bulamadığın soru için{" "}
         <a href="mailto:destek@tevkilgo.org" className="font-semibold text-ink underline underline-offset-4">
           destek@tevkilgo.org
@@ -422,7 +424,7 @@ function IlTevkilSayfasi({ bulunan }) {
       {zengin ? (
         <>
           <Bolum>
-            <BolumBasligi title={`${ek(ad, "de")} tevkil nasıl verilir?`}>
+            <BolumBasligi title="Tevkil nasıl verilir?">
               <BagliMetin>{icerik.ozet}</BagliMetin>
             </BolumBasligi>
             <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
@@ -447,7 +449,7 @@ function IlTevkilSayfasi({ bulunan }) {
           </Bolum>
 
           <Bolum id="ucret">
-            <BolumBasligi title={`${ek(ad, "de")} tevkil ücreti`}>
+            <BolumBasligi title={`${ad} tevkil ücreti`}>
               <BagliMetin>{icerik.ucret.metin}</BagliMetin>
             </BolumBasligi>
             <Kartlar ogeler={icerik.ucret.maddeler} sutun="md:grid-cols-2" />
@@ -465,7 +467,7 @@ function IlTevkilSayfasi({ bulunan }) {
           <CagriBandi baslik={icerik.cagri.baslik} metin={icerik.cagri.metin} />
 
           <Bolum>
-            <BolumBasligi title={`${ek(ad, "de")} kimler tevkil verir, kimler tevkil alır?`}>
+            <BolumBasligi title="Tevkil kimler için uygun?">
               {icerik.kimlerMetni}
             </BolumBasligi>
             <Kartlar ogeler={icerik.kimler} sutun="md:grid-cols-2" />
