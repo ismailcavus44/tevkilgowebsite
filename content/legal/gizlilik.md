@@ -1,14 +1,13 @@
 # Gizlilik Politikası
 
-Son güncelleme: 11.10.2026
+Son güncelleme: 28.10.2026
 
 Bu politika, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi (birlikte "TevkilGO" veya "Platform") üzerinden hangi kişisel verilerin toplandığını, nasıl kullanıldığını, kimlerle paylaşıldığını, ne kadar süre saklandığını ve nasıl silinebileceğini açıklar.
 
 ## 1. Veri sorumlusu ve iletişim
 
-TevkilGO, İsmail Çavuş tarafından işletilmektedir. Google Play'de geliştirici olarak AltaySOFT adı görünür.
+Google Play'de geliştirici olarak AltaySOFT adı görünür.
 
-Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274, C2 Blok, D: 47, 06510 Çankaya/Ankara
 E-posta: destek@tevkilgo.org
 
 Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebilirsiniz. 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki ayrıntılı bilgilendirme için [KVKK Aydınlatma Metni](/kvkk) sayfasına bakabilirsiniz.

@@ -1,12 +1,12 @@
 # Kullanım Koşulları
 
-Son güncelleme: 13 Ekim 2026
+Son güncelleme: 28 Ekim 2026
 
 Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesinin ("Platform") kullanımına ilişkin şartları düzenler. Platforma üye olarak bu koşulları kabul etmiş sayılırsınız.
 
 ## 1. Taraflar ve tanımlar
 
-**İşletici:** Platformu işleten İsmail Çavuş ("TevkilGO").
+**İşletici:** Platformu işleten TevkilGO.
 **Kullanıcı:** Platforma üye olan avukat.
 **İlan Sahibi:** Tevkil talebiyle ilan açan Kullanıcı.
 **Başvuran:** Bir ilana başvuran Kullanıcı.

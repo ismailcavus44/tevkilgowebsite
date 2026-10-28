@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { ilIcerik } from "@/lib/il-icerik";
+import { yazi } from "@/lib/blog";
+import { blogGorseli } from "@/lib/blog-gorsel";
 
 export const alt = "TevkilGO, avukatlar arası tevkil uygulaması";
 export const size = { width: 1200, height: 630 };
@@ -16,6 +18,11 @@ export default async function Image({ params }) {
   const icerik = ilIcerik[sayfa.replace(/-tevkil$/, "")];
   const ikon = await readFile(join(process.cwd(), "public/icon.png"));
   const ikonSrc = `data:image/png;base64,${ikon.toString("base64")}`;
+
+  if (!icerik) {
+    const y = await yazi(sayfa);
+    if (y) return blogGorseli(y);
+  }
 
   return new ImageResponse(
     (

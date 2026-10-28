@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, ChatCircleText, EnvelopeSimple, MapPin } from "@phosphor-icons/react/ssr";
+import { ArrowRight, ChatCircleText, EnvelopeSimple } from "@phosphor-icons/react/ssr";
 import { Bolum, BolumBasligi, IkonHalka, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { SayfaHero } from "@/components/SayfaHero";
 
 const EPOSTA = "destek@tevkilgo.org";
-const ADRES = "Mustafa Kemal Mah. Dumlupınar Blv. No: 274, C2 Blok, D: 47, 06510 Çankaya/Ankara";
 
 export const metadata = {
   title: "İletişim",
@@ -30,7 +29,7 @@ export default function IletisimPage() {
 
       <Bolum>
         <BolumBasligi title="Bize ulaş" />
-        <ul className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
+        <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:mt-12">
           <li className={`${kart} flex flex-col p-6`}>
             <IkonHalka icon={EnvelopeSimple} />
             <h3 className="mt-5 text-[16px] font-semibold">E-posta</h3>
@@ -57,12 +56,6 @@ export default function IletisimPage() {
               Giriş yap
               <ArrowRight size={15} weight="bold" />
             </Link>
-          </li>
-          <li className={`${kart} flex flex-col p-6`}>
-            <IkonHalka icon={MapPin} />
-            <h3 className="mt-5 text-[16px] font-semibold">Adres</h3>
-            <address className="mt-2 flex-1 text-[14px] not-italic leading-relaxed text-muted">{ADRES}</address>
-            <p className="mt-5 text-[14px] text-muted">İşleten: İsmail Çavuş</p>
           </li>
         </ul>
       </Bolum>

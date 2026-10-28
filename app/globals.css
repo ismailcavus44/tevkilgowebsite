@@ -376,3 +376,169 @@ textarea.control {
     min-height: 44px;
   }
 }
+/*
+  Blog yazı gövdesi. Panel editöründen gelen HTML sınıfsızdır; bloklar data-type ile seçilir.
+  Okuma genişliği ~70 karakter, gövde 17px.
+*/
+.blog-govde {
+  max-width: 44rem;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+.blog-govde > * + * { margin-top: 1.15em; }
+.blog-govde h2 {
+  margin-top: 2.2em;
+  font-size: 26px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.blog-govde h3 { margin-top: 1.8em; font-size: 20px; font-weight: 650; line-height: 1.35; }
+.blog-govde h4 { margin-top: 1.5em; font-size: 17px; font-weight: 700; }
+.blog-govde h2 + *, .blog-govde h3 + *, .blog-govde h4 + * { margin-top: 0.6em; }
+.blog-govde > :first-child { margin-top: 0; }
+.blog-govde a { color: var(--navy); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.blog-govde a:hover { text-decoration-thickness: 2px; }
+.blog-govde strong, .blog-govde b { font-weight: 700; }
+.blog-govde ul, .blog-govde ol { padding-left: 1.4em; }
+.blog-govde ul { list-style: disc; }
+.blog-govde ol { list-style: decimal; }
+.blog-govde li { padding-left: 0.2em; }
+.blog-govde li + li { margin-top: 0.4em; }
+.blog-govde li > p { margin: 0; }
+.blog-govde li::marker { color: #5b6b80; }
+
+.blog-govde .tablo {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+.blog-govde table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.55; }
+.blog-govde th, .blog-govde td { border-bottom: 1px solid var(--line); padding: 12px 14px; text-align: left; vertical-align: top; }
+.blog-govde th { background: var(--canvas); font-weight: 650; white-space: nowrap; }
+.blog-govde tr:last-child td { border-bottom: 0; }
+.blog-govde th p, .blog-govde td p { margin: 0; }
+
+/* CTA kutusu */
+.blog-govde [data-type="cta-block"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block: 2em;
+  border-radius: var(--radius-card);
+  background: var(--ink);
+  padding: 22px 24px;
+}
+.blog-govde [data-type="cta-block"] > span { flex: 1 1 18rem; color: #fff; font-size: 16px; font-weight: 650; line-height: 1.5; }
+.blog-govde [data-type="cta-block"] > a {
+  display: inline-flex;
+  height: 44px;
+  align-items: center;
+  border-radius: var(--radius-control);
+  background: #fff;
+  padding: 0 18px;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Bilgi kutusu */
+.blog-govde [data-type="info-box"] {
+  display: flex;
+  gap: 14px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  background: #fbf7e9;
+  padding: 16px 18px;
+}
+.blog-govde [data-type="info-box"] > span {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+}
+.blog-govde [data-type="info-box"] > p { margin: 0; font-size: 16px; line-height: 1.65; }
+
+/* Kanun maddesi */
+.blog-govde [data-type="law-article"] {
+  border-left: 3px solid var(--navy);
+  border-radius: 0 var(--radius-card) var(--radius-card) 0;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  padding: 18px 20px;
+}
+.blog-govde [data-type="law-article"] cite {
+  display: block;
+  margin-bottom: 8px;
+  color: #5b6b80;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.blog-govde [data-type="law-article"] p { margin: 0; font-size: 16px; line-height: 1.7; white-space: pre-line; }
+
+/* Yargıtay kararı */
+.blog-govde [data-type="court-decision"] {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  padding: 20px 22px;
+}
+.blog-govde [data-type="court-decision"] > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+.blog-govde [data-type="court-decision"] > div > div:first-child { font-size: 15px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; }
+.blog-govde [data-type="court-decision"] > div > div:last-child { color: #5b6b80; font-size: 14px; font-variant-numeric: tabular-nums; }
+.blog-govde [data-type="court-decision"] > p { margin: 0; font-size: 16px; line-height: 1.7; white-space: pre-line; }
+.blog-govde [data-type="court-decision"] > span { display: none; }
+
+/* Evrak indirme */
+.blog-govde [data-type="download-button"] { display: flex; justify-content: center; margin-block: 1.8em; }
+.blog-govde [data-type="download-button"] a {
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-control);
+  background: var(--navy);
+  padding: 0 22px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.blog-govde [data-type="download-button"] a::after { content: "↓"; font-size: 17px; }
+
+/* Dipnotlar */
+.blog-govde .dipnot-isaret { margin-left: 1px; font-size: 0.7em; line-height: 0; }
+.blog-govde .dipnot-isaret a { font-weight: 700; text-decoration: none; }
+.blog-govde .dipnotlar { margin-top: 3em; border-top: 1px solid var(--line); padding-top: 1.2em; }
+.blog-govde .dipnotlar h2 { margin-top: 0; font-size: 17px; }
+.blog-govde .dipnotlar ol { margin-top: 0.8em; color: #5b6b80; font-size: 14px; line-height: 1.6; }
+.blog-govde .dipnotlar li { scroll-margin-top: 5.5rem; }
+.blog-govde .dipnot-don { margin-left: 4px; font-weight: 400; text-decoration: none; }
+.blog-govde li:target, .blog-govde sup:target { background: #fbf7e9; }
+.blog-govde h2, .blog-govde h3 { scroll-margin-top: 5.5rem; }

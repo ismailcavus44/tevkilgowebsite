@@ -4,6 +4,8 @@ import { Bolum, BolumBasligi, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHero, WebUyeOl } from "@/components/HomeHero";
 import { IlKarti, TumIllerLinki } from "@/components/IlKarti";
+import { YaziSayfasi } from "@/components/blog/YaziSayfasi";
+import { govdeHazirla, ilgiliYazilar, KATEGORILER, yazi, yazilar } from "@/lib/blog";
 import { ilIcerik, ilYolu, yakinIller } from "@/lib/il-icerik";
 import { ilVerisi } from "@/lib/iller";
 import { ek } from "@/lib/turkce";
@@ -25,8 +27,12 @@ const ikonlar = {
 // taşıyacağından anında geçiş doğrulaması bu sayfada kapatılır.
 export const instant = false;
 
-export function generateStaticParams() {
-  return Object.keys(ilIcerik).map((kod) => ({ sayfa: `${kod}${EK}` }));
+// Kök adresler iki türlü sayfaya ait: il tevkil sayfaları (<il>-tevkil) ve blog yazıları (<slug>).
+// İl sayfası önceliklidir; panel <il>-tevkil biçiminde blog adresine izin vermez.
+export async function generateStaticParams() {
+  const iller = Object.keys(ilIcerik).map((kod) => ({ sayfa: `${kod}${EK}` }));
+  const bloglar = (await yazilar()).map((y) => ({ sayfa: y.slug }));
+  return [...iller, ...bloglar];
 }
 
 // Sayfanın ili, metinleri ve veritabanı verisi. {adliye} yer tutucuları teyitli adliye sayısıyla doldurulur.
@@ -41,9 +47,36 @@ async function ilHazirla(sayfa) {
   return { kod, icerik, veri };
 }
 
+function yaziMetadata(y) {
+  const baslik = y.meta_baslik || `${y.baslik} | TevkilGO`;
+  const aciklama = y.meta_aciklama || y.ozet;
+  return {
+    title: { absolute: baslik },
+    description: aciklama,
+    alternates: { canonical: `/${y.slug}` },
+    authors: [{ name: "TevkilGO", url: "https://www.tevkilgo.org" }],
+    openGraph: {
+      type: "article",
+      siteName: "TevkilGO",
+      locale: "tr_TR",
+      url: `/${y.slug}`,
+      title: baslik,
+      description: aciklama,
+      publishedTime: y.yayin_tarihi,
+      modifiedTime: y.guncelleme_tarihi,
+      section: KATEGORILER[y.kategori] || "Rehber",
+    },
+    twitter: { card: "summary_large_image", title: baslik, description: aciklama },
+  };
+}
+
 export async function generateMetadata({ params }) {
-  const bulunan = await ilHazirla((await params).sayfa);
-  if (!bulunan) return {};
+  const { sayfa } = await params;
+  const bulunan = await ilHazirla(sayfa);
+  if (!bulunan) {
+    const y = await yazi(sayfa);
+    return y ? yaziMetadata(y) : {};
+  }
 
   const { kod, icerik } = bulunan;
   const baslik = `${icerik.ad} Tevkil | TevkilGO`;
@@ -151,9 +184,17 @@ function sema({ kod, icerik, adliyeler }) {
   };
 }
 
-export default async function IlTevkilSayfasi({ params }) {
-  const bulunan = await ilHazirla((await params).sayfa);
-  if (!bulunan) notFound();
+export default async function KokSayfa({ params }) {
+  const { sayfa } = await params;
+  const bulunan = await ilHazirla(sayfa);
+  if (bulunan) return <IlTevkilSayfasi bulunan={bulunan} />;
+
+  const y = await yazi(sayfa);
+  if (!y) notFound();
+  return <YaziSayfasi yazi={y} govde={govdeHazirla(y.icerik)} ilgili={await ilgiliYazilar(y.slug, y.kategori)} />;
+}
+
+function IlTevkilSayfasi({ bulunan }) {
 
   const { kod, icerik, veri } = bulunan;
 

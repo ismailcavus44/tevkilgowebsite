@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { yayindakiIller } from "@/lib/il-icerik";
 
 const kurumsal = [
   { href: "/illere-gore-tevkil", label: "İllere Göre Tevkil" },
+  { href: "/blog", label: "Blog" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/iletisim", label: "İletişim" },
 ];
@@ -17,7 +19,7 @@ const yasal = [
 export function HomeFooter() {
   return (
     <footer className="mx-auto mt-12 w-full max-w-5xl px-5 pb-12">
-      <div className="grid gap-10 border-b border-line pb-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+      <div className="grid gap-10 border-b border-line pb-10 sm:grid-cols-2 lg:grid-cols-[2fr_1.6fr_1fr_1fr_1fr]">
         <div>
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/icon.png" alt="" width={30} height={30} className="rounded-lg" />
@@ -27,6 +29,16 @@ export function HomeFooter() {
             Avukatlar arası tevkil uygulaması. Duruşma ve adliye işleri için doğrulanmış meslektaşlarla buluşma yeri.
           </p>
         </div>
+        <nav aria-label="İllere göre tevkil" className="flex flex-col items-start gap-2.5">
+          <p className="text-[14px] font-semibold">Tevkil</p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+            {yayindakiIller().map((il) => (
+              <Link key={il.yol} href={il.yol} className="text-[14px] text-muted hover:text-ink">
+                {il.ad} tevkil
+              </Link>
+            ))}
+          </div>
+        </nav>
         <nav aria-label="Kurumsal" className="flex flex-col items-start gap-2.5">
           <p className="text-[14px] font-semibold">Kurumsal</p>
           {kurumsal.map((link) => (

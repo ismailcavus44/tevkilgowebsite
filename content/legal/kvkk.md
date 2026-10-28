@@ -1,13 +1,12 @@
 # KVKK Aydınlatma Metni
 
-Son güncelleme: 11.10.2026
+Son güncelleme: 28.10.2026
 
 Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun ("Kanun") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi ("Platform") kullanıcılarını bilgilendirmek amacıyla hazırlanmıştır.
 
 ## 1. Veri sorumlusu
 
-İsmail Çavuş
-Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274, C2 Blok, D: 47, 06510 Çankaya/Ankara
+TevkilGO
 E-posta: destek@tevkilgo.org
 
 ## 2. İşlenen kişisel veri kategorileri
@@ -81,7 +80,6 @@ haklarına sahipsiniz.
 Taleplerinizi Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ uyarınca;
 
 - Platformda kayıtlı e-posta adresinizden destek@tevkilgo.org adresine,
-- Kayıtlı elektronik posta (KEP), güvenli elektronik imza veya mobil imza ile,
-- Islak imzalı dilekçe ile Mustafa Kemal Mah. Dumlupınar Blv. No: 274, C2 Blok, D: 47, 06510 Çankaya/Ankara adresine
+- Güvenli elektronik imza veya mobil imza ile destek@tevkilgo.org adresine
 
 iletebilirsiniz. Başvurunuz en geç 30 gün içinde ücretsiz olarak sonuçlandırılır. İşlemin ayrıca bir maliyet gerektirmesi halinde Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilir.
