@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { Bank, Buildings, Factory, LockKey, Mountains, Path, Plus, Scales } from "@phosphor-icons/react/ssr";
+import { Bank, Buildings, Check, Factory, LockKey, Mountains, Path, Plus, Scales, X } from "@phosphor-icons/react/ssr";
+import { BagliMetin, duzMetin } from "@/components/BagliMetin";
 import { Bolum, BolumBasligi, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHero, WebUyeOl } from "@/components/HomeHero";
@@ -35,7 +36,8 @@ export async function generateStaticParams() {
   return [...iller, ...bloglar];
 }
 
-// Sayfanın ili, metinleri ve veritabanı verisi. {adliye} yer tutucuları teyitli adliye sayısıyla doldurulur.
+// Sayfanın ili, metinleri ve veritabanı verisi. {adliye} ve {baro} yer tutucuları teyitli adliye ve baro
+// sayısıyla doldurulur.
 async function ilHazirla(sayfa) {
   if (!sayfa.endsWith(EK)) return null;
   const kod = sayfa.slice(0, -EK.length);
@@ -43,7 +45,11 @@ async function ilHazirla(sayfa) {
 
   const veri = await ilVerisi(kod);
   if (!veri) return null;
-  const icerik = JSON.parse(JSON.stringify(ilIcerik[kod]).replaceAll("{adliye}", String(veri.adliyeler.length)));
+  const icerik = JSON.parse(
+    JSON.stringify(ilIcerik[kod])
+      .replaceAll("{adliye}", String(veri.adliyeler.length))
+      .replaceAll("{baro}", String(veri.barolar.length)),
+  );
   return { kod, icerik, veri };
 }
 
@@ -79,7 +85,7 @@ export async function generateMetadata({ params }) {
   }
 
   const { kod, icerik } = bulunan;
-  const baslik = `${icerik.ad} Tevkil | TevkilGO`;
+  const baslik = icerik.metaBaslik || `${icerik.ad} Tevkil | TevkilGO`;
   return {
     title: { absolute: baslik },
     description: icerik.aciklama,
@@ -177,7 +183,7 @@ function sema({ kod, icerik, adliyeler }) {
         mainEntity: icerik.sorular.map((soru) => ({
           "@type": "Question",
           name: soru.q,
-          acceptedAnswer: { "@type": "Answer", text: soru.a },
+          acceptedAnswer: { "@type": "Answer", text: duzMetin(soru.a) },
         })),
       },
     ],
@@ -194,11 +200,107 @@ export default async function KokSayfa({ params }) {
   return <YaziSayfasi yazi={y} govde={govdeHazirla(y.icerik)} ilgili={await ilgiliYazilar(y.slug, y.kategori)} />;
 }
 
-function IlTevkilSayfasi({ bulunan }) {
+const tarihBicimi = new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
+// Başlık altında üçlü ya da dörtlü kart dizisi; durumlar, kimler, ücret ve yetki belgesi bölümlerinde ortak
+function Kartlar({ ogeler, sutun = "md:grid-cols-3" }) {
+  return (
+    <ul className={`mt-10 grid gap-4 lg:mt-12 ${sutun}`}>
+      {ogeler.map((oge) => {
+        const Ikon = oge.ikon && (ikonlar[oge.ikon] || Buildings);
+        return (
+          <li key={oge.title} className={`${kart} p-6`}>
+            {Ikon && (
+              <span className="mb-5 inline-flex size-10 items-center justify-center rounded-full border border-line">
+                <Ikon size={18} weight="bold" color="#1E3A5F" />
+              </span>
+            )}
+            <h3 className="text-[16px] font-semibold">{oge.title}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">
+              <BagliMetin>{oge.text}</BagliMetin>
+            </p>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function Hucre({ hucre }) {
+  const [metin, tur] = hucre;
+  return (
+    <span className="inline-flex items-start gap-2">
+      {tur === "iyi" && <Check size={15} weight="bold" className="mt-0.5 shrink-0 text-emerald-700" />}
+      {tur === "kotu" && <X size={15} weight="bold" className="mt-0.5 shrink-0 text-rose-700" />}
+      {metin}
+    </span>
+  );
+}
+
+function Karsilastirma({ tablo }) {
+  return (
+    <div className={`${kart} mt-8 overflow-x-auto`}>
+      <table className="w-full min-w-[560px] text-left text-[14px]">
+        <thead>
+          <tr className="border-b border-line">
+            <th scope="col" className="px-5 py-4 font-semibold text-muted">
+              <span className="sr-only">Ölçüt</span>
+            </th>
+            {tablo.sutunlar.map((sutun, i) => (
+              <th
+                key={sutun}
+                scope="col"
+                className={`px-5 py-4 font-semibold ${i === tablo.sutunlar.length - 1 ? "text-ink" : "text-muted"}`}
+              >
+                {sutun}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {tablo.satirlar.map((satir) => (
+            <tr key={satir.etiket} className="border-b border-line last:border-b-0">
+              <th scope="row" className="px-5 py-4 font-semibold">
+                {satir.etiket}
+              </th>
+              {satir.hucreler.map((hucre, i) => (
+                <td key={i} className="px-5 py-4 leading-relaxed text-muted">
+                  <Hucre hucre={hucre} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function CagriBandi({ baslik, metin }) {
+  return (
+    <div className="p-2 md:px-4">
+      <section className="flex flex-col gap-8 rounded-[32px] bg-ink px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-14">
+        <div>
+          <h2 className="text-[26px] font-extrabold leading-tight tracking-[-0.015em] text-white lg:text-[30px]">
+            {baslik}
+          </h2>
+          <p className="mt-3 max-w-[28rem] text-[16px] leading-relaxed text-white/70">{metin}</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <WebUyeOl />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// İl sayfası iki düzende üretilir. İçeriği zenginleştirilmiş il (ozet alanı olan) cevap, tanım, ücret,
+// yetki belgesi ve adliye rehberi bölümleriyle; diğerleri kısa düzenle. İller sırayla yeni düzene geçer.
+function IlTevkilSayfasi({ bulunan }) {
   const { kod, icerik, veri } = bulunan;
 
   const { ad } = icerik;
+  const zengin = Boolean(icerik.ozet);
   const merkez = new Set(icerik.merkez);
   // Merkez adliyeler başa alınır, ilçe adliyeleri veritabanındaki sırayı korur
   const adliyeler = [
@@ -206,6 +308,98 @@ function IlTevkilSayfasi({ bulunan }) {
     ...veri.adliyeler.filter((a) => !merkez.has(a.kod)),
   ];
   const barolar = veri.barolar.map((b) => b.ad);
+
+  const durumlar = (
+    <Bolum>
+      <BolumBasligi title={zengin ? `${ek(ad, "de")} tevkil gerektiren işler` : `${ek(ad, "de")} tevkil`}>
+        <BagliMetin>{icerik.giris}</BagliMetin>
+      </BolumBasligi>
+      <Kartlar ogeler={icerik.durumlar} />
+    </Bolum>
+  );
+
+  const adimlar = (
+    <Bolum>
+      <BolumBasligi title={zengin ? `${ek(ad, "de")} üç adımda tevkil` : "Üç adımda tevkil"}>
+        {icerik.adimMetni}
+      </BolumBasligi>
+      <ol className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
+        {[
+          ["Adliyeyi seç, ilanı aç", "İş türünü, tarihi, saati ve ücreti yaz."],
+          ["Başvuruları karşılaştır", "Başvurular kısa bir süre toplanır, hepsi aynı anda listelenir."],
+          ["Meslektaşına tevkil ver", "Seçtiğin avukatla iletişim bilgileriniz karşılıklı açılır."],
+        ].map(([title, text], i) => (
+          <li key={title} className={`${kart} p-6`}>
+            <span className="inline-flex size-8 items-center justify-center rounded-full bg-canvas text-[13px] font-bold text-muted">
+              {i + 1}
+            </span>
+            <h3 className="mt-5 text-[16px] font-semibold">{title}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">{text}</p>
+          </li>
+        ))}
+      </ol>
+    </Bolum>
+  );
+
+  const adliyeBolumu = (
+    <Bolum id="adliyeler">
+      <BolumBasligi title={`${ek(ad, "deki")} adliyeler`}>
+        <BagliMetin>{icerik.adliyeMetni}</BagliMetin>
+      </BolumBasligi>
+      {icerik.rehber && <Kartlar ogeler={icerik.rehber} sutun="md:grid-cols-2" />}
+      <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
+        {adliyeler.map((adliye) => (
+          <li key={adliye.kod} className={`${kart} flex items-center justify-between gap-3 px-5 py-4`}>
+            <span className="flex items-center gap-3">
+              <Buildings size={17} weight="bold" color="#1E3A5F" className="shrink-0" />
+              <span className="text-[15px] font-semibold">{adliye.ad}</span>
+            </span>
+            {merkez.has(adliye.kod) && (
+              <span className="rounded-md bg-canvas px-2 py-0.5 text-[12px] font-semibold text-muted">Merkez</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </Bolum>
+  );
+
+  const sss = (
+    <Bolum id="sss">
+      <BolumBasligi title={`${ad} tevkil hakkında sorular`}>
+        {icerik.sssMetni} Cevabını bulamadığın soru için{" "}
+        <a href="mailto:destek@tevkilgo.org" className="font-semibold text-ink underline underline-offset-4">
+          destek@tevkilgo.org
+        </a>
+      </BolumBasligi>
+      <div className={`${kart} mt-10 px-6 lg:mt-12`}>
+        {icerik.sorular.map((soru) => (
+          <details key={soru.q} className="group border-b border-line last:border-b-0">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[15px] font-semibold [&::-webkit-details-marker]:hidden">
+              {soru.q}
+              <Plus
+                size={16}
+                weight="bold"
+                className="shrink-0 text-muted group-open:rotate-45 motion-safe:transition-transform"
+              />
+            </summary>
+            <p className="-mt-1 pb-5 text-[14px] leading-relaxed text-muted">
+              <BagliMetin>{soru.a}</BagliMetin>
+            </p>
+          </details>
+        ))}
+      </div>
+      <p className="mt-6 text-[13px] text-muted">
+        Son güncelleme: <time dateTime={icerik.guncelleme}>{tarihBicimi.format(new Date(icerik.guncelleme))}</time>
+      </p>
+    </Bolum>
+  );
+
+  const sonCagri = (
+    <CagriBandi
+      baslik={`${ek(ad, "de")} tevkil ilanını şimdi aç`}
+      metin={`${ek(ad, "deki")} bir sonraki duruşma çakışmasında tevkil ilanını aç. ${ek(ad, "de")} çalışıyorsan tevkil ilanları sana bildirim olarak gelsin.`}
+    />
+  );
 
   return (
     <main id="icerik" className="overflow-x-clip">
@@ -224,104 +418,72 @@ function IlTevkilSayfasi({ bulunan }) {
         ekran={{ il: ad, ...icerik.ekran }}
       />
 
-      <Bolum>
-        <BolumBasligi title={`${ek(ad, "de")} tevkil`}>{icerik.giris}</BolumBasligi>
-        <ul className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
-          {icerik.durumlar.map((durum) => {
-            const Ikon = ikonlar[durum.ikon] || Buildings;
-            return (
-              <li key={durum.title} className={`${kart} p-6`}>
-                <span className="inline-flex size-10 items-center justify-center rounded-full border border-line">
-                  <Ikon size={18} weight="bold" color="#1E3A5F" />
-                </span>
-                <h3 className="mt-5 text-[16px] font-semibold">{durum.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-muted">{durum.text}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </Bolum>
+      {zengin ? (
+        <>
+          <Bolum>
+            <BolumBasligi title={`${ek(ad, "de")} tevkil nasıl verilir?`}>
+              <BagliMetin>{icerik.ozet}</BagliMetin>
+            </BolumBasligi>
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
+              {icerik.ozetKartlari.map((oge) => (
+                <li key={oge.etiket} className={`${kart} p-6`}>
+                  <p className="text-[30px] font-extrabold leading-none tracking-[-0.02em]">{oge.deger}</p>
+                  <h3 className="mt-2 text-[15px] font-semibold">{oge.etiket}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-muted">{oge.text}</p>
+                </li>
+              ))}
+            </ul>
+          </Bolum>
 
-      <Bolum>
-        <BolumBasligi title={`${ek(ad, "deki")} adliyeler`}>
-          {icerik.adliyeMetni}
-        </BolumBasligi>
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3">
-          {adliyeler.map((adliye) => (
-            <li key={adliye.kod} className={`${kart} flex items-center justify-between gap-3 px-5 py-4`}>
-              <span className="flex items-center gap-3">
-                <Buildings size={17} weight="bold" color="#1E3A5F" className="shrink-0" />
-                <span className="text-[15px] font-semibold">{adliye.ad}</span>
-              </span>
-              {merkez.has(adliye.kod) && (
-                <span className="rounded-md bg-canvas px-2 py-0.5 text-[12px] font-semibold text-muted">Merkez</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </Bolum>
+          <Bolum>
+            <BolumBasligi title={`${ad} tevkil nedir?`}>
+              <BagliMetin>{icerik.nedir.metin}</BagliMetin>
+            </BolumBasligi>
+            <Kartlar ogeler={icerik.nedir.kartlar} />
+            <h3 className="mt-14 text-[22px] font-semibold tracking-[-0.01em]">{icerik.karsilastirma.baslik}</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted">{icerik.karsilastirma.metin}</p>
+            <Karsilastirma tablo={icerik.karsilastirma} />
+          </Bolum>
 
-      <Bolum>
-        <BolumBasligi title="Üç adımda tevkil">
-          {icerik.adimMetni}
-        </BolumBasligi>
-        <ol className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
-          {[
-            ["Adliyeyi seç, ilanı aç", "İş türünü, tarihi, saati ve ücreti yaz."],
-            ["Başvuruları karşılaştır", "Başvurular kısa bir süre toplanır, hepsi aynı anda listelenir."],
-            ["Meslektaşına tevkil ver", "Seçtiğin avukatla iletişim bilgileriniz karşılıklı açılır."],
-          ].map(([title, text], i) => (
-            <li key={title} className={`${kart} p-6`}>
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-canvas text-[13px] font-bold text-muted">
-                {i + 1}
-              </span>
-              <h3 className="mt-5 text-[16px] font-semibold">{title}</h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-muted">{text}</p>
-            </li>
-          ))}
-        </ol>
-      </Bolum>
+          <Bolum id="ucret">
+            <BolumBasligi title={`${ek(ad, "de")} tevkil ücreti`}>
+              <BagliMetin>{icerik.ucret.metin}</BagliMetin>
+            </BolumBasligi>
+            <Kartlar ogeler={icerik.ucret.maddeler} sutun="md:grid-cols-2" />
+          </Bolum>
 
-      <Bolum id="sss">
-        <BolumBasligi title={`${ad} tevkil hakkında sorular`}>
-          {icerik.sssMetni} Cevabını bulamadığın soru için{" "}
-          <a href="mailto:destek@tevkilgo.org" className="font-semibold text-ink underline underline-offset-4">
-            destek@tevkilgo.org
-          </a>
-        </BolumBasligi>
-        <div className={`${kart} mt-10 px-6 lg:mt-12`}>
-          {icerik.sorular.map((soru) => (
-            <details key={soru.q} className="group border-b border-line last:border-b-0">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[15px] font-semibold [&::-webkit-details-marker]:hidden">
-                {soru.q}
-                <Plus
-                  size={16}
-                  weight="bold"
-                  className="shrink-0 text-muted group-open:rotate-45 motion-safe:transition-transform"
-                />
-              </summary>
-              <p className="-mt-1 pb-5 text-[14px] leading-relaxed text-muted">{soru.a}</p>
-            </details>
-          ))}
-        </div>
-      </Bolum>
+          {adimlar}
 
-      <div className="p-2 md:px-4">
-        <section className="flex flex-col gap-8 rounded-[32px] bg-ink px-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:px-14 lg:py-14">
-          <div>
-            <h2 className="text-[26px] font-extrabold leading-tight tracking-[-0.015em] text-white lg:text-[30px]">
-              {ek(ad, "de")} tevkil ilanını şimdi aç
-            </h2>
-            <p className="mt-3 max-w-[28rem] text-[16px] leading-relaxed text-white/70">
-              {ek(ad, "deki")} bir sonraki duruşma çakışmasında tevkil ilanını aç. {ek(ad, "de")} çalışıyorsan tevkil
-              ilanları sana bildirim olarak gelsin.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <WebUyeOl />
-          </div>
-        </section>
-      </div>
+          <Bolum id="yetki-belgesi">
+            <BolumBasligi title={icerik.yasal.baslik}>
+              <BagliMetin>{icerik.yasal.metin}</BagliMetin>
+            </BolumBasligi>
+            <Kartlar ogeler={icerik.yasal.maddeler} sutun="md:grid-cols-2" />
+          </Bolum>
+
+          <CagriBandi baslik={icerik.cagri.baslik} metin={icerik.cagri.metin} />
+
+          <Bolum>
+            <BolumBasligi title={`${ek(ad, "de")} kimler tevkil verir, kimler tevkil alır?`}>
+              {icerik.kimlerMetni}
+            </BolumBasligi>
+            <Kartlar ogeler={icerik.kimler} sutun="md:grid-cols-2" />
+          </Bolum>
+
+          {durumlar}
+          {adliyeBolumu}
+          {sss}
+          {sonCagri}
+        </>
+      ) : (
+        <>
+          {durumlar}
+          {adliyeBolumu}
+          {adimlar}
+          {sss}
+          {sonCagri}
+        </>
+      )}
 
       <Bolum>
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
