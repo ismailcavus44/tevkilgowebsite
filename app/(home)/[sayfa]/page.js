@@ -412,6 +412,7 @@ function IlTevkilSayfasi({ bulunan }) {
 
       <HomeHero
         ust={`${ad} tevkil`}
+        anahtar={zengin ? `${ad} Tevkil` : undefined}
         baslik={icerik.baslik}
         metin={icerik.metin}
         alt={[...barolar, `${adliyeler.length} adliye`].join(" · ")}

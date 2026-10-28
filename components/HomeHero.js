@@ -16,19 +16,31 @@ export function WebUyeOl() {
 }
 
 // Ana sayfa ve il sayfalarının ortak hero'su. ekran: telefon önizlemelerinde gösterilecek il ve adliyeler.
-export function HomeHero({ ust, baslik, metin, alt, ekran = {} }) {
+// anahtar verilirse H1 yalnızca hedef kelimedir ("Ankara Tevkil"), baslik altında giriş cümlesi olarak durur.
+export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
   return (
     <div className="p-2 md:p-4">
       <section className="relative flex min-h-[88vh] flex-col overflow-hidden rounded-[32px] bg-ink">
         <HomeHeader />
         <div className="grid flex-1 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <div className="flex flex-col justify-center px-6 pb-10 pt-10 lg:px-14 lg:pb-16 lg:pt-6">
-            <h1>
-              <span className="mb-5 block text-[14px] font-bold uppercase tracking-[0.08em] text-white/60">{ust}</span>
-              <span className="block max-w-[16ch] text-[38px] font-extrabold leading-[1.04] tracking-[-0.025em] text-white lg:text-[64px]">
-                {baslik}
-              </span>
-            </h1>
+            {anahtar ? (
+              <>
+                <h1 className="text-[42px] font-extrabold leading-[1.04] tracking-[-0.025em] text-white lg:text-[72px]">
+                  {anahtar}
+                </h1>
+                <p className="mt-6 max-w-[24ch] text-[24px] font-bold leading-[1.2] tracking-[-0.015em] text-white lg:text-[32px]">
+                  {baslik}
+                </p>
+              </>
+            ) : (
+              <h1>
+                <span className="mb-5 block text-[14px] font-bold uppercase tracking-[0.08em] text-white/60">{ust}</span>
+                <span className="block max-w-[16ch] text-[38px] font-extrabold leading-[1.04] tracking-[-0.025em] text-white lg:text-[64px]">
+                  {baslik}
+                </span>
+              </h1>
+            )}
             <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/[0.72] lg:text-[20px]">{metin}</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <WebUyeOl />
