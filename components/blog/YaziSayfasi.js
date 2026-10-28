@@ -113,26 +113,20 @@ function Icindekiler({ basliklar }) {
 function BirBakista({ baslik, maddeler }) {
   return (
     <section
-      aria-labelledby="bir-bakista"
-      className="mb-10 max-w-[44rem] overflow-hidden rounded-[20px] border border-line bg-surface shadow-[0_1px_2px_rgb(18_38_63/0.05)]"
+      aria-label={baslik || "Bir bakışta"}
+      className="mb-10 max-w-[44rem] rounded-[16px] border border-line bg-canvas px-4 py-3.5 sm:px-5"
     >
-      <div className="flex items-center gap-3 border-b border-line bg-canvas px-5 py-4 sm:px-6">
-        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-ink text-gold" aria-hidden="true">
-          <Lightning size={16} weight="fill" />
+      <p className="flex items-center gap-2 text-[13px] font-semibold text-ink">
+        <span className="grid size-6 shrink-0 place-items-center rounded-md bg-ink text-gold" aria-hidden="true">
+          <Lightning size={12} weight="fill" />
         </span>
-        <h2 id="bir-bakista" className="text-[18px] font-semibold leading-snug tracking-[-0.01em]">
-          {baslik || "Bir bakışta"}
-        </h2>
-      </div>
-      <dl className="divide-y divide-line px-5 sm:px-6">
+        {baslik || "Bir bakışta"}
+      </p>
+      <dl className="mt-2.5 space-y-1.5 text-[14px] leading-snug">
         {maddeler.map((m, i) => (
-          <div key={i} className="py-3.5 text-[15px] leading-relaxed sm:grid sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] sm:gap-6">
-            {m.etiket ? (
-              <dt className="font-semibold text-ink">{m.etiket}</dt>
-            ) : (
-              <dt className="sr-only">Not</dt>
-            )}
-            <dd className={`text-ink/75 ${m.etiket ? "mt-0.5 sm:mt-0" : "sm:col-span-2"}`}>{m.deger}</dd>
+          <div key={i}>
+            {m.etiket ? <dt className="inline font-semibold text-ink">{m.etiket}: </dt> : null}
+            <dd className="inline text-ink/75">{m.deger}</dd>
           </div>
         ))}
       </dl>
