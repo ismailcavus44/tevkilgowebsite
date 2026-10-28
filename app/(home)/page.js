@@ -240,7 +240,7 @@ const semaHazirla = (sayi, sorular) => ({
       operatingSystem: "Web",
       url: SITE,
       inLanguage: "tr-TR",
-      audience: { "@type": "ProfessionalAudience", audienceType: "Avukatlar" },
+      audience: { "@type": "Audience", audienceType: "Avukatlar" },
       offers: { "@type": "Offer", price: "0", priceCurrency: "TRY" },
       publisher: { "@id": `${SITE}/#organization` },
     },

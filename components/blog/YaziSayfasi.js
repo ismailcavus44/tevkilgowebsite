@@ -70,7 +70,7 @@ function sema({ yazi, govde, url }) {
         inLanguage: "tr-TR",
         wordCount: govde.kelime,
         timeRequired: `PT${govde.dakika}M`,
-        audience: { "@type": "ProfessionalAudience", audienceType: "Avukatlar" },
+        audience: { "@type": "Audience", audienceType: "Avukatlar" },
         ...(yazi.bir_bakista?.length
           ? { abstract: yazi.bir_bakista.map((m) => (m.etiket ? `${m.etiket}: ${m.deger}` : m.deger)).join(" ") }
           : {}),

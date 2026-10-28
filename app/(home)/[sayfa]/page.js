@@ -159,7 +159,7 @@ function sema({ kod, icerik, adliyeler }) {
         description: icerik.aciklama,
         provider: { "@id": `${SITE}/#organization` },
         areaServed: bolge,
-        audience: { "@type": "ProfessionalAudience", audienceType: "Avukatlar" },
+        audience: { "@type": "Audience", audienceType: "Avukatlar" },
         offers: { "@type": "Offer", price: "0", priceCurrency: "TRY", url: `${SITE}/uye-ol` },
       },
       {
