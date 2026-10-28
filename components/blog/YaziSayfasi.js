@@ -99,7 +99,7 @@ function Icindekiler({ basliklar }) {
     <ol className="space-y-2 text-[14px] leading-snug">
       {basliklar.map((b) => (
         <li key={b.id} className={b.seviye === 3 ? "pl-4" : ""}>
-          <a href={`#${b.id}`} className="text-muted hover:text-ink">
+          <a href={`#${b.id}`} className="text-muted underline-offset-4 hover:text-ink hover:underline">
             {b.ad}
           </a>
         </li>
