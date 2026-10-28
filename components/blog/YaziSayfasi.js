@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CaretRight, Plus } from "@phosphor-icons/react/ssr";
+import { CaretRight, Lightning, Plus } from "@phosphor-icons/react/ssr";
 import { Bolum, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHeader } from "@/components/HomeHeader";
@@ -71,6 +71,9 @@ function sema({ yazi, govde, url }) {
         wordCount: govde.kelime,
         timeRequired: `PT${govde.dakika}M`,
         audience: { "@type": "ProfessionalAudience", audienceType: "Avukatlar" },
+        ...(yazi.bir_bakista?.length
+          ? { abstract: yazi.bir_bakista.map((m) => (m.etiket ? `${m.etiket}: ${m.deger}` : m.deger)).join(" ") }
+          : {}),
         ...(govde.kaynaklar.length ? { citation: govde.kaynaklar } : {}),
       },
       ...(yazi.sss?.length
@@ -102,6 +105,38 @@ function Icindekiler({ basliklar }) {
         </li>
       ))}
     </ol>
+  );
+}
+
+// Yazının ana bilgileri tek blokta: okuyucu hızlıca tarar, yapay zekâ ve arama motorları
+// cevap olarak alıntılar. Etiket–değer çiftleri <dl> ile işaretlenir.
+function BirBakista({ baslik, maddeler }) {
+  return (
+    <section
+      aria-labelledby="bir-bakista"
+      className="mb-10 max-w-[44rem] overflow-hidden rounded-[20px] border border-line bg-surface shadow-[0_1px_2px_rgb(18_38_63/0.05)]"
+    >
+      <div className="flex items-center gap-3 border-b border-line bg-canvas px-5 py-4 sm:px-6">
+        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-ink text-gold" aria-hidden="true">
+          <Lightning size={16} weight="fill" />
+        </span>
+        <h2 id="bir-bakista" className="text-[18px] font-semibold leading-snug tracking-[-0.01em]">
+          {baslik || "Bir bakışta"}
+        </h2>
+      </div>
+      <dl className="divide-y divide-line px-5 sm:px-6">
+        {maddeler.map((m, i) => (
+          <div key={i} className="py-3.5 text-[15px] leading-relaxed sm:grid sm:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] sm:gap-6">
+            {m.etiket ? (
+              <dt className="font-semibold text-ink">{m.etiket}</dt>
+            ) : (
+              <dt className="sr-only">Not</dt>
+            )}
+            <dd className={`text-ink/75 ${m.etiket ? "mt-0.5 sm:mt-0" : "sm:col-span-2"}`}>{m.deger}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }
 
@@ -175,6 +210,8 @@ export function YaziSayfasi({ yazi, govde, ilgili }) {
                 />
               </figure>
             ) : null}
+
+            {yazi.bir_bakista?.length ? <BirBakista baslik={yazi.bir_bakista_baslik} maddeler={yazi.bir_bakista} /> : null}
 
             {toc.length ? (
               <details className={`${kart} group mb-10 px-5 lg:hidden`}>
