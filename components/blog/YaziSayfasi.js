@@ -94,11 +94,27 @@ function sema({ yazi, govde, url }) {
   };
 }
 
+// H2'ler 1, 2, 3; altlarındaki H3'ler 1.1, 1.2 diye numaralanır
+function numarala(basliklar) {
+  let ana = 0;
+  let alt = 0;
+  return basliklar.map((b) => {
+    if (b.seviye === 2) {
+      ana += 1;
+      alt = 0;
+      return { ...b, no: `${ana}.` };
+    }
+    alt += 1;
+    return { ...b, no: ana ? `${ana}.${alt}.` : null };
+  });
+}
+
 function Icindekiler({ basliklar }) {
   return (
     <ol className="space-y-2 text-[14px] leading-snug">
-      {basliklar.map((b) => (
-        <li key={b.id} className={b.seviye === 3 ? "pl-4" : ""}>
+      {numarala(basliklar).map((b) => (
+        <li key={b.id} className={`flex gap-2 ${b.seviye === 3 ? "pl-4" : ""}`}>
+          {b.no ? <span className="shrink-0 tabular-nums text-ink/40">{b.no}</span> : null}
           <a href={`#${b.id}`} className="text-muted underline-offset-4 hover:text-ink hover:underline">
             {b.ad}
           </a>
@@ -166,10 +182,7 @@ export function YaziSayfasi({ yazi, govde, ilgili }) {
             <h1 className="mt-6 max-w-[24ch] text-[32px] font-extrabold leading-[1.1] tracking-[-0.025em] text-white lg:text-[48px]">
               {yazi.baslik}
             </h1>
-            {yazi.ozet ? (
-              <p className="mt-5 max-w-[42rem] text-[17px] leading-relaxed text-white/[0.72] lg:text-[19px]">{yazi.ozet}</p>
-            ) : null}
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[14px] text-white/70">
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-[14px] text-white/70">
               <span className="flex items-center gap-3">
                 <Image src="/icon.png" alt="" width={32} height={32} className="size-8 rounded-lg" />
                 <span className="font-semibold text-white">TevkilGO</span>
