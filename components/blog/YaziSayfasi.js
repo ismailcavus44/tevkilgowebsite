@@ -114,7 +114,7 @@ function Icindekiler({ basliklar }) {
     <ol className="space-y-2 text-[14px] leading-snug">
       {numarala(basliklar).map((b) => (
         <li key={b.id} className={`flex gap-2 ${b.seviye === 3 ? "pl-4" : ""}`}>
-          {b.no ? <span className="shrink-0 tabular-nums text-ink/40">{b.no}</span> : null}
+          {b.no ? <span className="shrink-0 pt-px text-[11px] tabular-nums text-ink/40">{b.no}</span> : null}
           <a href={`#${b.id}`} className="text-muted underline-offset-4 hover:text-ink hover:underline">
             {b.ad}
           </a>
