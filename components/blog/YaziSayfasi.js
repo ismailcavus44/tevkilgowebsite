@@ -114,19 +114,19 @@ function BirBakista({ baslik, maddeler }) {
   return (
     <section
       aria-label={baslik || "Bir bakışta"}
-      className="mb-10 max-w-[44rem] rounded-[16px] border border-line bg-canvas px-4 py-3.5 sm:px-5"
+      className="mb-10 max-w-[44rem] rounded-[16px] border border-line bg-surface p-1.5 shadow-[0_1px_2px_rgb(18_38_63/0.05)]"
     >
-      <p className="flex items-center gap-2 text-[13px] font-semibold text-ink">
-        <span className="grid size-6 shrink-0 place-items-center rounded-md bg-ink text-gold" aria-hidden="true">
+      <p className="flex items-center gap-2 px-3.5 pb-2 pt-2.5 text-[13px] font-bold text-ink">
+        <span className="grid size-5 shrink-0 place-items-center rounded bg-ink text-gold" aria-hidden="true">
           <Lightning size={12} weight="fill" />
         </span>
         {baslik || "Bir bakışta"}
       </p>
-      <dl className="mt-2.5 space-y-1.5 text-[14px] leading-snug">
+      <dl className="grid gap-1.5 sm:grid-cols-2">
         {maddeler.map((m, i) => (
-          <div key={i}>
-            {m.etiket ? <dt className="inline font-semibold text-ink">{m.etiket}: </dt> : null}
-            <dd className="inline text-ink/75">{m.deger}</dd>
+          <div key={i} className="rounded-[10px] bg-canvas px-3.5 py-2.5">
+            {m.etiket ? <dt className="text-[12px] font-semibold text-ink/60">{m.etiket}</dt> : null}
+            <dd className={`text-[14px] font-semibold leading-snug text-ink ${m.etiket ? "mt-0.5" : ""}`}>{m.deger}</dd>
           </div>
         ))}
       </dl>
