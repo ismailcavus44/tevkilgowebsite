@@ -1,6 +1,6 @@
 # Gizlilik Politikası
 
-Son güncelleme: 28.10.2026
+Son güncelleme: 07.11.2026
 
 Bu politika, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi (birlikte "TevkilGO" veya "Platform") üzerinden hangi kişisel verilerin toplandığını, nasıl kullanıldığını, kimlerle paylaşıldığını, ne kadar süre saklandığını ve nasıl silinebileceğini açıklar.
 
@@ -51,10 +51,13 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 | Vercel | İnternet sitesinin barındırılması |
 | Expo (EAS) | Uygulama güncellemelerinin dağıtımı ve bildirimlerin iletilmesi |
 | Google (Firebase Cloud Messaging, Google Play) | Bildirim iletimi ve uygulama dağıtımı |
+| Apple (Apple Push Notification service, App Store) | Bildirim iletimi ve uygulama dağıtımı |
 | Sentry | Uygulama hatalarının takibi |
 | Resend | Doğrulama kodu ve bilgilendirme e-postalarının gönderimi |
 
 Hata takibinde ad, e-posta ve telefon gibi bilgiler gönderilmez; yalnızca anonim kullanıcı kimliği ve teknik veriler kullanılır.
+
+Bildirim metinleri yalnızca bildirim türünü belirten sabit ifadelerden oluşur (örneğin "Bölgenizde yeni bir ilan var."). Bildirimlerde ad, telefon, adliye veya ilan ayrıntısı yer almaz; ayrıntılar yalnızca uygulama içinde görüntülenir.
 
 **Yetkili kurumlar:** Kanunen yetkili kamu kurum ve kuruluşlarının, mevzuata uygun talepleri halinde.
 
@@ -68,6 +71,7 @@ Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmakta
 
 - **Hesap bilgileri:** Hesabınız açık olduğu sürece saklanır.
 - **Kimlik kartı görseli:** Doğrulama onaylandığında veya reddedildiğinde kalıcı olarak silinir. Yalnızca doğrulamanın tarihi ve sonucu saklanır.
+- **Bildirim anahtarı:** Uygulamada oturumu kapattığınızda veya hesabınızı sildiğinizde silinir. Bildirim iznini cihaz ayarlarından dilediğiniz zaman kapatabilirsiniz.
 - **Teknik kayıtlar ve hata raporları:** En fazla 90 gün; mevzuatın daha uzun bir süre öngördüğü kayıtlar ilgili süre boyunca saklanır.
 - **Destek ve şikayet kayıtları:** Kapanışından itibaren 2 yıl.
 - **Hesap silindikten sonra:** Bölüm 7'de açıklandığı şekilde.

@@ -1,6 +1,6 @@
 # KVKK Aydınlatma Metni
 
-Son güncelleme: 28.10.2026
+Son güncelleme: 07.11.2026
 
 Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun ("Kanun") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi ("Platform") kullanıcılarını bilgilendirmek amacıyla hazırlanmıştır.
 
@@ -51,7 +51,7 @@ Yukarıdaki hukuki sebeplerin varlığı nedeniyle açık rızanıza başvurulma
 
 **Diğer kullanıcılara:** İlan ve başvurularınız ilgili adliyedeki doğrulanmış avukatlara; maskeli adınız ve puanınız başvuru sürecinde; telefon numaranız yalnızca eşleştiğiniz avukata, eşleşmeden sonra aktarılır.
 
-**Hizmet sağlayıcılara (veri işleyenler):** Veritabanı ve dosya depolama (Supabase), internet sitesi barındırma (Vercel), uygulama güncelleme ve bildirim (Expo, Google Firebase Cloud Messaging), hata takibi (Sentry), e-posta gönderimi (Resend). Bu hizmet sağlayıcıların sunucuları yurt dışındadır. Aktarım, Kanun'un 9. maddesi ve Kişisel Verilerin Yurt Dışına Aktarılmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik uyarınca uygun güvenceler sağlanarak gerçekleştirilir.
+**Hizmet sağlayıcılara (veri işleyenler):** Veritabanı ve dosya depolama (Supabase), internet sitesi barındırma (Vercel), uygulama güncelleme ve bildirim (Expo, Google Firebase Cloud Messaging, Apple Push Notification service), hata takibi (Sentry), e-posta gönderimi (Resend). Bu hizmet sağlayıcıların sunucuları yurt dışındadır. Aktarım, Kanun'un 9. maddesi ve Kişisel Verilerin Yurt Dışına Aktarılmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik uyarınca uygun güvenceler sağlanarak gerçekleştirilir.
 
 **Yetkili kamu kurum ve kuruluşlarına:** Mevzuatın öngördüğü hallerde ve talep üzerine.
 
