@@ -1,5 +1,6 @@
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { TelegramButonu } from "@/components/TelegramButonu";
 
 export default function SiteLayout({ children }) {
   return (
@@ -9,6 +10,7 @@ export default function SiteLayout({ children }) {
         {children}
       </main>
       <SiteFooter />
+      <TelegramButonu />
     </div>
   );
 }
