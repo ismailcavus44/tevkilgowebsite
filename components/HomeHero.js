@@ -15,6 +15,23 @@ export function WebUyeOl() {
   );
 }
 
+export const APP_STORE_URL = "https://apps.apple.com/tr/app/id6831294869";
+
+export function AppStoreRozeti() {
+  return (
+    <a
+      href={APP_STORE_URL}
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+      aria-label="TevkilGO'yu App Store'dan indirin"
+      className="inline-flex h-14 items-center rounded-[12px] transition-opacity hover:opacity-85"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/store/ios.svg" alt="App Store'dan indirin" width={212} height={56} className="h-14 w-auto" />
+    </a>
+  );
+}
+
 // Ana sayfa ve il sayfalarının ortak hero'su. ekran: telefon önizlemelerinde gösterilecek il ve adliyeler.
 // anahtar verilirse H1 yalnızca hedef kelimedir ("Ankara Tevkil"), baslik altında giriş cümlesi olarak durur.
 export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
@@ -44,6 +61,7 @@ export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
             <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/[0.72] lg:text-[20px]">{metin}</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <WebUyeOl />
+              <AppStoreRozeti />
             </div>
             <p className="mt-14 text-[14px] text-white/60">{alt}</p>
           </div>
