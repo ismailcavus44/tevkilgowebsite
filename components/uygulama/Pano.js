@@ -10,6 +10,7 @@ import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygu
 import { basvurulmamisIlanSayisi } from "@/lib/acik-ilanlar";
 import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { engelliKimlikler } from "@/lib/engel";
 import { createClient } from "@/lib/supabase/client";
 import { bugunAraligi, gunBasligi, gunEkle, saatYazi, ymdIstanbul } from "@/lib/tarih";
 import { StatusBadge, durumAnahtari } from "@/components/uygulama/StatusBadge";
@@ -92,7 +93,8 @@ export function Pano() {
       setYeniBes(bes.data || []);
       setProfil(hesap.data || null);
       const simdiMs = Date.now();
-      const musaitListe = (musaitSonuc.data || []).filter((kisi) => kisi?.bitis && new Date(kisi.bitis).getTime() > simdiMs).slice(0, 5);
+      const engelli = await engelliKimlikler().catch(() => new Set());
+      const musaitListe = (musaitSonuc.data || []).filter((kisi) => kisi?.bitis && new Date(kisi.bitis).getTime() > simdiMs && !engelli.has(kisi.kullanici_id)).slice(0, 5);
       setMusait(musaitListe);
       const kodlar2 = [...new Set([...(liste.data || []), ...(bes.data || []), ...musaitListe].map((satir) => satir.adliye).filter(Boolean))];
       if (kodlar2.length) {

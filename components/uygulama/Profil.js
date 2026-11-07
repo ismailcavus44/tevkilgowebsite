@@ -14,10 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { engelKaldir, engellediklerim } from "@/lib/engel";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { createClient } from "@/lib/supabase/client";
 
-const SILME = "Profil → Hesabımı Sil. İleri tarihli atanmış bir göreviniz varken veya hesabınız askıdayken silemezsiniz. Silindiğinde açık ilanlarınız iptal edilir, ad, telefon, baro, sicil ve fotoğraf gibi kişisel bilgileriniz silinir; puan ve şikayet kayıtları kimliğiniz olmadan saklanır.";
+const SILME = "İleri tarihli atanmış bir göreviniz varken veya hesabınız askıdayken silemezsiniz. Silindiğinde açık ilanlarınız iptal edilir, ad, telefon, baro, sicil ve fotoğraf gibi kişisel bilgileriniz silinir; puan ve şikayet kayıtları kimliğiniz olmadan saklanır.";
 
 async function klasoruSil(supabase, bucket, klasor) {
   const { data, error } = await supabase.storage.from(bucket).list(klasor);
@@ -326,6 +327,9 @@ export function Profil() {
             </div>
           </Bolum>
 
+          <Bolum baslik="Engellenen Kullanıcılar" aciklama="Engellediğiniz kişilerle birbirinizin yeni ilanlarını görmezsiniz">
+            <Engellenenler />
+          </Bolum>
           <Bolum baslik="Hesap">
             <div className="divide-y">
               <div className="flex items-center justify-between gap-4 px-5 py-4">
@@ -372,6 +376,43 @@ export function Profil() {
         </div>
       ) : null}
     </ListeSayfa>
+  );
+}
+
+function Engellenenler() {
+  const [liste, setListe] = useState(null);
+
+  const yukle = () => engellediklerim().then(setListe).catch((error) => {
+    setListe([]);
+    toast.error(hataMesaji(error));
+  });
+
+  useEffect(() => {
+    yukle();
+  }, []);
+
+  if (!liste) return null;
+  if (!liste.length) return <p className="px-5 py-4 text-sm text-muted-foreground">Engellediğiniz kullanıcı yok</p>;
+
+  return (
+    <div className="divide-y">
+      {liste.map((satir) => (
+        <div key={satir.engel_id} className="flex items-center justify-between gap-4 px-5 py-3">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium">{satir.ad_soyad || satir.ilan_ozeti || "Gizli ilan sahibi"}</p>
+            {!satir.ad_soyad ? <p className="text-[13px] text-muted-foreground">Bu ilanın sahibi engellendi</p> : null}
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-9 shrink-0"
+            onClick={() => engelKaldir(satir.engel_id).then(yukle).catch((error) => toast.error(hataMesaji(error)))}
+          >
+            Engeli kaldır
+          </Button>
+        </div>
+      ))}
+    </div>
   );
 }
 

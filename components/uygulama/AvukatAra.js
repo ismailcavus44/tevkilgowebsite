@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Clock, Gavel, MapPin, MoonStars, Phone, UsersThree, WhatsappLogo } from "@phosphor-icons/react";
+import { engelliKimlikler } from "@/lib/engel";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { useOzellikler } from "@/components/uygulama/Ozellikler";
 import { createClient } from "@/lib/supabase/client";
@@ -60,7 +61,8 @@ export function AvukatAra() {
       p_adliye: seciliAdliye || null,
     });
     if (error) throw error;
-    setListe(data || []);
+    const engelli = await engelliKimlikler().catch(() => new Set());
+    setListe((data || []).filter((kisi) => !engelli.has(kisi.kullanici_id)));
   }, []);
 
   useEffect(() => {

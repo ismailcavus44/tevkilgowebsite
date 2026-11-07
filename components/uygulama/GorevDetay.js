@@ -45,6 +45,7 @@ function whatsappNumara(phone) {
 export function GorevDetay({ id }) {
   useKategoriler();
   const router = useRouter();
+  const [engelOnay, setEngelOnay] = useState("");
   const [gorev, setGorev] = useState(null);
   const [kaynak, setKaynak] = useState(null);
   const [basvuranlar, setBasvuranlar] = useState([]);
@@ -261,12 +262,12 @@ export function GorevDetay({ id }) {
   const yenidenYayinlanabilir = Boolean(sahip && (gorev?.durum === "suresi_doldu" || gorev?.durum === "iptal"));
   const rozetDurum = gorev ? (toplaniyor ? "toplaniyor" : durumAnahtari(gorev, dakika, 0)) : "acik";
   const surec = gorev ? surecAdimlari(gorev, { toplaniyor, verilenPuan }) : [];
+  const ilanIslemleri = Boolean(gorev && !taraf && (kaynak === "acik" || gorev.durum === "acik"));
   const aksiyonVar = Boolean(gorev && (
     (acikBasvuru && !sahip)
     || (sahip && gorev.durum === "acik")
     || (sahip && gorev.durum === "atandi")
     || (sahip && gorev.durum === "tamamlandi" && !verilenPuan)
-    || (taraf && (gorev.durum === "atandi" || gorev.durum === "tamamlandi"))
     || yenidenYayinlanabilir
   ));
 
@@ -409,6 +410,12 @@ export function GorevDetay({ id }) {
             ) : null}
           </div>
         ) : null}
+        {gorev && !duzenle && (ilanIslemleri || (taraf && (gorev.durum === "atandi" || gorev.durum === "tamamlandi"))) ? (
+          <div className="flex flex-col items-center gap-1 p-6">
+            <button type="button" className="min-h-9 px-3 text-[13px] text-muted-foreground underline" onClick={() => setSikayet(true)}>{ilanIslemleri ? "Bu ilanı şikayet et" : "Şikayet et"}</button>
+            <button type="button" className="min-h-9 px-3 text-[13px] text-muted-foreground underline" onClick={() => setEngelOnay(ilanIslemleri ? "ilan_sahibini_engelle" : "gorev_karsi_tarafi_engelle")}>{ilanIslemleri ? "Bu ilan sahibinin ilanlarını gizle" : "Kullanıcıyı engelle"}</button>
+          </div>
+        ) : null}
       </div>
       {duzenle ? (
         <div className="flex items-center justify-end gap-2 border-t bg-background p-4 max-md:flex-col max-md:[&_button]:h-11 max-md:[&_button]:w-full" style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
@@ -434,7 +441,6 @@ export function GorevDetay({ id }) {
           {sahip && gorev.durum === "acik" ? <Button type="button" variant="secondary" className="text-danger" disabled={mesgul} onClick={() => setIptalOnay(true)}>İptal et</Button> : null}
           {sahip && gorev.durum === "atandi" ? <Button type="button" disabled={mesgul} onClick={tamamla}>Tamamlandı olarak işaretle</Button> : null}
           {sahip && gorev.durum === "tamamlandi" && !verilenPuan ? <Button type="button" onClick={() => setPuanAc(true)}>Değerlendir</Button> : null}
-          {taraf && (gorev.durum === "atandi" || gorev.durum === "tamamlandi") ? <Button type="button" variant="secondary" className="text-danger" onClick={() => setSikayet(true)}>Şikayet et</Button> : null}
         </div>
       ) : null}
 
@@ -515,6 +521,24 @@ export function GorevDetay({ id }) {
         />
       ) : null}
 
+      {engelOnay ? (
+        <Onay
+          baslik="Emin misiniz?"
+          metin={engelOnay === "ilan_sahibini_engelle" ? "Kimliği size gösterilmez. Bu kişinin ilanlarını görmezsiniz, o da sizin ilanlarınızı görmez. Engeli Profil sayfasından kaldırabilirsiniz." : "Bu görev etkilenmez, ama birbirinizin yeni ilanlarını görmezsiniz. Engeli Profil sayfasından kaldırabilirsiniz."}
+          onay="Onayla"
+          onKapat={() => setEngelOnay("")}
+          onOnayla={() => {
+            const fonksiyon = engelOnay;
+            setEngelOnay("");
+            calistir(async () => {
+              const { error } = await createClient().rpc(fonksiyon, { p_task_id: id });
+              if (error) throw error;
+              toast.success("Engel uygulandı. Dilerseniz Profil sayfasından kaldırabilirsiniz.");
+              router.push("/app");
+            });
+          }}
+        />
+      ) : null}
       {sikayet ? (
         <div role="dialog" className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-4 sm:items-center">
           <form
@@ -522,10 +546,12 @@ export function GorevDetay({ id }) {
             onSubmit={(event) => {
               event.preventDefault();
               calistir(async () => {
-                const { error } = await createClient().rpc("sikayet_et", { p_task_id: id, p_aciklama: aciklama.trim() });
+                const tarafSikayeti = gorev?.durum === "atandi" || gorev?.durum === "tamamlandi";
+                const { error } = await createClient().rpc(tarafSikayeti ? "sikayet_et" : "ilan_sikayet_et", { p_task_id: id, p_aciklama: aciklama.trim() });
                 if (error) throw error;
                 setSikayet(false);
                 setAciklama("");
+                toast.success("Şikayetiniz alındı, yönetim inceleyecek");
               });
             }}
           >
