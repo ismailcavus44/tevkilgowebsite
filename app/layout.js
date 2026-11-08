@@ -1,4 +1,5 @@
 import { Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -45,6 +46,16 @@ export default function RootLayout({ children }) {
           İçeriğe geç
         </a>
         {children}
+        {/* Google etiketi (Google Ads dönüşüm ölçümü) */}
+        <Script
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-TRNKM7RD"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`}
+        </Script>
       </body>
     </html>
   );
