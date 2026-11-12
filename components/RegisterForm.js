@@ -7,6 +7,7 @@ import { Button } from "@/components/Button";
 import { Field } from "@/components/Field";
 import { FormHatasi } from "@/components/FormHatasi";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { metaOlay } from "@/lib/meta-pixel";
 import { createClient } from "@/lib/supabase/client";
 
 function useBarolar() {
@@ -115,6 +116,7 @@ export function RegisterForm({ params = BOS_SORGU }) {
       });
       if (error) throw error;
       if (data.session) {
+        metaOlay("CompleteRegistration", { content_name: "web" });
         router.replace("/app");
         router.refresh();
       } else if (data.user) {

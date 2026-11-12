@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CerezTercihleriLinki } from "@/components/CerezBandi";
 import { yayindakiIller } from "@/lib/il-icerik";
 
 const kurumsal = [
@@ -54,6 +55,7 @@ export function HomeFooter() {
               {link.label}
             </Link>
           ))}
+          <CerezTercihleriLinki className="text-[14px] text-muted hover:text-ink" />
         </nav>
         <div className="flex flex-col items-start gap-2.5">
           <p className="text-[14px] font-semibold">İletişim</p>

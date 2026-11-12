@@ -1,6 +1,6 @@
 # Gizlilik Politikası
 
-Son güncelleme: 07.11.2026
+Son güncelleme: 12.11.2026
 
 Bu politika, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi (birlikte "TevkilGO" veya "Platform") üzerinden hangi kişisel verilerin toplandığını, nasıl kullanıldığını, kimlerle paylaşıldığını, ne kadar süre saklandığını ve nasıl silinebileceğini açıklar.
 
@@ -26,7 +26,9 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 
 **Teknik veriler:** Oturum kayıtları, IP adresi, cihaz modeli, işletim sistemi sürümü, uygulama sürümü, bildirim gönderimi için cihaz bildirim anahtarı ve uygulama hata kayıtları (çökme raporları).
 
-**Toplamadığımız veriler:** Konum verisi, rehber, mikrofon, SMS veya arama kayıtları toplanmaz. Platformda reklam gösterilmez ve verileriniz reklam amacıyla kullanılmaz veya satılmaz.
+**İnternet sitesindeki reklam ölçüm verileri (yalnızca onay verirseniz):** Ziyaret ettiğiniz herkese açık sayfalar, uygulama mağazası bağlantılarına tıklama ve üyeliğin tamamlanması bilgisi; tarayıcı, cihaz ve IP adresi gibi teknik bilgiler. Ayrıntılar Bölüm 5'te yer alır.
+
+**Toplamadığımız veriler:** Konum verisi, rehber, mikrofon, SMS veya arama kayıtları toplanmaz. Platformda reklam gösterilmez; verileriniz satılmaz. Ad, e-posta, telefon, baro ve sicil bilgileriniz reklam ortaklarıyla paylaşılmaz.
 
 ## 3. Verileri hangi amaçlarla kullanıyoruz
 
@@ -36,6 +38,7 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 - Size ilan, başvuru ve eşleşme bildirimleri ile hizmete ilişkin e-postalar göndermek
 - Kötüye kullanımı, sahte hesapları ve dolandırıcılığı önlemek
 - Uygulama hatalarını tespit edip gidermek
+- Onay vermeniz halinde, TevkilGO reklamlarının etkinliğini ölçmek ve reklamları avukatlara yönelik olarak iyileştirmek
 - Destek taleplerinizi yanıtlamak
 - Hukuki yükümlülüklerimizi yerine getirmek ve uyuşmazlık halinde haklarımızı korumak
 
@@ -54,6 +57,8 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 | Apple (Apple Push Notification service, App Store) | Bildirim iletimi ve uygulama dağıtımı |
 | Sentry | Uygulama hatalarının takibi |
 | Resend | Doğrulama kodu ve bilgilendirme e-postalarının gönderimi |
+| Meta (Meta Pixel) | Yalnızca çerez onayı verilirse: internet sitesi reklam ölçümü |
+| Google (Google Ads etiketi) | Yalnızca çerez onayı verilirse: internet sitesi reklam ölçümü |
 
 Hata takibinde ad, e-posta ve telefon gibi bilgiler gönderilmez; yalnızca anonim kullanıcı kimliği ve teknik veriler kullanılır.
 
@@ -61,22 +66,32 @@ Bildirim metinleri yalnızca bildirim türünü belirten sabit ifadelerden oluş
 
 **Yetkili kurumlar:** Kanunen yetkili kamu kurum ve kuruluşlarının, mevzuata uygun talepleri halinde.
 
-Verileriniz bunlar dışında hiçbir üçüncü kişiye satılmaz, kiralanmaz veya pazarlama amacıyla aktarılmaz.
+Verileriniz bunlar dışında hiçbir üçüncü kişiye satılmaz veya kiralanmaz.
 
-## 5. Yurt dışına aktarım
+## 5. Çerezler ve reklam ölçümü
 
-Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmaktadır (veritabanı: Frankfurt, Almanya; AWS eu-central-1 bölgesi). Bu nedenle verileriniz, 6698 sayılı Kanun'un 9. maddesinde öngörülen uygun güvenceler sağlanarak yurt dışına aktarılmaktadır.
+**Zorunlu çerezler ve yerel depolama:** Oturumunuzun açık kalması, güvenlik ve çerez tercihinizin hatırlanması için kullanılır. Sitenin çalışması için gereklidir ve onayınıza bağlı değildir.
 
-## 6. Saklama süreleri
+**Reklam ölçüm çerezleri (Meta Pixel ve Google Ads etiketi):** tevkilgo.org'u ilk ziyaretinizde çıkan çerez bandında "Kabul et" seçeneğini işaretlerseniz yüklenir; "Reddet" derseniz veya bir seçim yapmazsanız hiç yüklenmez. Bu araçlar; ziyaret ettiğiniz herkese açık sayfaları, App Store veya Google Play bağlantısına tıklamanızı ve internet sitesinden üyeliğin tamamlandığını, tarayıcı ve cihaz bilgileri ile IP adresiyle birlikte Meta Platforms ve Google'a iletir. Amaç, reklamlarımızın kaç kişiye ulaştığını ve kaç üyelikle sonuçlandığını ölçmek ve reklamları avukatlara yönelik olarak iyileştirmektir.
+
+Bu araçlara ad, e-posta, telefon, baro, sicil numarası veya ilan bilgisi gönderilmez. Üye girişi yapılan uygulama alanında (tevkilgo.org/app) reklam ölçümü yapılmaz. Meta ve Google, bu verileri kendi gizlilik politikalarına göre de işleyebilir.
+
+**Tercihinizi değiştirme:** Sayfanın altındaki "Çerez Tercihleri" bağlantısından onayınızı dilediğiniz zaman geri alabilir veya yeniden verebilirsiniz. Tarayıcınızın ayarlarından çerezleri silebilir veya engelleyebilirsiniz.
+
+## 6. Yurt dışına aktarım
+
+Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmaktadır (veritabanı: Frankfurt, Almanya; AWS eu-central-1 bölgesi). Bu nedenle verileriniz, 6698 sayılı Kanun'un 9. maddesinde öngörülen uygun güvenceler sağlanarak yurt dışına aktarılmaktadır. Reklam ölçüm çerezleriyle Meta ve Google'a yapılan aktarım ise yalnızca çerez bandında verdiğiniz açık rızaya dayanır.
+
+## 7. Saklama süreleri
 
 - **Hesap bilgileri:** Hesabınız açık olduğu sürece saklanır.
 - **Kimlik kartı görseli:** Doğrulama onaylandığında veya reddedildiğinde kalıcı olarak silinir. Yalnızca doğrulamanın tarihi ve sonucu saklanır.
 - **Bildirim anahtarı:** Uygulamada oturumu kapattığınızda veya hesabınızı sildiğinizde silinir. Bildirim iznini cihaz ayarlarından dilediğiniz zaman kapatabilirsiniz.
 - **Teknik kayıtlar ve hata raporları:** En fazla 90 gün; mevzuatın daha uzun bir süre öngördüğü kayıtlar ilgili süre boyunca saklanır.
 - **Destek ve şikayet kayıtları:** Kapanışından itibaren 2 yıl.
-- **Hesap silindikten sonra:** Bölüm 7'de açıklandığı şekilde.
+- **Hesap silindikten sonra:** Bölüm 8'de açıklandığı şekilde.
 
-## 7. Hesabınızı ve verilerinizi silme
+## 8. Hesabınızı ve verilerinizi silme
 
 **Uygulama içinden:** Profil → Hesabı sil adımlarını izleyerek hesabınızı istediğiniz zaman silebilirsiniz.
 
@@ -88,22 +103,22 @@ Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmakta
 
 **Mevzuat gereği saklanan veriler:** Kanunen saklanması zorunlu kayıtlar, ilgili süre dolana kadar erişimi kısıtlanarak saklanır ve süre sonunda silinir.
 
-## 8. Güvenlik
+## 9. Güvenlik
 
 Verileriniz şifreli bağlantı (HTTPS/TLS) üzerinden iletilir. Veritabanında satır düzeyinde erişim kuralları uygulanır; her kullanıcı yalnızca görmeye yetkili olduğu veriye erişebilir. Kimlik kartı görselleri herkese kapalı bir depolama alanında tutulur ve yalnızca doğrulama işlemini yapan yetkili tarafından, süreli bağlantılarla görüntülenebilir. Şifreler tek yönlü olarak şifrelenir.
 
-## 9. Haklarınız
+## 10. Haklarınız
 
 Verilerinize erişme, düzeltilmesini veya silinmesini isteme, işlemenin kısıtlanmasını ya da işlemeye itiraz etme haklarına sahipsiniz. Taleplerinizi destek@tevkilgo.org adresine iletebilirsiniz. 6698 sayılı Kanun kapsamındaki haklarınız [KVKK Aydınlatma Metni](/kvkk) sayfasında ayrıntılı olarak açıklanmıştır.
 
-## 10. Çocukların gizliliği
+## 11. Çocukların gizliliği
 
 Platform yalnızca baroya kayıtlı avukatlara yöneliktir. 18 yaşından küçüklerin Platformu kullanması mümkün değildir ve bu kişilere ait veri bilerek toplanmaz.
 
-## 11. Değişiklikler
+## 12. Değişiklikler
 
 Bu politikada değişiklik yapılması halinde güncel metin bu sayfada yayımlanır ve "Son güncelleme" tarihi değiştirilir. Önemli değişiklikler uygulama içinden veya e-posta ile ayrıca bildirilir.
 
-## 12. İletişim
+## 13. İletişim
 
 destek@tevkilgo.org

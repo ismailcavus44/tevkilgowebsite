@@ -1,5 +1,8 @@
 import { Manrope } from "next/font/google";
-import Script from "next/script";
+import { Suspense } from "react";
+import { CerezBandi } from "@/components/CerezBandi";
+import { GoogleEtiketi } from "@/components/GoogleEtiketi";
+import { MetaPixel } from "@/components/MetaPixel";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -46,21 +49,13 @@ export default function RootLayout({ children }) {
           İçeriğe geç
         </a>
         {children}
-        {/* Google etiketi (Google Ads dönüşüm ölçümü) */}
-        <Script
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-TRNKM7RD"
-          strategy="afterInteractive"
-        />
-        <Script id="google-tag" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-// App Store linkine tıklama: Google Ads "App Store tıklama" dönüşümü
-document.addEventListener('click', function (e) {
-  var a = e.target && e.target.closest && e.target.closest('a[href*="apps.apple.com"]');
-  if (a) gtag('event', 'conversion', { send_to: 'AW-18531678845/WtwJCK7JoLcdEP30y4RF' });
-}, true);`}
-        </Script>
+        <Suspense fallback={null}>
+          <MetaPixel />
+        </Suspense>
+        <Suspense fallback={null}>
+          <GoogleEtiketi />
+          <CerezBandi />
+        </Suspense>
       </body>
     </html>
   );

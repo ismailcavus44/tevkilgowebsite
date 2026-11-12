@@ -1,6 +1,6 @@
 # KVKK Aydınlatma Metni
 
-Son güncelleme: 07.11.2026
+Son güncelleme: 12.11.2026
 
 Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun ("Kanun") 10. maddesi ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi ("Platform") kullanıcılarını bilgilendirmek amacıyla hazırlanmıştır.
 
@@ -19,6 +19,7 @@ E-posta: destek@tevkilgo.org
 | Görsel kayıt | Avukat kimlik kartı fotoğrafı, isteğe bağlı profil fotoğrafı |
 | Müşteri işlem | İlanlar, başvurular, eşleşmeler, puanlar, yorumlar, şikayet ve destek kayıtları, bildirimler |
 | İşlem güvenliği | Oturum kayıtları, IP adresi, cihaz ve uygulama bilgileri, hata kayıtları, şifre (tek yönlü şifrelenmiş) |
+| Pazarlama (yalnızca çerez onayıyla) | İnternet sitesinde ziyaret edilen herkese açık sayfalar, mağaza bağlantısı tıklamaları, üyeliğin tamamlanması bilgisi, çerez kimlikleri, tarayıcı/cihaz bilgisi ve IP adresi |
 
 Platform kapsamında özel nitelikli kişisel veri işlenmesi amaçlanmamaktadır. Kimlik kartı görselinde T.C. kimlik numarası, kan grubu gibi doğrulama için gerekmeyen alanların yüklemeden önce kapatılması istenir. Bu tür veriler görselde yer alsa dahi herhangi bir amaçla kullanılmaz ve Bölüm 6'daki süre içinde görselle birlikte silinir.
 
@@ -30,6 +31,7 @@ Platform kapsamında özel nitelikli kişisel veri işlenmesi amaçlanmamaktadı
 - Kullanıcılara hizmetle ilgili bildirim ve e-posta gönderilmesi
 - Bilgi ve hesap güvenliğinin sağlanması, sahte hesap ve kötüye kullanımın önlenmesi
 - Uygulama hatalarının tespiti ve giderilmesi
+- Açık rıza verilmesi halinde, reklam faaliyetlerinin etkinliğinin ölçülmesi ve reklamların hedef kitleye göre iyileştirilmesi
 - Kullanıcı talep ve şikayetlerinin yanıtlanması
 - Mevzuattan kaynaklanan yükümlülüklerin yerine getirilmesi, yetkili kurumlara bilgi verilmesi
 - Hukuki uyuşmazlıklarda hakların tesisi, kullanılması ve korunması
@@ -45,13 +47,17 @@ Verileriniz Kanun'un 5. maddesinin 2. fıkrasında yer alan şu hukuki sebeplere
 - **(e) Bir hakkın tesisi, kullanılması veya korunması:** Puan, şikayet ve işlem kayıtları
 - **(f) Meşru menfaat:** İşlem güvenliği verileri, hata kayıtları, sahte hesap ve kötüye kullanımın önlenmesi
 
-Yukarıdaki hukuki sebeplerin varlığı nedeniyle açık rızanıza başvurulmamaktadır.
+Yukarıdaki veriler için açık rızanıza başvurulmamaktadır.
+
+**Açık rıza:** Pazarlama kategorisindeki veriler, yalnızca internet sitesindeki çerez bandında "Kabul et" seçeneğiyle vereceğiniz açık rızaya (Kanun m. 5/1) dayanılarak, Meta Pixel ve Google Ads etiketi aracılığıyla otomatik yollarla toplanır. Rıza vermemeniz siteyi veya Platformu kullanmanızı etkilemez. Rızanızı sayfanın altındaki "Çerez Tercihleri" bağlantısından dilediğiniz zaman geri alabilirsiniz.
 
 ## 5. Kişisel verilerin aktarılması
 
 **Diğer kullanıcılara:** İlan ve başvurularınız ilgili adliyedeki doğrulanmış avukatlara; maskeli adınız ve puanınız başvuru sürecinde; telefon numaranız yalnızca eşleştiğiniz avukata, eşleşmeden sonra aktarılır.
 
 **Hizmet sağlayıcılara (veri işleyenler):** Veritabanı ve dosya depolama (Supabase), internet sitesi barındırma (Vercel), uygulama güncelleme ve bildirim (Expo, Google Firebase Cloud Messaging, Apple Push Notification service), hata takibi (Sentry), e-posta gönderimi (Resend). Bu hizmet sağlayıcıların sunucuları yurt dışındadır. Aktarım, Kanun'un 9. maddesi ve Kişisel Verilerin Yurt Dışına Aktarılmasına İlişkin Usul ve Esaslar Hakkında Yönetmelik uyarınca uygun güvenceler sağlanarak gerçekleştirilir.
+
+**Reklam ortaklarına (yalnızca açık rızanızla):** Pazarlama kategorisindeki veriler, reklam ölçümü amacıyla Meta Platforms ve Google'a aktarılır. Bu şirketlerin sunucuları yurt dışındadır; aktarım, Kanun'un 9. maddesi uyarınca açık rızanıza dayanılarak gerçekleştirilir. Ad, e-posta, telefon, baro ve sicil bilgileriniz bu şirketlere aktarılmaz.
 
 **Yetkili kamu kurum ve kuruluşlarına:** Mevzuatın öngördüğü hallerde ve talep üzerine.
 

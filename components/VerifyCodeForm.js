@@ -8,6 +8,7 @@ import { FormHatasi } from "@/components/FormHatasi";
 import { KodAlani } from "@/components/KodAlani";
 import { useGeriSayim } from "@/components/useGeriSayim";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { metaOlay } from "@/lib/meta-pixel";
 import { createClient } from "@/lib/supabase/client";
 
 function kayitSorgusu(params) {
@@ -50,6 +51,8 @@ export function VerifyCodeForm({ params = BOS_SORGU }) {
     try {
       const { error } = await createClient().auth.verifyOtp({ email, token: deger, type: "email" });
       if (error) throw error;
+      // E-posta kodu doğrulandı: web üyeliği tamamlandı
+      metaOlay("CompleteRegistration", { content_name: "web" });
       router.replace("/app");
       router.refresh();
     } catch (error) {
