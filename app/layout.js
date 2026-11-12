@@ -54,7 +54,12 @@ export default function RootLayout({ children }) {
         <Script id="google-tag" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());`}
+gtag('js', new Date());
+// App Store linkine tıklama: Google Ads "App Store tıklama" dönüşümü
+document.addEventListener('click', function (e) {
+  var a = e.target && e.target.closest && e.target.closest('a[href*="apps.apple.com"]');
+  if (a) gtag('event', 'conversion', { send_to: 'AW-18531678845/WtwJCK7JoLcdEP30y4RF' });
+}, true);`}
         </Script>
       </body>
     </html>
