@@ -13,7 +13,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { dogrulamaKapisi } from "@/lib/dogrulama-kontrol";
+import { ilanKapisi, ONAYSIZ_ILAN_SINIRI } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { oturumKullanicisi } from "@/lib/oturum-kullanici";
 import { createClient } from "@/lib/supabase/client";
@@ -168,7 +168,7 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
     setHata("");
     setMesaj("");
     if (!dogrula()) return;
-    if (!duzenleId && !(await dogrulamaKapisi())) return;
+    if (!duzenleId && !(await ilanKapisi())) return;
     setYukleniyor(true);
     onYukleniyor?.(true);
     try {
@@ -200,9 +200,9 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
       }
     } catch (error) {
       console.error(error);
-      // 42501: tasks_insert_own kuralı reddetti; hesap onaylı değil veya askıda.
+      // 42501: tasks_insert_own kuralı reddetti; onay bekleyen hesap sınırda, kimliği reddedilmiş ya da askıda.
       setHata(error?.code === "42501"
-        ? "Görev açmak için hesabınızın onaylanmış olması gerekir."
+        ? `Kimliğiniz onaylanana kadar en fazla ${ONAYSIZ_ILAN_SINIRI} açık ilan verebilirsiniz. Daha fazlası için avukatlık kimlik kartınızı yükleyin.`
         : hataMesaji(error));
     } finally {
       setYukleniyor(false);

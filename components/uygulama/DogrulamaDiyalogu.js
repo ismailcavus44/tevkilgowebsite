@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IdentificationCard, Hourglass } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ONAYSIZ_ILAN_SINIRI } from "@/lib/dogrulama-kontrol";
 
 // dogrulamaKapisi() onaysız hesapta "dogrulama-gerekli" olayını yayar; bu pencere onu gösterir.
 export function DogrulamaDiyalogu() {
@@ -17,7 +18,22 @@ export function DogrulamaDiyalogu() {
   }, []);
 
   const inceleniyor = istek?.durum === "yuklendi";
+  const sinir = istek?.sebep === "sinir";
+  const ilan = istek?.sebep === "ilan";
   const kapat = () => setIstek(null);
+
+  let aciklama;
+  if (sinir) {
+    aciklama = inceleniyor
+      ? `Kimliğiniz onaylanana kadar aynı anda en fazla ${ONAYSIZ_ILAN_SINIRI} açık ilan verebilirsiniz. Onaylandığında sınır kalkar.`
+      : `Kimliğiniz onaylanana kadar aynı anda en fazla ${ONAYSIZ_ILAN_SINIRI} açık ilan verebilirsiniz. Daha fazlası için avukatlık kimlik kartınızı yükleyin.`;
+  } else if (ilan) {
+    aciklama = "İlan açmak için avukatlık kimlik kartınızı yeniden yüklemeniz gerekir. Kartınız yalnızca avukatlık sıfatınızı doğrulamak için incelenir.";
+  } else {
+    aciklama = inceleniyor
+      ? "Kimlik kartınız onaylandığında göreve başvurabilirsiniz."
+      : "Göreve başvurmak için avukatlık kimlik kartınızı yüklemeniz gerekir. Kartınız yalnızca avukatlık sıfatınızı doğrulamak için incelenir.";
+  }
 
   return (
     <Dialog open={Boolean(istek)} onOpenChange={(acik) => { if (!acik) kapat(); }}>
@@ -30,9 +46,7 @@ export function DogrulamaDiyalogu() {
             {inceleniyor ? "Kimliğiniz inceleniyor" : "Hesabınızı doğrulayın"}
           </DialogTitle>
           <DialogDescription className="text-[15px] leading-relaxed">
-            {inceleniyor
-              ? "Kimlik kartınız onaylandığında görev açabilir ve başvurabilirsiniz."
-              : "Görev açmak ve göreve başvurmak için avukatlık kimlik kartınızı yüklemeniz gerekir. Kartınız yalnızca avukatlık sıfatınızı doğrulamak için incelenir."}
+            {aciklama}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-2 sm:flex-row-reverse">

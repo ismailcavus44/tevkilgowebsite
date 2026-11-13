@@ -264,7 +264,7 @@ export function Profil() {
                     ? "Onaylandığında görev açıp başvurabilirsiniz."
                     : veri.dogrulama_durumu === "reddedildi"
                       ? "Önceki kimlik kartınız onaylanmadı. Yeniden yükleyin."
-                      : "Görev açmak ve başvurmak için avukatlık kimlik kartınızı yükleyin."}
+                      : "Göreve başvurmak ve sınırsız ilan açmak için avukatlık kimlik kartınızı yükleyin."}
                 </span>
               </span>
               <CaretRight size={18} className="shrink-0 text-muted-foreground" aria-hidden="true" />
