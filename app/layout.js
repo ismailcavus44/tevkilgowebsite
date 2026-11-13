@@ -2,6 +2,7 @@ import { Manrope } from "next/font/google";
 import { Suspense } from "react";
 import { CerezBandi } from "@/components/CerezBandi";
 import { GoogleEtiketi } from "@/components/GoogleEtiketi";
+import { KaynakYakala } from "@/components/KaynakYakala";
 import { MetaPixel } from "@/components/MetaPixel";
 import "./globals.css";
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }) {
           İçeriğe geç
         </a>
         {children}
+        <KaynakYakala />
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>

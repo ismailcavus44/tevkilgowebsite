@@ -7,6 +7,7 @@ import { Button } from "@/components/Button";
 import { Field } from "@/components/Field";
 import { FormHatasi } from "@/components/FormHatasi";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { kaynakOku } from "@/lib/kaynak";
 import { metaOlay } from "@/lib/meta-pixel";
 import { createClient } from "@/lib/supabase/client";
 
@@ -111,6 +112,8 @@ export function RegisterForm({ params = BOS_SORGU }) {
             kosullar_versiyon: "2026-10-13",
             app_name: "TevkilGO",
             locale: "tr",
+            kaynak: kaynakOku(),
+            kayit_yeri: "web",
           },
         },
       });
