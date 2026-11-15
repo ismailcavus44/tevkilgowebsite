@@ -7,6 +7,7 @@ import { Button } from "@/components/Button";
 import { FormHatasi } from "@/components/FormHatasi";
 import { KodAlani } from "@/components/KodAlani";
 import { useGeriSayim } from "@/components/useGeriSayim";
+import { DONUSUM_WEB_UYELIK, googleDonusum } from "@/lib/google-etiketi";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { metaOlay } from "@/lib/meta-pixel";
 import { createClient } from "@/lib/supabase/client";
@@ -53,6 +54,7 @@ export function VerifyCodeForm({ params = BOS_SORGU }) {
       if (error) throw error;
       // E-posta kodu doğrulandı: web üyeliği tamamlandı
       metaOlay("CompleteRegistration", { content_name: "web" });
+      googleDonusum(DONUSUM_WEB_UYELIK);
       router.replace("/app");
       router.refresh();
     } catch (error) {

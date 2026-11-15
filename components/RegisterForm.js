@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Field } from "@/components/Field";
 import { FormHatasi } from "@/components/FormHatasi";
+import { DONUSUM_WEB_UYELIK, googleDonusum } from "@/lib/google-etiketi";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { kaynakOku } from "@/lib/kaynak";
 import { metaOlay } from "@/lib/meta-pixel";
@@ -120,6 +121,7 @@ export function RegisterForm({ params = BOS_SORGU }) {
       if (error) throw error;
       if (data.session) {
         metaOlay("CompleteRegistration", { content_name: "web" });
+        googleDonusum(DONUSUM_WEB_UYELIK);
         router.replace("/app");
         router.refresh();
       } else if (data.user) {
