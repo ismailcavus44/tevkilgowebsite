@@ -120,6 +120,24 @@ export function Profil() {
     }
   }
 
+  // Profil fotoğrafı ortadan kare kırpılıp 400x400 JPEG'e küçültülür (~30 KB).
+  async function avatarKucult(dosya) {
+    try {
+      const bitmap = await createImageBitmap(dosya, { imageOrientation: "from-image" });
+      const kenar = Math.min(bitmap.width, bitmap.height);
+      const canvas = document.createElement("canvas");
+      canvas.width = 400;
+      canvas.height = 400;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(bitmap, (bitmap.width - kenar) / 2, (bitmap.height - kenar) / 2, kenar, kenar, 0, 0, 400, 400);
+      bitmap.close?.();
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.8));
+      return blob || null;
+    } catch {
+      return null;
+    }
+  }
+
   async function fotoSec(dosya) {
     if (!dosya || !veri) return;
     const supabase = createClient();
@@ -132,10 +150,11 @@ export function Profil() {
         const yol = onceki.slice(onceki.indexOf(marker) + marker.length);
         if (yol) await supabase.storage.from("avatars").remove([yol]);
       }
-      const ext = (dosya.name.split(".").pop() || "jpg").toLowerCase();
+      const kucuk = await avatarKucult(dosya);
+      const ext = kucuk ? "jpg" : (dosya.name.split(".").pop() || "jpg").toLowerCase();
       const contentType = ext === "png" ? "image/png" : ext === "webp" ? "image/webp" : "image/jpeg";
       const filePath = `${user.id}/${Date.now()}.${ext}`;
-      const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, dosya, { contentType });
+      const { error: uploadError } = await supabase.storage.from("avatars").upload(filePath, kucuk || dosya, { contentType });
       if (uploadError) throw uploadError;
       const { data: publicData } = supabase.storage.from("avatars").getPublicUrl(filePath);
       const { error } = await supabase.from("users").update({ fotograf_url: publicData.publicUrl }).eq("id", user.id);
