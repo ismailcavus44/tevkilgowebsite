@@ -50,7 +50,9 @@ export default function RootLayout({ children }) {
           İçeriğe geç
         </a>
         {children}
-        <KaynakYakala />
+        <Suspense fallback={null}>
+          <KaynakYakala />
+        </Suspense>
         <Suspense fallback={null}>
           <MetaPixel />
         </Suspense>
