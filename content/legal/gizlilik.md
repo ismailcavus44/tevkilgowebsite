@@ -8,7 +8,7 @@ Bu politika, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi (birlikt
 
 TevkilGO, İsmail Çavuş tarafından işletilmektedir. Kişisel verileriniz bakımından veri sorumlusu, 5651 sayılı Kanun bakımından yer sağlayıcı İsmail Çavuş'tur. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür; bu ad ayrı bir tüzel kişiliği ifade etmez.
 
-Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
+Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara  
 E-posta: destek@tevkilgo.org
 
 Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebilirsiniz. 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki ayrıntılı bilgilendirme için [KVKK Aydınlatma Metni](/kvkk) sayfasına bakabilirsiniz.
@@ -125,6 +125,6 @@ Bu politikada değişiklik yapılması halinde güncel metin bu sayfada yayımla
 
 ## 13. İletişim
 
-İsmail Çavuş (TevkilGO)
-Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
+İsmail Çavuş (TevkilGO)  
+Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara  
 destek@tevkilgo.org

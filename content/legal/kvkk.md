@@ -6,8 +6,8 @@ Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun ("K
 
 ## 1. Veri sorumlusu
 
-İsmail Çavuş (TevkilGO)
-Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
+İsmail Çavuş (TevkilGO)  
+Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara  
 E-posta: destek@tevkilgo.org
 
 TevkilGO, İsmail Çavuş tarafından işletilmektedir. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür; bu ad ayrı bir tüzel kişiliği ifade etmez.
@@ -73,14 +73,14 @@ Kişisel verileriniz işlenme amacının gerektirdiği süre boyunca saklanır. 
 
 Veri sorumlusuna başvurarak:
 
-a) Kişisel verilerinizin işlenip işlenmediğini öğrenme,
-b) İşlenmişse buna ilişkin bilgi talep etme,
-c) İşlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,
-ç) Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,
-d) Eksik veya yanlış işlenmiş olması halinde düzeltilmesini isteme,
-e) Kanun'un 7. maddesindeki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,
-f) (d) ve (e) bentleri uyarınca yapılan işlemlerin, verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
-g) İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme,
+a) Kişisel verilerinizin işlenip işlenmediğini öğrenme,  
+b) İşlenmişse buna ilişkin bilgi talep etme,  
+c) İşlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme,  
+ç) Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme,  
+d) Eksik veya yanlış işlenmiş olması halinde düzeltilmesini isteme,  
+e) Kanun'un 7. maddesindeki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,  
+f) (d) ve (e) bentleri uyarınca yapılan işlemlerin, verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,  
+g) İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme,  
 ğ) Kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme
 
 haklarına sahipsiniz.

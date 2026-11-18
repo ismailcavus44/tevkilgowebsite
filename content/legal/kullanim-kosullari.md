@@ -6,10 +6,10 @@ Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet si
 
 ## 1. Taraflar ve tanımlar
 
-**İşletici:** Platformu işleten ve 5651 sayılı Kanun kapsamında yer sağlayıcı olan İsmail Çavuş ("TevkilGO"). Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara. E-posta: destek@tevkilgo.org. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür.
-**Kullanıcı:** Platforma üye olan avukat.
-**İlan Sahibi:** Tevkil talebiyle ilan açan Kullanıcı.
-**Başvuran:** Bir ilana başvuran Kullanıcı.
+**İşletici:** Platformu işleten ve 5651 sayılı Kanun kapsamında yer sağlayıcı olan İsmail Çavuş ("TevkilGO"). Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara. E-posta: destek@tevkilgo.org. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür.  
+**Kullanıcı:** Platforma üye olan avukat.  
+**İlan Sahibi:** Tevkil talebiyle ilan açan Kullanıcı.  
+**Başvuran:** Bir ilana başvuran Kullanıcı.  
 **Tevkil İlişkisi:** İlan Sahibi ile seçtiği Başvuran arasında, Platform dışında kurulan vekalet ve tevkil ilişkisi.
 
 ## 2. Hizmetin niteliği
@@ -96,6 +96,6 @@ Bu Koşullar Türk hukukuna tabidir. Uyuşmazlıklarda Ankara Mahkemeleri ve İc
 
 ## 14. İletişim
 
-İsmail Çavuş (TevkilGO)
-Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
+İsmail Çavuş (TevkilGO)  
+Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara  
 destek@tevkilgo.org
