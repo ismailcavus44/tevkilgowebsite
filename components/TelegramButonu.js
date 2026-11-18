@@ -4,7 +4,7 @@
 export function TelegramButonu() {
   return (
     <a
-      href="https://t.me/TevkilGO"
+      href="https://t.me/+8RyalA9CFG41MGJk"
       target="_blank"
       rel="nofollow noopener noreferrer"
       aria-label="TevkilGO Telegram grubuna katıl"

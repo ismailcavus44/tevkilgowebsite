@@ -30,7 +30,7 @@ const ANA = [
     // Uygulama Play Store'a çıkınca bu satırı silip ad'ı "Google Play'den indir", alt'ı "Android" yap.
     yakinda: true,
   },
-  { ad: "Telegram grubumuza katıl", alt: "Tevkil ilanları ve duyurular", href: "https://t.me/TevkilGO", Ikon: TelegramLogo },
+  { ad: "Telegram grubumuza katıl", alt: "Tevkil ilanları ve duyurular", href: "https://t.me/+3A_z01uGHt0xMzlk", Ikon: TelegramLogo },
   { ad: "Web sitesi", alt: "tevkilgo.org", href: "https://www.tevkilgo.org", Ikon: Globe, takip: true },
 ];
 
