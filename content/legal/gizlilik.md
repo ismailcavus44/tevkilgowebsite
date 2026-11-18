@@ -1,13 +1,14 @@
 # Gizlilik Politikası
 
-Son güncelleme: 12.11.2026
+Son güncelleme: 18.11.2026
 
 Bu politika, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesi (birlikte "TevkilGO" veya "Platform") üzerinden hangi kişisel verilerin toplandığını, nasıl kullanıldığını, kimlerle paylaşıldığını, ne kadar süre saklandığını ve nasıl silinebileceğini açıklar.
 
 ## 1. Veri sorumlusu ve iletişim
 
-Google Play'de geliştirici olarak AltaySOFT adı görünür.
+TevkilGO, İsmail Çavuş tarafından işletilmektedir. Kişisel verileriniz bakımından veri sorumlusu, 5651 sayılı Kanun bakımından yer sağlayıcı İsmail Çavuş'tur. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür; bu ad ayrı bir tüzel kişiliği ifade etmez.
 
+Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
 E-posta: destek@tevkilgo.org
 
 Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebilirsiniz. 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki ayrıntılı bilgilendirme için [KVKK Aydınlatma Metni](/kvkk) sayfasına bakabilirsiniz.
@@ -23,6 +24,8 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 **Profil bilgileri:** İsteğe bağlı profil fotoğrafı.
 
 **Platform kullanım verileri:** Açtığınız ilanlar (adliye, mahkeme, tarih, saat, iş türü ve açıklama), başvurularınız, eşleşmeleriniz, verdiğiniz ve aldığınız puanlar ile yorumlar, şikayet kayıtları, bildirimler ve destek talepleriniz.
+
+**Trafik bilgileri:** İlan, başvuru, puan, şikayet, destek talebi oluşturma ve profil bilgilerini değiştirme gibi işlemlerinizin IP adresi, tarih-saati ve tarayıcı/cihaz bilgisi. Bu kayıtlar 5651 sayılı Kanun gereği tutulur ve yalnızca yetkili makamların talebi veya hukuki uyuşmazlık halinde kullanılır.
 
 **Teknik veriler:** Oturum kayıtları, IP adresi, cihaz modeli, işletim sistemi sürümü, uygulama sürümü, bildirim gönderimi için cihaz bildirim anahtarı ve uygulama hata kayıtları (çökme raporları).
 
@@ -80,7 +83,7 @@ Bu araçlara ad, e-posta, telefon, baro, sicil numarası veya ilan bilgisi gönd
 
 ## 6. Yurt dışına aktarım
 
-Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmaktadır (veritabanı: Frankfurt, Almanya; AWS eu-central-1 bölgesi). Bu nedenle verileriniz, 6698 sayılı Kanun'un 9. maddesinde öngörülen uygun güvenceler sağlanarak yurt dışına aktarılmaktadır. Reklam ölçüm çerezleriyle Meta ve Google'a yapılan aktarım ise yalnızca çerez bandında verdiğiniz açık rızaya dayanır.
+Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmaktadır (veritabanı: Frankfurt, Almanya; AWS eu-central-1 bölgesi). Platformun teknik altyapısı bu hizmetlere dayandığından verileriniz, hizmetin sunulması için zorunlu olduğu ölçüde yurt dışına aktarılır. Aktarılan veriler asgari düzeyde tutulur; hata takibine ve bildirim servislerine ad, e-posta, telefon, baro ve sicil bilgisi gönderilmez. Reklam ölçüm çerezleriyle Meta ve Google'a yapılan aktarım ise yalnızca çerez bandında verdiğiniz açık rızaya dayanır.
 
 ## 7. Saklama süreleri
 
@@ -88,6 +91,7 @@ Yukarıdaki hizmet sağlayıcıların sunucuları Türkiye dışında bulunmakta
 - **Kimlik kartı görseli:** Doğrulama onaylandığında veya reddedildiğinde kalıcı olarak silinir. Yalnızca doğrulamanın tarihi ve sonucu saklanır.
 - **Bildirim anahtarı:** Uygulamada oturumu kapattığınızda veya hesabınızı sildiğinizde silinir. Bildirim iznini cihaz ayarlarından dilediğiniz zaman kapatabilirsiniz.
 - **Teknik kayıtlar ve hata raporları:** En fazla 90 gün; mevzuatın daha uzun bir süre öngördüğü kayıtlar ilgili süre boyunca saklanır.
+- **Trafik bilgileri:** 5651 sayılı Kanun ve ilgili mevzuatta öngörülen süre boyunca, en fazla 2 yıl; süre sonunda otomatik olarak silinir. Hesabınızı silseniz de bu süre dolana kadar saklanır.
 - **Destek ve şikayet kayıtları:** Kapanışından itibaren 2 yıl.
 - **Hesap silindikten sonra:** Bölüm 8'de açıklandığı şekilde.
 
@@ -121,4 +125,6 @@ Bu politikada değişiklik yapılması halinde güncel metin bu sayfada yayımla
 
 ## 13. İletişim
 
+İsmail Çavuş (TevkilGO)
+Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
 destek@tevkilgo.org

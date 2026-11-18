@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, ChatCircleText, EnvelopeSimple } from "@phosphor-icons/react/ssr";
+import { ArrowRight, ChatCircleText, EnvelopeSimple, IdentificationCard } from "@phosphor-icons/react/ssr";
 import { Bolum, BolumBasligi, IkonHalka, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { SayfaHero } from "@/components/SayfaHero";
 
 const EPOSTA = "destek@tevkilgo.org";
+const ISLETICI = "İsmail Çavuş";
+const ADRES = "Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara";
 
 export const metadata = {
   title: "İletişim",
@@ -58,6 +60,31 @@ export default function IletisimPage() {
             </Link>
           </li>
         </ul>
+      </Bolum>
+
+      <Bolum>
+        <BolumBasligi title="Künye">
+          5651 sayılı Kanun ve 6698 sayılı KVKK kapsamındaki tanıtıcı bilgiler.
+        </BolumBasligi>
+        <div className={`${kart} mt-10 flex flex-col gap-5 p-6 sm:flex-row sm:items-start lg:mt-12`}>
+          <IkonHalka icon={IdentificationCard} />
+          <dl className="grid flex-1 gap-x-8 gap-y-3 text-[14px] leading-relaxed sm:grid-cols-[max-content_1fr]">
+            <dt className="font-semibold">İşletici / Veri sorumlusu / Yer sağlayıcı</dt>
+            <dd className="text-muted">{ISLETICI}</dd>
+            <dt className="font-semibold">Adres</dt>
+            <dd className="text-muted">{ADRES}</dd>
+            <dt className="font-semibold">E-posta</dt>
+            <dd className="text-muted">
+              <a href={`mailto:${EPOSTA}`} className="text-navy underline-offset-4 hover:underline">{EPOSTA}</a>
+            </dd>
+            <dt className="font-semibold">Uygulama mağazası adı</dt>
+            <dd className="text-muted">AltaySOFT</dd>
+            <dt className="font-semibold">Hukuka aykırı içerik bildirimi</dt>
+            <dd className="text-muted">
+              Platformdaki bir içeriğin hukuka aykırı olduğunu düşünüyorsan, içeriğin yerini ve gerekçeni {EPOSTA} adresine yaz. Üye olman gerekmez.
+            </dd>
+          </dl>
+        </div>
       </Bolum>
 
       <Bolum>

@@ -1,12 +1,12 @@
 # Kullanım Koşulları
 
-Son güncelleme: 28 Ekim 2026
+Son güncelleme: 18 Kasım 2026
 
 Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet sitesinin ("Platform") kullanımına ilişkin şartları düzenler. Platforma üye olarak bu koşulları kabul etmiş sayılırsınız.
 
 ## 1. Taraflar ve tanımlar
 
-**İşletici:** Platformu işleten TevkilGO.
+**İşletici:** Platformu işleten ve 5651 sayılı Kanun kapsamında yer sağlayıcı olan İsmail Çavuş ("TevkilGO"). Adres: Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara. E-posta: destek@tevkilgo.org. Uygulama mağazalarında geliştirici adı olarak "AltaySOFT" görünür.
 **Kullanıcı:** Platforma üye olan avukat.
 **İlan Sahibi:** Tevkil talebiyle ilan açan Kullanıcı.
 **Başvuran:** Bir ilana başvuran Kullanıcı.
@@ -52,6 +52,8 @@ Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet si
 
 5.2. Şikayetler TevkilGO tarafından incelenir. TevkilGO, şikayet sonucunda uyarı verme, hesabı geçici olarak kısıtlama veya kapatma hakkına sahiptir. TevkilGO'nun incelemesi, baro disiplin süreçlerinin yerine geçmez.
 
+5.3. **Hukuka aykırı içerik bildirimi:** Platformdaki ilan, yorum ve profil içerikleri, bunları oluşturan Kullanıcıya aittir. TevkilGO, 5651 sayılı Kanun kapsamında yer sağlayıcıdır ve barındırdığı içeriği önceden kontrol etmekle yükümlü değildir. Kişilik haklarını veya mevzuatı ihlal ettiği düşünülen bir içerik, üye olunması gerekmeksizin destek@tevkilgo.org adresine bildirilebilir. Bildirim, içeriğin bulunduğu yeri ve ihlalin gerekçesini içermelidir. TevkilGO, usulüne uygun bildirimleri ve yetkili makam kararlarını mevzuatta öngörülen süreler içinde değerlendirir; hukuka aykırı bulunan içeriği yayından kaldırır.
+
 ## 6. Ücretlendirme
 
 6.1. Platformun temel işlevleri şu an ücretsizdir.
@@ -74,7 +76,7 @@ Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet si
 
 ## 9. Fikri mülkiyet
 
-Platformun yazılımı, tasarımı, adı, logosu ve içeriği üzerindeki tüm haklar TevkilGO'ya aittir. Kullanıcılar Platformu yalnızca bu Koşullar çerçevesinde, kişisel ve mesleki amaçla kullanabilir.
+Platformun yazılımı, tasarımı, adı, logosu ve içeriği üzerindeki tüm haklar İşleticiye aittir. TevkilGO markası için Türk Patent ve Marka Kurumuna başvuru yapılmıştır. Kullanıcılar Platformu yalnızca bu Koşullar çerçevesinde, kişisel ve mesleki amaçla kullanabilir.
 
 ## 10. Kişisel veriler
 
@@ -94,4 +96,6 @@ Bu Koşullar Türk hukukuna tabidir. Uyuşmazlıklarda Ankara Mahkemeleri ve İc
 
 ## 14. İletişim
 
+İsmail Çavuş (TevkilGO)
+Mustafa Kemal Mah. Dumlupınar Blv. No: 274 C2 Blok Kat: 8 No: 47, 06570 Çankaya/Ankara
 destek@tevkilgo.org
