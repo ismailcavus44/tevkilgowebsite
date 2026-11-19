@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ilanKapisi, ONAYSIZ_ILAN_SINIRI } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
+import { taslakKaydet, taslakOku, taslakSil } from "@/lib/ilan-taslak";
 import { oturumKullanicisi } from "@/lib/oturum-kullanici";
 import { createClient } from "@/lib/supabase/client";
 import { enErkenSaat, istanbulAn, istanbulParcalari, ymdIstanbul } from "@/lib/tarih";
@@ -27,8 +28,10 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
   const router = useRouter();
   const [sehirler, setSehirler] = useState([]);
   const [adliyeler, setAdliyeler] = useState([]);
-  const [form, setForm] = useState({ sehir: "", adliye: "", kategori: "", tarih: "", saat: "", ucret: "", not: "" });
-  const [sehirAd, setSehirAd] = useState("");
+  // Yeni ilanda, kimlik kapısına takılıp dönen kullanıcının taslağı varsa form onunla açılır.
+  const [taslak] = useState(() => (duzenleId || kaynakId || typeof window === "undefined" ? null : taslakOku()));
+  const [form, setForm] = useState(() => ({ sehir: "", adliye: "", kategori: "", tarih: "", saat: "", ucret: "", not: "", ...taslak?.form }));
+  const [sehirAd, setSehirAd] = useState(taslak?.sehirAd || "");
   const [minUcret, setMinUcret] = useState(null);
   const [sablonlar, setSablonlar] = useState([]);
   const [hatalar, setHatalar] = useState({});
@@ -168,7 +171,11 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
     setHata("");
     setMesaj("");
     if (!dogrula()) return;
-    if (!duzenleId && !(await ilanKapisi())) return;
+    if (!duzenleId && !(await ilanKapisi())) {
+      // Kimlik sayfasına gidip dönerse form aynı bilgilerle yeniden açılır.
+      taslakKaydet(form, sehirAd);
+      return;
+    }
     setYukleniyor(true);
     onYukleniyor?.(true);
     try {
@@ -193,6 +200,7 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
       } else {
         const { error } = await supabase.from("tasks").insert({ ...kayit, olusturucu_id: user.id });
         if (error) throw error;
+        taslakSil();
         setMesaj("Görev başarıyla oluşturuldu");
         router.push("/app/gorevlerim");
         router.refresh();

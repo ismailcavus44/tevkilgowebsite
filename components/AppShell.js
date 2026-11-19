@@ -12,6 +12,7 @@ import { OzellikSaglayici } from "@/components/uygulama/Ozellikler";
 import { kategoriAd, puanlamaKayitlari, useKategoriler } from "@/components/uygulama/ortak";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ilanDevamAl } from "@/lib/ilan-taslak";
 import { createClient } from "@/lib/supabase/client";
 import { tarihSaat } from "@/lib/tarih";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -51,6 +52,8 @@ export function AppShell({ children, sidebarAcik = true }) {
       }
     };
     window.addEventListener("ilan-ac", ac);
+    // Kimlik sayfasından dönen kullanıcının yarım kalan ilanı aynı bilgilerle yeniden açılır.
+    if (ilanDevamAl()) ac();
     return () => window.removeEventListener("ilan-ac", ac);
   }, []);
 

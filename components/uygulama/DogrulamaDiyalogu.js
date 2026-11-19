@@ -6,6 +6,7 @@ import { IdentificationCard, Hourglass } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ONAYSIZ_ILAN_SINIRI } from "@/lib/dogrulama-kontrol";
+import { ilanDevamIsaretle } from "@/lib/ilan-taslak";
 
 // dogrulamaKapisi() onaysız hesapta "dogrulama-gerekli" olayını yayar; bu pencere onu gösterir.
 export function DogrulamaDiyalogu() {
@@ -57,7 +58,7 @@ export function DogrulamaDiyalogu() {
               <Button
                 nativeButton={false}
                 className="h-11 sm:flex-1"
-                render={<Link href={`/app/kimlik?donus=${encodeURIComponent(istek?.donus || "/app")}`} onClick={kapat} />}
+                render={<Link href={`/app/kimlik?donus=${encodeURIComponent(istek?.donus || "/app")}`} onClick={() => { if (sinir || ilan) ilanDevamIsaretle(); kapat(); }} />}
               >
                 Kimlik kartını yükle
               </Button>
