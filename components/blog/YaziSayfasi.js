@@ -5,6 +5,7 @@ import { Bolum, kart } from "@/components/Bolum";
 import { HomeFooter } from "@/components/HomeFooter";
 import { HomeHeader } from "@/components/HomeHeader";
 import { WebUyeOl } from "@/components/HomeHero";
+import { BelgeKopyala } from "@/components/blog/BelgeKopyala";
 import { YaziKarti } from "@/components/blog/YaziKarti";
 import { guncellendiMi, KATEGORILER, SITE, tarihYaz } from "@/lib/blog";
 
@@ -233,6 +234,7 @@ export function YaziSayfasi({ yazi, govde, ilgili }) {
             ) : null}
 
             <div className="blog-govde" dangerouslySetInnerHTML={{ __html: govde.html }} />
+            {govde.html.includes('data-type="document-sample"') ? <BelgeKopyala /> : null}
 
             {yazi.sss?.length ? (
               <section id="sss" className="mt-14" aria-labelledby="sss-baslik">

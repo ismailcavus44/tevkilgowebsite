@@ -532,6 +532,80 @@ textarea.control {
 }
 .blog-govde [data-type="download-button"] a::after { content: "↓"; font-size: 17px; }
 
+/*
+  Belge örneği (yetki belgesi, dilekçe vb.): kâğıt görünümü. Panelde "Belge" düğmesiyle eklenir.
+  Kopyala düğmesi BelgeKopyala bileşeninden gelir.
+*/
+.blog-govde [data-type="document-sample"] {
+  position: relative;
+  margin-block: 1.8em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(18 38 63 / 0.05), 0 16px 36px -20px rgb(18 38 63 / 0.25);
+  padding: 56px 40px 36px;
+  color: #111;
+  font-family: "Times New Roman", Times, "Liberation Serif", serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.blog-govde [data-type="document-sample"] > * + * { margin-top: 16px; }
+.blog-govde [data-type="document-title"] {
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.blog-govde [data-type="document-row"] {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  column-gap: 10px;
+  align-items: start;
+}
+.blog-govde [data-type="document-label"] {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  border-bottom: 1px solid #111;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.blog-govde [data-type="document-label"]::after { content: ":"; }
+.blog-govde [data-type="document-value"] { min-width: 0; }
+.blog-govde [data-type="document-text"] {
+  margin-top: 26px;
+  text-align: justify;
+  text-indent: 2.5em;
+}
+.blog-govde [data-type="document-signature"] { margin-top: 30px; text-align: right; }
+.blog-govde [data-type="document-sample"] > button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--canvas);
+  padding: 0 12px;
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 100ms ease;
+}
+.blog-govde [data-type="document-sample"] > button:hover { background: var(--surface); }
+.blog-govde [data-type="document-sample"] > button:active { transform: scale(0.97); }
+@media (max-width: 640px) {
+  .blog-govde [data-type="document-sample"] { padding: 60px 18px 26px; font-size: 15px; }
+  .blog-govde [data-type="document-row"] { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+  .blog-govde [data-type="document-label"] { justify-self: start; }
+  .blog-govde [data-type="document-sample"] > button { height: 40px; }
+}
+
 /* Dipnotlar */
 .blog-govde .dipnot-isaret { margin-left: 1px; font-size: 0.7em; line-height: 0; }
 .blog-govde .dipnot-isaret a { font-weight: 700; text-decoration: none; }
