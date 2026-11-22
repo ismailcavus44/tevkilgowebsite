@@ -7,7 +7,7 @@ import {
   GooglePlayLogo,
   TelegramLogo,
 } from "@phosphor-icons/react/ssr";
-import { APP_STORE_URL } from "@/components/HomeHero";
+import { APP_STORE_URL, PLAY_STORE_URL } from "@/components/HomeHero";
 
 // Sosyal medya biyografilerine konan "link in bio" sayfası. Arama motorlarına kapalı
 // (noindex) ve sitemap'te yok. Header/footer'sız, tek sütun, telefon öncelikli.
@@ -22,14 +22,7 @@ export const metadata = {
 
 const ANA = [
   { ad: "App Store'dan indir", alt: "iPhone ve iPad", href: APP_STORE_URL, Ikon: AppleLogo },
-  {
-    ad: "Google Play",
-    alt: "Android sürümü yakında",
-    href: "https://play.google.com/store/apps/details?id=com.ismailcavus.TevkilGO",
-    Ikon: GooglePlayLogo,
-    // Uygulama Play Store'a çıkınca bu satırı silip ad'ı "Google Play'den indir", alt'ı "Android" yap.
-    yakinda: true,
-  },
+  { ad: "Google Play'den indir", alt: "Android", href: PLAY_STORE_URL, Ikon: GooglePlayLogo },
   { ad: "Telegram grubumuza katıl", alt: "Tevkil ilanları ve duyurular", href: "https://t.me/+3A_z01uGHt0xMzlk", Ikon: TelegramLogo },
   { ad: "Web sitesi", alt: "tevkilgo.org", href: "https://www.tevkilgo.org", Ikon: Globe, takip: true },
 ];

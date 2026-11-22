@@ -32,6 +32,23 @@ export function AppStoreRozeti() {
   );
 }
 
+export const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.ismailcavus.TevkilGO";
+
+export function PlayStoreRozeti() {
+  return (
+    <a
+      href={PLAY_STORE_URL}
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+      aria-label="TevkilGO'yu Google Play'den indirin"
+      className="inline-flex h-14 items-center rounded-[12px] transition-opacity hover:opacity-85"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/store/googlePlayButton.png" alt="Google Play'den indirin" width={189} height={56} className="h-14 w-auto" />
+    </a>
+  );
+}
+
 // Ana sayfa ve il sayfalarının ortak hero'su. ekran: telefon önizlemelerinde gösterilecek il ve adliyeler.
 // anahtar verilirse H1 yalnızca hedef kelimedir ("Ankara Tevkil"), baslik altında giriş cümlesi olarak durur.
 export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
@@ -60,8 +77,8 @@ export function HomeHero({ ust, anahtar, baslik, metin, alt, ekran = {} }) {
             )}
             <p className="mt-6 max-w-[30rem] text-[18px] leading-relaxed text-white/[0.72] lg:text-[20px]">{metin}</p>
             <div className="mt-10 flex flex-wrap items-center gap-3">
-              <WebUyeOl />
               <AppStoreRozeti />
+              <PlayStoreRozeti />
             </div>
             <p className="mt-14 text-[14px] text-white/60">{alt}</p>
           </div>
