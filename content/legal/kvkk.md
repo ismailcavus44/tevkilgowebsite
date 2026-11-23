@@ -57,7 +57,7 @@ Yukarıdaki veriler için açık rızanıza başvurulmamaktadır.
 
 ## 5. Kişisel verilerin aktarılması
 
-**Diğer kullanıcılara:** İlan ve başvurularınız ilgili adliyedeki doğrulanmış avukatlara; maskeli adınız ve puanınız başvuru sürecinde; telefon numaranız yalnızca eşleştiğiniz avukata, eşleşmeden sonra aktarılır.
+**Diğer kullanıcılara:** İlan ve başvurularınız ilgili adliyedeki avukatlara; maskeli adınız ve puanınız başvuru sürecinde; telefon numaranız yalnızca eşleştiğiniz avukata, eşleşmeden sonra aktarılır.
 
 **Hizmet sağlayıcılara (veri işleyenler):** Veritabanı ve dosya depolama (Supabase), internet sitesi barındırma (Vercel), uygulama güncelleme ve bildirim (Expo, Google Firebase Cloud Messaging, Apple Push Notification service), hata takibi (Sentry), e-posta gönderimi (Resend). Bu hizmet sağlayıcıların sunucuları yurt dışındadır (veritabanı: Frankfurt, Almanya). Platformun teknik altyapısı bu hizmetlere dayandığından verileriniz, hizmetin sunulması için zorunlu olduğu ölçüde yurt dışına aktarılır. Aktarılan veriler asgari düzeyde tutulur: hata takibine ve bildirim servislerine ad, e-posta, telefon, baro ve sicil bilgisi gönderilmez; kimlik kartı görseli doğrulama sonrasında silinir.
 

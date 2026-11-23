@@ -47,7 +47,7 @@ export default async function Image({ params }) {
           <span style={{ fontSize: 34, lineHeight: 1.3, color: "rgba(255,255,255,0.72)" }}>{icerik?.baslik}</span>
         </div>
         <span style={{ fontSize: 26, color: "rgba(255,255,255,0.6)" }}>
-          Baro kimliğiyle doğrulanmış avukatlar · tevkilgo.org
+          Baroya kayıtlı avukatlar · tevkilgo.org
         </span>
       </div>
     ),

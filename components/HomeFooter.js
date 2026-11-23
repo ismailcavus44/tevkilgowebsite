@@ -27,7 +27,7 @@ export function HomeFooter() {
             <span className="text-[17px] font-extrabold tracking-tight">TevkilGO</span>
           </Link>
           <p className="mt-4 max-w-[300px] text-[14px] leading-relaxed text-muted">
-            Avukatlar arası tevkil uygulaması. Duruşma ve adliye işleri için doğrulanmış meslektaşlarla buluşma yeri.
+            Avukatlar arası tevkil uygulaması. Duruşma ve adliye işleri için meslektaşlarla buluşma yeri.
           </p>
         </div>
         <nav aria-label="İllere göre tevkil" className="flex flex-col items-start gap-2.5">

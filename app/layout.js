@@ -22,7 +22,7 @@ export const metadata = {
     template: "%s · TevkilGO",
   },
   description:
-    "Duruşmana gidemiyorsan, adliyedeki meslektaşın gitsin. Tevkil ilanını aç, aynı adliyedeki doğrulanmış avukatlar başvursun.",
+    "Duruşmana gidemiyorsan, adliyedeki meslektaşın gitsin. Tevkil ilanını aç, aynı adliyedeki avukatlar başvursun.",
   openGraph: {
     type: "website",
     siteName: "TevkilGO",

@@ -51,7 +51,7 @@ export async function AuthScreen({ title, lede, logo = true, geri = "/", geriYaz
           <p className="max-w-[17ch] text-[36px] font-extrabold leading-[1.08] tracking-[-0.025em] text-white">
             Duruşmana gidemiyorsan, adliyedeki meslektaşın gitsin.
           </p>
-          <p className="mt-5 text-[14px] text-white/60">{sayi.baro} baro · {sayi.adliye} adliye · Baro kimliğiyle doğrulanmış üyelik</p>
+          <p className="mt-5 text-[14px] text-white/60">{sayi.baro} baro · {sayi.adliye} adliye · Yalnızca avukatlara açık üyelik</p>
         </div>
         <div className="mt-auto flex justify-center pt-10">
           <PhoneFrame

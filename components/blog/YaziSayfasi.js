@@ -273,7 +273,7 @@ export function YaziSayfasi({ yazi, govde, ilgili }) {
               Duruşmana gidemiyorsan meslektaşın gitsin
             </h2>
             <p className="mt-3 max-w-[30rem] text-[16px] leading-relaxed text-white/70">
-              Tevkil ilanını aç, o adliyede çalışan baro kimliğiyle doğrulanmış avukatlar başvursun. Ücretsiz.
+              Tevkil ilanını aç, o adliyede çalışan baroya kayıtlı avukatlar başvursun. Ücretsiz.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

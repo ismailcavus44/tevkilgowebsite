@@ -37,7 +37,7 @@ export default async function Image() {
           </span>
         </div>
         <span style={{ fontSize: 26, color: "rgba(255,255,255,0.6)" }}>
-          81 il · Baro kimliğiyle doğrulanmış avukatlar · tevkilgo.org
+          81 il · Baroya kayıtlı avukatlar · tevkilgo.org
         </span>
       </div>
     ),

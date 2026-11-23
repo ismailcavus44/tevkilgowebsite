@@ -47,7 +47,7 @@ Kişisel verilerinize ilişkin her türlü soru ve talebinizi bu adrese iletebil
 
 ## 4. Verileriniz kimlerle paylaşılır
 
-**Diğer kullanıcılar:** İlanlarınız ve başvurularınız, ilgili adliyedeki doğrulanmış avukatlara gösterilir. Eşleşmeden önce adınız kısaltılmış (maskeli) olarak, puanınız ise açık olarak görünür. Telefon numaranız yalnızca eşleştiğiniz avukata ve yalnızca eşleşme gerçekleştikten sonra gösterilir. Kimlik kartı görseliniz hiçbir kullanıcıya gösterilmez.
+**Diğer kullanıcılar:** İlanlarınız ve başvurularınız, ilgili adliyedeki avukatlara gösterilir. Eşleşmeden önce adınız kısaltılmış (maskeli) olarak, puanınız ise açık olarak görünür. Telefon numaranız yalnızca eşleştiğiniz avukata ve yalnızca eşleşme gerçekleştikten sonra gösterilir. Kimlik kartı görseliniz hiçbir kullanıcıya gösterilmez.
 
 **Hizmet sağlayıcılar:** Platformun çalışması için verileriniz, yalnızca hizmetin gerektirdiği ölçüde aşağıdaki hizmet sağlayıcılarla paylaşılır:
 

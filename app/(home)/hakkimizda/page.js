@@ -8,7 +8,7 @@ import { genelSayilar } from "@/lib/iller";
 export const metadata = {
   title: "Hakkımızda",
   description:
-    "TevkilGO, avukatların duruşma ve adliye işleri için tevkil ilanı açtığı, aynı adliyedeki doğrulanmış meslektaşlarının başvurduğu tevkil uygulamasıdır.",
+    "TevkilGO, avukatların duruşma ve adliye işleri için tevkil ilanı açtığı, aynı adliyedeki meslektaşlarının başvurduğu tevkil uygulamasıdır.",
   alternates: { canonical: "/hakkimizda" },
 };
 
@@ -54,7 +54,7 @@ const gruplar = [
 
 const tevkilgo = [
   "Başvurular toplanır, seçimi sen yaparsın.",
-  "Her üye baro kimliğiyle doğrulanır.",
+  "Üyelik yalnızca avukatlara açıktır.",
   "Numaran yalnızca eşleşmede açılır.",
   "Taraflar birbirini puanlar.",
 ];
@@ -72,7 +72,7 @@ export default async function HakkimizdaPage() {
       <SayfaHero
         ust="Hakkımızda"
         baslik="Tevkili mesaj gruplarından güvenli bir uygulamaya taşıyoruz."
-        metin="TevkilGO, duruşmasına ya da adliye işine gidemeyen avukatla o adliyede çalışan doğrulanmış meslektaşını buluşturan bir tevkil uygulamasıdır."
+        metin="TevkilGO, duruşmasına ya da adliye işine gidemeyen avukatla o adliyede çalışan meslektaşını buluşturan bir tevkil uygulamasıdır."
       />
 
       <Bolum>

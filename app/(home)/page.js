@@ -26,7 +26,7 @@ import { genelSayilar } from "@/lib/iller";
 const SITE = "https://www.tevkilgo.org";
 const BASLIK = "Tevkil Uygulaması · Avukatlar Arası Tevkil | TevkilGO";
 const aciklama = (sayi) =>
-  `Duruşmana gidemiyorsan tevkil ilanı aç; ${sayi.adliye} adliyede baro kimliğiyle doğrulanmış avukatlar başvursun. Avukatlar arası ücretsiz tevkil uygulaması.`;
+  `Duruşmana gidemiyorsan tevkil ilanı aç; ${sayi.adliye} adliyede baroya kayıtlı avukatlar başvursun. Avukatlar arası ücretsiz tevkil uygulaması.`;
 
 // Ana sayfada kartla öne çıkan iller; tamamı /illere-gore-tevkil sayfasında listelenir
 const ONE_CIKAN_ILLER = ["istanbul", "ankara", "izmir", "bursa", "antalya", "konya"];
@@ -134,7 +134,7 @@ const gruplar = [
 
 const tevkilgo = [
   "Başvurular toplanır, meslektaşını sen seçersin.",
-  "Her üye baro kimliğiyle doğrulanmıştır.",
+  "Üyelik yalnızca avukatlara açıktır.",
   "Numaran yalnızca tevkil verildiğinde açılır.",
   "Taraflar birbirini puanlar, sorun olursa şikâyet edilir.",
 ];
@@ -161,11 +161,11 @@ const sorulariHazirla = (sayi) => [
   },
   {
     q: "Tevkil uygulaması ne işe yarar?",
-    a: "Tevkil uygulaması, tevkil verecek avukatla işin görüleceği adliyede çalışan meslektaşını buluşturur. TevkilGO'da ilanı açarsın, o adliyedeki doğrulanmış avukatlar başvurur ve kime tevkil vereceğini sen seçersin.",
+    a: "Tevkil uygulaması, tevkil verecek avukatla işin görüleceği adliyede çalışan meslektaşını buluşturur. TevkilGO'da ilanı açarsın, o adliyedeki avukatlar başvurur ve kime tevkil vereceğini sen seçersin.",
   },
   {
     q: "Başka şehirdeki duruşma için nasıl tevkil bulurum?",
-    a: "Duruşmanın görüleceği adliyeyi seçip tevkil ilanı açarsın. İlan, o adliyeyi çalışma bölgesi olarak seçmiş doğrulanmış avukatlara bildirim olarak düşer; başvuranlar arasından birini seçersin.",
+    a: "Duruşmanın görüleceği adliyeyi seçip tevkil ilanı açarsın. İlan, o adliyeyi çalışma bölgesi olarak seçmiş avukatlara bildirim olarak düşer; başvuranlar arasından birini seçersin.",
   },
   {
     q: "Muhabir avukat ne demek?",
@@ -235,7 +235,7 @@ const semaHazirla = (sayi, sorular) => ({
       "@type": "SoftwareApplication",
       "@id": `${SITE}/#app`,
       name: "TevkilGO",
-      description: "Avukatlar arası tevkil uygulaması. Tevkil ilanı açılır, aynı adliyedeki doğrulanmış avukatlar başvurur.",
+      description: "Avukatlar arası tevkil uygulaması. Tevkil ilanı açılır, aynı adliyedeki avukatlar başvurur.",
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web",
       url: SITE,
@@ -275,8 +275,8 @@ export default async function HomePage() {
       <HomeHero
         ust="Avukatlar arası tevkil uygulaması"
         baslik="Duruşmana gidemiyorsan tevkil ver, adliyedeki meslektaşın gitsin."
-        metin="Tevkil ilanını aç; aynı adliyede çalışan, baro kimliğiyle doğrulanmış avukatlar başvursun."
-        alt={`${sayi.baro} baro · ${sayi.adliye} adliye · Baro kimliğiyle doğrulanmış üyelik`}
+        metin="Tevkil ilanını aç; aynı adliyede çalışan, baroya kayıtlı avukatlar başvursun."
+        alt={`${sayi.baro} baro · ${sayi.adliye} adliye · Yalnızca avukatlara açık üyelik`}
       />
 
       <Bolum id="tevkil-nedir">
@@ -300,7 +300,7 @@ export default async function HomePage() {
       <Bolum>
         <BolumBasligi title="Tevkil uygulaması nasıl çalışır?">
           Mesaj gruplarında tevkil aramak yerine ilanını açarsın. TevkilGO, tevkil ilanını işin görüleceği adliyede
-          çalışan doğrulanmış avukatlara ulaştırır; başvuranları sen görürsün, kime tevkil vereceğine sen karar verirsin.
+          çalışan avukatlara ulaştırır; başvuranları sen görürsün, kime tevkil vereceğine sen karar verirsin.
         </BolumBasligi>
         <ol className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-12">
           {adimlar.map((adim, i) => (
@@ -438,7 +438,7 @@ export default async function HomePage() {
               Tevkil ilanını şimdi aç
             </h2>
             <p className="mt-3 max-w-[30rem] text-[16px] leading-relaxed text-white/70">
-              Bir sonraki duruşma çakışmasında ücretsiz üye ol, ilanını aç; adliyedeki doğrulanmış meslektaşın gitsin.
+              Bir sonraki duruşma çakışmasında ücretsiz üye ol, ilanını aç; adliyedeki meslektaşın gitsin.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

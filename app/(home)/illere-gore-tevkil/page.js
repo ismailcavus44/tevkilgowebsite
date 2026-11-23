@@ -10,7 +10,7 @@ const SITE = "https://www.tevkilgo.org";
 const YOL = "/illere-gore-tevkil";
 const BASLIK = "İllere Göre Tevkil | TevkilGO";
 const ACIKLAMA =
-  "81 ilin hangisinde duruşman varsa o adliyede çalışan doğrulanmış bir avukata tevkil ver. İl il adliye sayıları ve şehir şehir tevkil rehberleri.";
+  "81 ilin hangisinde duruşman varsa o adliyede çalışan bir avukata tevkil ver. İl il adliye sayıları ve şehir şehir tevkil rehberleri.";
 
 export const metadata = {
   title: { absolute: BASLIK },
@@ -27,7 +27,7 @@ const sorular = [
   },
   {
     q: "İl dışındaki bir duruşma için nasıl tevkil veririm?",
-    a: "Bulunduğun il değil, duruşmanın görüleceği adliye seçilir. İlan, o adliyeyi çalışma bölgesi olarak seçmiş doğrulanmış avukatlara bildirim olarak düşer.",
+    a: "Bulunduğun il değil, duruşmanın görüleceği adliye seçilir. İlan, o adliyeyi çalışma bölgesi olarak seçmiş avukatlara bildirim olarak düşer.",
   },
   {
     q: "Küçük bir ilçe adliyesinde de tevkil ilanı açabilir miyim?",
@@ -98,8 +98,8 @@ export default async function IllereGoreTevkil() {
       <HomeHero
         ust="İllere göre tevkil"
         baslik="Hangi ilde duruşman varsa orada bir meslektaşın var."
-        metin={`${tumIller.length} ildeki ${toplamAdliye} adliyenin her birinde tevkil ilanı açabilirsin. İlan, o adliyede çalışan doğrulanmış avukatlara düşer.`}
-        alt={`${tumIller.length} il · ${toplamAdliye} adliye · Baro kimliğiyle doğrulanmış üyelik`}
+        metin={`${tumIller.length} ildeki ${toplamAdliye} adliyenin her birinde tevkil ilanı açabilirsin. İlan, o adliyede çalışan avukatlara düşer.`}
+        alt={`${tumIller.length} il · ${toplamAdliye} adliye · Yalnızca avukatlara açık üyelik`}
       />
 
       <Bolum id="tum-iller">
@@ -149,7 +149,7 @@ export default async function IllereGoreTevkil() {
               İl dışı duruşman için tevkil ilanı aç
             </h2>
             <p className="mt-3 max-w-[30rem] text-[16px] leading-relaxed text-white/70">
-              Duruşmanın görüleceği adliyeyi seç, o adliyede çalışan doğrulanmış meslektaşın başvursun. Üyelik ücretsiz.
+              Duruşmanın görüleceği adliyeyi seç, o adliyede çalışan meslektaşın başvursun. Üyelik ücretsiz.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

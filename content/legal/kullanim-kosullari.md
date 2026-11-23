@@ -32,7 +32,7 @@ Bu Kullanım Koşulları, TevkilGO mobil uygulaması ve tevkilgo.org internet si
 
 3.4. TevkilGO, kimlik doğrulama başvurusunu gerekçe göstermeksizin reddetme ve ek belge isteme hakkını saklı tutar. Doğrulama, Kullanıcının avukatlık sıfatına ilişkin TevkilGO tarafından verilmiş bir güvence niteliği taşımaz.
 
-3.5. TBB sicil numarası ve baro bilgisi, Kullanıcının yüklediği avukat kimlik kartı esas alınarak doğrulanır. Beyan edilen bilgi ile kimlik kartındaki bilgi arasında fark bulunması halinde TevkilGO, Kullanıcıya bildirimde bulunmak kaydıyla bu bilgileri kimlik kartına göre resen düzeltebilir. Doğrulanmış bilgiler Kullanıcı tarafından uygulama üzerinden değiştirilemez. Baro nakli halinde baro bilgisinin güncellenmesi, güncel avukat kimlik kartı ile destek@tevkilgo.org adresine başvurularak talep edilir.
+3.5. Ad soyad, TBB sicil numarası ve baro bilgisi, Türkiye Barolar Birliği ve baroların yayımladığı baro levhası kayıtları esas alınarak kontrol edilir. Beyan edilen bilgi ile levha kaydı arasında fark bulunması halinde TevkilGO, Kullanıcıdan bilgilerini düzeltmesini isteyebilir veya Kullanıcıya bildirimde bulunmak kaydıyla bu bilgileri levha kaydına göre resen düzeltebilir. Düzeltme istenen Kullanıcı, bilgilerini düzeltene kadar ilan açamaz ve göreve başvuramaz; bildirimden itibaren 7 gün içinde düzeltme yapılmazsa hesap kapatılabilir. Gerekli görülen hallerde TevkilGO, avukatlık sıfatını gösteren bir belgeyi e-posta ile isteyebilir. Kayıtlı bilgiler Kullanıcı tarafından uygulama üzerinden değiştirilemez. Baro nakli halinde baro bilgisinin güncellenmesi destek@tevkilgo.org adresine başvurularak talep edilir.
 
 ## 4. Kullanıcının yükümlülükleri
 
