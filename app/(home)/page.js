@@ -95,8 +95,8 @@ const isTurleri = [
 const guvenceler = [
   {
     icon: ShieldCheck,
-    title: "Baro kimliğiyle doğrulama",
-    text: "Her üye baro kimlik kartıyla doğrulanır. Kart yalnızca doğrulama için kullanılır ve onaydan sonra silinir.",
+    title: "Baro kaydıyla doğrulama",
+    text: "Her üyenin adı, barosu ve TBB sicil numarası baro levhasından kontrol edilir. Kimlik fotoğrafı istemiyoruz.",
   },
   {
     icon: UsersThree,
@@ -189,7 +189,7 @@ const sorulariHazirla = (sayi) => [
   },
   {
     q: "Kimler üye olabilir?",
-    a: "Bir baroya kayıtlı avukatlar. Platform yalnızca avukatlara açıktır; kayıttan sonra baro kimlik kartının ön yüzünü yüklersin, kart onaydan sonra silinir.",
+    a: "Bir baroya kayıtlı avukatlar. Platform yalnızca avukatlara açıktır; kayıtta baronu ve TBB sicil numaranı yazarsın, bilgilerin baro levhasından kontrol edilir. Kimlik fotoğrafı istenmez.",
   },
   {
     q: "TevkilGO ücretli mi, komisyon alıyor mu?",

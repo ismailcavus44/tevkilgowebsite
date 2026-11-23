@@ -16,7 +16,7 @@ const ilkeler = [
   {
     icon: IdentificationCard,
     title: "Yalnızca avukatlar",
-    text: "Her üye baro kimlik kartıyla doğrulanır. Kart yalnızca doğrulama için kullanılır ve onaydan sonra silinir.",
+    text: "Her üyenin adı, barosu ve TBB sicil numarası baro levhasından kontrol edilir. Kimlik fotoğrafı istemiyoruz.",
   },
   {
     icon: UsersThree,

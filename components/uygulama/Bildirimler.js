@@ -18,6 +18,7 @@ import { modBildirimiMi, useOzellikler } from "@/components/uygulama/Ozellikler"
 function bildirimYolu(satir, rol) {
   if (satir.tip === "degerlendirme_bekliyor" && satir.task_id) return `/app/gorevlerim/${satir.task_id}`;
   if (satir.tip === "destek_cevap") return "/app/destek";
+  if (satir.tip === "dogrulama_red") return "/app/kimlik";
   if (!satir.task_id) return null;
   if (rol === "olusturan") return `/app/gorevlerim/${satir.task_id}`;
   if (rol === "basvuran") return `/app/basvurularim/${satir.task_id}`;
@@ -60,7 +61,7 @@ function goreliZaman(iso, simdi) {
 }
 
 function hedefVar(satir) {
-  return Boolean(satir.task_id) || satir.tip === "destek_cevap";
+  return Boolean(satir.task_id) || satir.tip === "destek_cevap" || satir.tip === "dogrulama_red";
 }
 
 export function BildirimSatiri({ satir, simdi, onClick }) {

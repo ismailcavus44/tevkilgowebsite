@@ -204,7 +204,7 @@ export function RegisterForm({ params = BOS_SORGU }) {
       <div>
         <Field label="TBB Sicil Numarası" id="uye-sicil" placeholder="Sicil numaranız" {...alan("tbbSicil")} />
         <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
-          Kimlik kartınızdaki TBB sicil numarası. Baronuzun verdiği sicil numarasından farklıdır.
+          Avukatlık kimlik kartınızdaki TBB sicil numarası. Baronuzun verdiği sicil numarasından farklıdır. Kimlik fotoğrafı istemiyoruz; bilgileriniz baro levhasından kontrol edilir.
         </p>
         {kisaSicil ? (
           <p role="status" className="mt-1.5 text-[13px] font-medium leading-relaxed text-[#9A6700]">

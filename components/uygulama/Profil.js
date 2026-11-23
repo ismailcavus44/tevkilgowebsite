@@ -268,22 +268,17 @@ export function Profil() {
             </div>
           </section>
 
-          {veri?.dogrulama_durumu && veri.dogrulama_durumu !== "onaylandi" ? (
+          {/* Kimlik istenmez; kart yalnızca yönetim baro bilgilerine düzeltme istediğinde görünür. */}
+          {veri?.dogrulama_durumu === "reddedildi" ? (
             <Link
               href={`/app/kimlik?donus=${encodeURIComponent("/app/profil")}`}
-              className="flex items-center gap-4 rounded-xl border border-navy/15 bg-navy/5 p-5 transition-colors hover:bg-navy/10"
+              className="flex items-center gap-4 rounded-xl border border-danger/20 bg-danger-soft p-5 transition-colors hover:bg-danger-soft/70"
             >
-              <IdentificationCard size={26} className="shrink-0 text-navy" aria-hidden="true" />
+              <IdentificationCard size={26} className="shrink-0 text-danger" aria-hidden="true" />
               <span className="min-w-0 flex-1">
-                <span className="block font-semibold">
-                  {veri.dogrulama_durumu === "yuklendi" ? "Kimliğiniz inceleniyor" : "Profili doğrula"}
-                </span>
+                <span className="block font-semibold">Bilgilerinizi düzeltin</span>
                 <span className="block text-sm text-muted-foreground">
-                  {veri.dogrulama_durumu === "yuklendi"
-                    ? "Onaylandığında görev açıp başvurabilirsiniz."
-                    : veri.dogrulama_durumu === "reddedildi"
-                      ? "Önceki kimlik kartınız onaylanmadı. Yeniden yükleyin."
-                      : "Göreve başvurmak ve sınırsız ilan açmak için avukatlık kimlik kartınızı yükleyin."}
+                  Baro bilgileriniz levha kaydıyla uyuşmadı. Düzeltilmezse hesabınız 7 gün içinde kapatılır.
                 </span>
               </span>
               <CaretRight size={18} className="shrink-0 text-muted-foreground" aria-hidden="true" />

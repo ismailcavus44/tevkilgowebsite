@@ -13,7 +13,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ilanKapisi, ONAYSIZ_ILAN_SINIRI } from "@/lib/dogrulama-kontrol";
+import { ilanKapisi } from "@/lib/dogrulama-kontrol";
 import { hataMesaji } from "@/lib/hata-mesaji";
 import { taslakKaydet, taslakOku, taslakSil } from "@/lib/ilan-taslak";
 import { oturumKullanicisi } from "@/lib/oturum-kullanici";
@@ -208,9 +208,9 @@ export function IlanFormu({ duzenleId, kaynakId, onBitti, onVazgec, sheet = fals
       }
     } catch (error) {
       console.error(error);
-      // 42501: tasks_insert_own kuralı reddetti; onay bekleyen hesap sınırda, kimliği reddedilmiş ya da askıda.
+      // 42501: tasks_insert_own kuralı reddetti; baro bilgilerine düzeltme istenmiş ya da hesap askıda.
       setHata(error?.code === "42501"
-        ? `Kimliğiniz onaylanana kadar en fazla ${ONAYSIZ_ILAN_SINIRI} açık ilan verebilirsiniz. Daha fazlası için avukatlık kimlik kartınızı yükleyin.`
+        ? "Şu anda ilan açamazsınız. Profil sayfasından hesabınızın durumunu kontrol edin."
         : hataMesaji(error));
     } finally {
       setYukleniyor(false);
